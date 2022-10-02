@@ -1,4 +1,5 @@
-import { queriesType } from './common/types';
+import { queriesType } from 'xlorem-common/src/types';
+
 import { fetchResource } from './common/utils';
 
 type response = {

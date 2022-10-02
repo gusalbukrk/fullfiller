@@ -65,6 +65,16 @@ module.exports = {
     ],
 
     'jest/require-hook': 'off',
+
+    // add on eslint-plugin-jest 26.6.0
+    'jest/max-expects': [
+      'warn',
+      {
+        max: 10,
+      },
+    ],
+
+    'jest/unbound-method': 'off',
   },
 
   settings: {

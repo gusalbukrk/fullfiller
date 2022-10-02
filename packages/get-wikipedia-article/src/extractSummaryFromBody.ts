@@ -1,4 +1,4 @@
-import { optionsType } from './common/types';
+import { optionsType } from 'xlorem-common/src/types';
 
 /**
  * Summary is the initial chunk of text, everything before the first subtitle.

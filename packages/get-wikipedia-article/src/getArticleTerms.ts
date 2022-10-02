@@ -1,4 +1,5 @@
-import { termsType } from './common/types';
+import { termsType } from 'xlorem-common/src/types';
+
 import { fetchResource } from './common/utils';
 
 type response = {

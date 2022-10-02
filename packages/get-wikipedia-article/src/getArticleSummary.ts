@@ -1,4 +1,5 @@
-import { optionsType } from './common/types';
+import { optionsType } from 'xlorem-common/src/types';
+
 import { fetchResource } from './common/utils';
 
 type response = {

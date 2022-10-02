@@ -70,6 +70,8 @@ module.exports = {
     ],
 
     'jest/require-hook': 'off',
+
+    'jest/unbound-method': 'off',
   },
 
   settings: {

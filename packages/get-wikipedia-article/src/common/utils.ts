@@ -1,4 +1,4 @@
-import { queriesType } from './types';
+import { queriesType } from 'xlorem-common/src/types';
 
 /**
  * Join Wikipedia API base URL and `queries`.
