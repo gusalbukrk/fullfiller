@@ -4,8 +4,7 @@ import {
   articleNotFound,
   articleIsDisambiguation,
 } from 'xlorem-common/src/errorMessages';
-
-import { includeType } from './common/types';
+import { includeType } from 'xlorem-common/src/types';
 
 import getWikipediaArticleBase from '.';
 

@@ -1,12 +1,12 @@
 import CustomError from 'xlorem-common/src/CustomError';
 import { articleIsDisambiguation } from 'xlorem-common/src/errorMessages';
-
 import {
   articleType,
   includeType,
   optionsType,
   termsType,
-} from './common/types';
+} from 'xlorem-common/src/types';
+
 import extractSummaryFromBody from './extractSummaryFromBody';
 import getArticleBody from './getArticleBody';
 import getArticleCategories from './getArticleCategories';
