@@ -20,10 +20,8 @@ program.parse();
 
 const options = program.opts();
 
-// console.log(options);
-
-(async function () {
+(async function cli() {
   const article = await xlorem(options.query as string, options);
 
-  console.log(article);
-})().catch((e) => console.error(e));
+  console.log(article); // eslint-disable-line no-console
+})().catch((e) => console.error(e)); // eslint-disable-line no-console
