@@ -33,7 +33,7 @@ import fse from 'fs-extra';
   const configContent = fs.readFileSync(configPath, 'utf-8');
   fs.writeFileSync(
     configPath,
-    configContent.replace(/"name": "",/, `"name": "${packageName}",`)
+    configContent.replace(/"name": ".*",/, `"name": "${packageName}",`)
   );
 
   // edit README.md
