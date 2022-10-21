@@ -11,7 +11,8 @@ module.exports = {
 
   '*': 'cspell -c cspell.config.cjs --no-must-find-files',
 
-  '*.(js|jsx|ts|tsx|cjs|json)': 'eslint --fix --ignore-pattern "!.*"',
+  '*.(js|jsx|ts|tsx|cjs|json)':
+    'eslint --fix --ignore-pattern "!.*" --rule "jest/unbound-method: off"',
 
   // json needs to be included here because eslint doesn't
   // remove multiple blank lines in json files, prettier do
