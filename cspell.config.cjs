@@ -10,6 +10,7 @@ module.exports = {
     'fontawesome',
     'fortawesome',
     'pnpm',
+    'commitlint',
   ],
 
   ignoreWords: ['postbuild', 'postpublish', 'monospace'],
