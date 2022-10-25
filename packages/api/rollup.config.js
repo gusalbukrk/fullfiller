@@ -1,7 +1,7 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 
-import config from '../../rollup.config'; // eslint-disable-line import/no-relative-packages
+import config from '../../rollup.config.js'; // eslint-disable-line
 
 // no umd bundle
 config[0].output = config[0].output.filter((o) => o.format !== 'umd');
