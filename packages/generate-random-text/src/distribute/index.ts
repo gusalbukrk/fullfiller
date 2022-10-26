@@ -1,5 +1,5 @@
-import { unitType, requirementsType } from 'xlorem-common/src/types';
-import { getRandomNumber } from 'xlorem-common/src/utils';
+import { unitType, requirementsType } from 'fullfiller-common/src/types';
+import { getRandomNumber } from 'fullfiller-common/src/utils';
 
 import breakNumberIntoChunks from './breakNumberIntoChunks';
 

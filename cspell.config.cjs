@@ -1,6 +1,6 @@
 module.exports = {
   words: [
-    'xlorem',
+    'fullfiller',
     'gusalbukrk',
     'stopword',
     'stopwords',

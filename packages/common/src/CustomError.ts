@@ -5,7 +5,7 @@ type libraryName =
   | 'stopwords-utils'
   | 'tokenize-words'
   | 'weighted-randomness'
-  | 'xlorem';
+  | 'fullfiller';
 
 class CustomError extends Error {
   readonly library: libraryName;

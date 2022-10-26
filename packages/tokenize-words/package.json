@@ -45,6 +45,6 @@
   },
   "dependencies": {
     "stopwords-utils": "file:../stopwords-utils",
-    "xlorem-common": "file:../common"
+    "fullfiller-common": "file:../common"
   }
 }

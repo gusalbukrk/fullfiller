@@ -1,4 +1,4 @@
-import { termsType } from 'xlorem-common/src/types';
+import { termsType } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 

@@ -1,5 +1,5 @@
 {
-  "name": "@xlorem/monorepo",
+  "name": "@fullfiller/monorepo",
   "private": true,
   "type": "module",
   "engines": {
@@ -109,7 +109,7 @@
     "stopwords-utils": "file:packages/stopwords-utils",
     "tokenize-words": "file:packages/tokenize-words",
     "weighted-randomness": "file:packages/weighted-randomness",
-    "xlorem": "file:packages/xlorem",
-    "xlorem-common": "file:packages/common"
+    "fullfiller": "file:packages/fullfiller",
+    "fullfiller-common": "file:packages/common"
   }
 }

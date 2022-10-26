@@ -3,8 +3,8 @@ import 'cross-fetch/polyfill';
 import {
   articleNotFound,
   articleIsDisambiguation,
-} from 'xlorem-common/src/errorMessages';
-import { includeType } from 'xlorem-common/src/types';
+} from 'fullfiller-common/src/errorMessages';
+import { includeType } from 'fullfiller-common/src/types';
 
 import getWikipediaArticleBase from '.';
 

@@ -44,6 +44,6 @@
   "dependencies": {
     "stopwords-utils": "file:../stopwords-utils",
     "weighted-randomness": "file:../weighted-randomness",
-    "xlorem-common": "file:../common"
+    "fullfiller-common": "file:../common"
   }
 }

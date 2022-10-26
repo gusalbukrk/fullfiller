@@ -1,5 +1,5 @@
-import { requirementsDefault } from 'xlorem-common/src/constants';
-import { getRandomNumber } from 'xlorem-common/src/utils';
+import { requirementsDefault } from 'fullfiller-common/src/constants';
+import { getRandomNumber } from 'fullfiller-common/src/utils';
 
 import distribute from '.';
 

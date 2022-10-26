@@ -8,7 +8,7 @@ config[1].plugins[1] = del({
     'dist/types',
 
     // building this (sub)package is triggering the generation of declaration
-    // file(s) in `xlorem-common` (most specifically, `errorMessages.d.ts`)
+    // file(s) in `fullfiller-common` (most specifically, `errorMessages.d.ts`)
     '../common/src/*.d.ts',
   ],
 

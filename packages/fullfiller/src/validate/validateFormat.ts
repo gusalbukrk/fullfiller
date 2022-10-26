@@ -1,5 +1,5 @@
-import { invalidFormat } from 'xlorem-common/src/errorMessages';
-import { formatType } from 'xlorem-common/src/types';
+import { invalidFormat } from 'fullfiller-common/src/errorMessages';
+import { formatType } from 'fullfiller-common/src/types';
 
 function validateFormat(format: formatType): string[] {
   const errors: string[] = [];

@@ -1,5 +1,5 @@
-import { freqMapType } from 'xlorem-common/src/types';
-import { last } from 'xlorem-common/src/utils';
+import { freqMapType } from 'fullfiller-common/src/types';
+import { last } from 'fullfiller-common/src/utils';
 
 /** e.g.: `{ 1: [...], 2: [...], 3: [...] }` => `[ [1, 2, 3], [1, 3, 6] ]` */
 function getWeightsAndRangesFromFreqMap(freqMap: freqMapType): number[][] {

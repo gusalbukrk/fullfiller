@@ -1,12 +1,12 @@
 import 'cross-fetch/polyfill';
 
-import { inputType } from 'xlorem-common/src/types';
+import { inputType } from 'fullfiller-common/src/types';
 
 import article from './article';
 
-import xloremBase from '.';
+import fullfillerBase from '.';
 
-const xlorem = (input: inputType) => xloremBase(input);
+const fullfiller = (input: inputType) => fullfillerBase(input);
 
 describe('main function', () => {
   it.each([
@@ -17,7 +17,7 @@ describe('main function', () => {
     async ({ input }) => {
       expect.assertions(3);
 
-      const output = await xlorem(input);
+      const output = await fullfiller(input);
 
       expect(Object.keys(output)).toHaveLength(2);
       expect(output.title).toBe('Lorem ipsum');

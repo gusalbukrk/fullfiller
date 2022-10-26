@@ -3,9 +3,9 @@ import {
   requirementsValuesTooSmall,
   invalidRequirementsSentencesPerParagraph,
   invalidRequirementsWordsPerSentence,
-} from 'xlorem-common/src/errorMessages';
-import { requirementsType } from 'xlorem-common/src/types';
-import { isObject } from 'xlorem-common/src/utils';
+} from 'fullfiller-common/src/errorMessages';
+import { requirementsType } from 'fullfiller-common/src/types';
+import { isObject } from 'fullfiller-common/src/utils';
 
 function validateRequirements(requirements: requirementsType): string[] {
   const errors: string[] = [];

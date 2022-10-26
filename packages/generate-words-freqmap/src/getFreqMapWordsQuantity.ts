@@ -1,4 +1,4 @@
-import { freqMapType } from 'xlorem-common/src/types';
+import { freqMapType } from 'fullfiller-common/src/types';
 
 function getFreqMapWordsQuantity(freqMap: freqMapType): number {
   const wordsQuantity = Object.values(freqMap).reduce(

@@ -1,5 +1,5 @@
-import { invalidUnit } from 'xlorem-common/src/errorMessages';
-import { unitType } from 'xlorem-common/src/types';
+import { invalidUnit } from 'fullfiller-common/src/errorMessages';
+import { unitType } from 'fullfiller-common/src/types';
 
 function validateUnit(unit: unitType): string[] {
   const errors: string[] = [];

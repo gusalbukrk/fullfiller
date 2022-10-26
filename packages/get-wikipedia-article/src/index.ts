@@ -1,11 +1,11 @@
-import CustomError from 'xlorem-common/src/CustomError';
-import { articleIsDisambiguation } from 'xlorem-common/src/errorMessages';
+import CustomError from 'fullfiller-common/src/CustomError';
+import { articleIsDisambiguation } from 'fullfiller-common/src/errorMessages';
 import {
   articleType,
   includeType,
   optionsType,
   termsType,
-} from 'xlorem-common/src/types';
+} from 'fullfiller-common/src/types';
 
 import extractSummaryFromBody from './extractSummaryFromBody';
 import getArticleBody from './getArticleBody';

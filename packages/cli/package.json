@@ -1,5 +1,5 @@
 {
-  "name": "xlorem-cli",
+  "name": "fullfiller-cli",
   "author": "gusalbukrk",
   "version": "0.0.0-alpha",
   "description": "",
@@ -46,6 +46,6 @@
     "commander": "^9.4.1",
     "cross-fetch": "^3.1.5",
     "inquirer": "^9.1.4",
-    "xlorem": "file:../xlorem"
+    "fullfiller": "file:../fullfiller"
   }
 }

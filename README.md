@@ -1,23 +1,23 @@
-# xlorem
+# fullfiller
 
 > feature-rich filler text generator  
-> try it out online at https://xlorem.gusalbukrk.com/  
-> also available as an API at https://xlorem.gusalbukrk.com/api?query=harry%20potter  
-> and CLI https://www.npmjs.com/package/xlorem-cli
+> try it out online at https://fullfiller.gusalbukrk.com/  
+> also available as an API at https://fullfiller.gusalbukrk.com/api?query=harry%20potter  
+> and CLI https://www.npmjs.com/package/fullfiller-cli
 
-- `xlorem` biggest advantage is that it's not a simple "Lorem ipsum" generator (there's plenty of those already). Neither, it's a custom generator with a pre-defined group of related words, like [baconipsum](baconipsum.com) & [hipsum](hipsum.co) (again, there's plenty of those already).
+- `fullfiller` biggest advantage is that it's not a simple "Lorem ipsum" generator (there's plenty of those already). Neither, it's a custom generator with a pre-defined group of related words, like [baconipsum](baconipsum.com) & [hipsum](hipsum.co) (again, there's plenty of those already).
 - Instead, it **generates a custom filler text from a given input**. Input can be a text, string array, frequency map or wikipedia query string.
 
 ## Install
 
-- `npm i xlorem`
+- `npm i fullfiller`
 
-- `xlorem` is a **hybrid package**, which means it supports both ES Modules and CommonJS. Everything works out-of-the-box with no extra configuration needed. ESM module will load when you use `import` and CJS module, when you use `require`.
-- Additionally, there's a UMD variant you can use for client-side code that won't be compiled. In this case, the best option is to use a CDN. In a HTML file, add a `script` pointing to the following URL: https://unpkg.com/xlorem/dist/bundle.umd.js.
+- `fullfiller` is a **hybrid package**, which means it supports both ES Modules and CommonJS. Everything works out-of-the-box with no extra configuration needed. ESM module will load when you use `import` and CJS module, when you use `require`.
+- Additionally, there's a UMD variant you can use for client-side code that won't be compiled. In this case, the best option is to use a CDN. In a HTML file, add a `script` pointing to the following URL: https://unpkg.com/fullfiller/dist/bundle.umd.js.
 
 ## Usage
 
-`xlorem` function takes 2 arguments: `input` and `options`.
+`fullfiller` function takes 2 arguments: `input` and `options`.
 
 - `input` (required) = valid types: _wikipedia query string_, _text_, _wordsArray_ & _freqMap_
 - `options` (optional) = object containing (some or all of) the following properties: _unit_, _format_, _quantity_ and _requirements_
@@ -27,11 +27,11 @@
 #### query string as `input`
 
 ```javascript
-import xlorem from 'xlorem';
+import fullfiller from 'fullfiller';
 
 (async function () {
   const input = 'harry potter';
-  const filler = await xlorem(input); // generate filler from Wikipedia article (in English)
+  const filler = await fullfiller(input); // generate filler from Wikipedia article (in English)
 
   console.log(filler);
 })();
@@ -40,7 +40,7 @@ import xlorem from 'xlorem';
 #### text as `input`
 
 ```javascript
-import xlorem from 'xlorem';
+import fullfiller from 'fullfiller';
 
 const input = {
   title: 'Harry Potter',
@@ -48,7 +48,7 @@ const input = {
 };
 
 (async function () {
-  const filler = await xlorem(input); // generate filler from text
+  const filler = await fullfiller(input); // generate filler from text
 
   console.log(filler);
 })();
@@ -57,7 +57,7 @@ const input = {
 #### string array as `input`
 
 ```javascript
-import xlorem from 'xlorem';
+import fullfiller from 'fullfiller';
 
 const input = {
   title: 'Harry Potter',
@@ -81,7 +81,7 @@ const input = {
 };
 
 (async function () {
-  const filler = await xlorem(input); // generate filler from string array
+  const filler = await fullfiller(input); // generate filler from string array
 
   console.log(filler);
 })();
@@ -90,7 +90,7 @@ const input = {
 #### frequency map as `input`
 
 ```javascript
-import xlorem from 'xlorem';
+import fullfiller from 'fullfiller';
 
 const input = {
   title: 'Harry Potter',
@@ -105,7 +105,7 @@ const input = {
 };
 
 (async function () {
-  const filler = await xlorem(input); // generate filler from frequency map
+  const filler = await fullfiller(input); // generate filler from frequency map
 
   console.log(filler);
 })();
@@ -114,7 +114,7 @@ const input = {
 #### `options` (second parameter)
 
 ```javascript
-import xlorem from 'xlorem';
+import fullfiller from 'fullfiller';
 
 (async function () {
   const input = 'harry potter';
@@ -131,7 +131,7 @@ import xlorem from 'xlorem';
     },
   };
 
-  const filler = await xlorem(input, options);
+  const filler = await fullfiller(input, options);
 
   console.log(filler);
 })();
@@ -141,12 +141,12 @@ import xlorem from 'xlorem';
 
 #### monorepo subpackages
 
-- [get-wikipedia-article](https://github.com/gusalbukrk/xlorem/tree/main/packages/get-wikipedia-article): Fetch Wikipedia article resources.
-- [stopwords-utils](https://github.com/gusalbukrk/xlorem/tree/main/packages/stopwords-utils): Utilities for working with English stopwords.
-- [tokenize-words](https://github.com/gusalbukrk/xlorem/tree/main/packages/tokenize-words): Break down text into array of words.
-- [generate-words-freqmap](https://github.com/gusalbukrk/xlorem/tree/main/packages/generate-words-freqmap): Generate frequency map from array of strings.
-- [weighted-randomness](https://github.com/gusalbukrk/xlorem/tree/main/packages/weighted-randomness): Generate a weighted random function from a frequency map.
-- [generate-random-text](https://github.com/gusalbukrk/xlorem/tree/main/packages/generate-random-text): Randomly generate text using given frequency map.
+- [get-wikipedia-article](https://github.com/gusalbukrk/fullfiller/tree/main/packages/get-wikipedia-article): Fetch Wikipedia article resources.
+- [stopwords-utils](https://github.com/gusalbukrk/fullfiller/tree/main/packages/stopwords-utils): Utilities for working with English stopwords.
+- [tokenize-words](https://github.com/gusalbukrk/fullfiller/tree/main/packages/tokenize-words): Break down text into array of words.
+- [generate-words-freqmap](https://github.com/gusalbukrk/fullfiller/tree/main/packages/generate-words-freqmap): Generate frequency map from array of strings.
+- [weighted-randomness](https://github.com/gusalbukrk/fullfiller/tree/main/packages/weighted-randomness): Generate a weighted random function from a frequency map.
+- [generate-random-text](https://github.com/gusalbukrk/fullfiller/tree/main/packages/generate-random-text): Randomly generate text using given frequency map.
 
 #### similar
 

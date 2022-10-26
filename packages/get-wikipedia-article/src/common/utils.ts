@@ -1,4 +1,4 @@
-import { queriesType } from 'xlorem-common/src/types';
+import { queriesType } from 'fullfiller-common/src/types';
 
 /**
  * Join Wikipedia API base URL and `queries`.

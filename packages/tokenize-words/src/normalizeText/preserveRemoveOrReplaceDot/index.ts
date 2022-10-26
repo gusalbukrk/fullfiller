@@ -1,4 +1,4 @@
-import { isNumeric } from 'xlorem-common/src/utils';
+import { isNumeric } from 'fullfiller-common/src/utils';
 
 import handleLeadingDot from './handleLeadingDot';
 import handleTrailingDot from './handleTrailingDot';

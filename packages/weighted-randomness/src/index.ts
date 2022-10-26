@@ -1,5 +1,5 @@
-import { freqMapType } from 'xlorem-common/src/types';
-import { getRandomArrayElement } from 'xlorem-common/src/utils';
+import { freqMapType } from 'fullfiller-common/src/types';
+import { getRandomArrayElement } from 'fullfiller-common/src/utils';
 
 import getFreqMapRandomTier from './getFreqMapRandomTier';
 import getWeightsAndRangesFromFreqMap from './getWeightsAndRangesFromFreqMap';

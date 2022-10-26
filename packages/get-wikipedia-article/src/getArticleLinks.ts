@@ -1,4 +1,4 @@
-import { queriesType } from 'xlorem-common/src/types';
+import { queriesType } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 

@@ -62,7 +62,7 @@ export default [
         exports: 'auto',
       },
       {
-        name: 'xlorem',
+        name: 'fullfiller',
         file: 'dist/umd.js',
         format: 'umd',
         plugins: [terser()],

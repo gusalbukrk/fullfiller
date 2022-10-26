@@ -3,8 +3,8 @@ import {
   unitType,
   formatType,
   requirementsType,
-} from 'xlorem-common/src/types';
-import xlorem from 'xlorem/src';
+} from 'fullfiller-common/src/types';
+import fullfiller from 'fullfiller/src';
 
 import 'cross-fetch/dist/node-polyfill';
 
@@ -41,7 +41,7 @@ app.get('/api/', async (req, res) => {
   if (options.quantity)
     options.quantity = parseInt(options.quantity as unknown as string, 10);
 
-  const article = await xlorem(query, options);
+  const article = await fullfiller(query, options);
 
   res.status(200).json(article);
 });
@@ -57,7 +57,7 @@ app.get(
 
     const { query, ...options } = req.params as unknown as Partial<optionsType>;
 
-    const article = await xlorem(query!, options); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    const article = await fullfiller(query!, options); // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
     res.status(200).json(article);
   }

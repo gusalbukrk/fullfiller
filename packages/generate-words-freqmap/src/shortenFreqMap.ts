@@ -1,4 +1,4 @@
-import { freqMapType } from 'xlorem-common/src/types';
+import { freqMapType } from 'fullfiller-common/src/types';
 
 /** If required by `options`, reduce the quantity of tiers in `freqMap`. */
 function shortenFreqMap(

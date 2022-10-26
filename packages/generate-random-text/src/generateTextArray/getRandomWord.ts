@@ -1,5 +1,9 @@
+import {
+  capitalize,
+  isLowercase,
+  isNumeric,
+} from 'fullfiller-common/src/utils';
 import { isStopword, getRandomStopword } from 'stopwords-utils/src';
-import { capitalize, isLowercase, isNumeric } from 'xlorem-common/src/utils';
 
 function isWordPlacementInvalid(
   randomWord: string,

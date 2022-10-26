@@ -15,7 +15,7 @@ export default {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
 
     // otherwise, error `Package path ./src is not exported from package`; you could add './src'
-    // to `exports` in `xlorem/package.json`; but then, every local package imported would error:
+    // to `exports` in `fullfiller/package.json`; but then every local package imported would error:
     // `Resolving to directories is not possible with the exports field (request was ./src/)`
     //
     // ALTERNATIVE would be to add `"./src": "./src/index.ts"` in `exports` of every package;
@@ -46,7 +46,7 @@ export default {
         '..',
         'weighted-randomness'
       ),
-      xlorem: path.resolve(__dirname, '..', 'xlorem'),
+      fullfiller: path.resolve(__dirname, '..', 'fullfiller'),
     },
   },
   module: {

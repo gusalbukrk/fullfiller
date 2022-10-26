@@ -2,7 +2,7 @@
 // tree-shaking isn't possible when exporting an object
 // https://medium.com/@rauschma/note-that-default-exporting-objects-is-usually-an-anti-pattern-if-you-want-to-export-the-cf674423ac38#.nibatprx3
 
-// used at `xlorem/src/validate`
+// used at `fullfiller/src/validate`
 export const invalidInput =
   'Expected `input` argument to be one of the valid types (query string, text, words array or frequency map).';
 export const emptyQueryString =

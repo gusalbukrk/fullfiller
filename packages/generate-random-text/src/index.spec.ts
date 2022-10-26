@@ -1,13 +1,13 @@
-import { isStopword } from 'stopwords-utils/src';
-import { requirementsDefault } from 'xlorem-common/src/constants';
-import { freqMapType } from 'xlorem-common/src/types';
+import { requirementsDefault } from 'fullfiller-common/src/constants';
+import { freqMapType } from 'fullfiller-common/src/types';
 import {
   capitalize,
   isLowercase,
   isNumeric,
   getRandomNumber,
   last,
-} from 'xlorem-common/src/utils';
+} from 'fullfiller-common/src/utils';
+import { isStopword } from 'stopwords-utils/src';
 
 import generateText from '.';
 

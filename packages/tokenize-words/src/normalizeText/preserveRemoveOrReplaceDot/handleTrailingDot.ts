@@ -1,5 +1,5 @@
+import { escapeRegExp } from 'fullfiller-common/src/utils';
 import { isStopword } from 'stopwords-utils/src';
-import { escapeRegExp } from 'xlorem-common/src/utils';
 
 function shouldPreserveTrailingDot(
   wordContainingTrailingDot: string,

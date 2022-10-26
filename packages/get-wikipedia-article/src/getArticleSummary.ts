@@ -1,4 +1,4 @@
-import { optionsType } from 'xlorem-common/src/types';
+import { optionsType } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 

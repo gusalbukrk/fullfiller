@@ -1,10 +1,10 @@
-import CustomError from 'xlorem-common/src/CustomError';
+import CustomError from 'fullfiller-common/src/CustomError';
 import {
   inputType,
   unitType,
   formatType,
   requirementsType,
-} from 'xlorem-common/src/types';
+} from 'fullfiller-common/src/types';
 
 import validateFormat from './validateFormat';
 import validateInput from './validateInput';
@@ -28,7 +28,7 @@ function validate(
   );
 
   if (errors.length > 0)
-    throw new CustomError(`[ ${errors.join(', ')} ]`, 'xlorem');
+    throw new CustomError(`[ ${errors.join(', ')} ]`, 'fullfiller');
 }
 
 export default validate;

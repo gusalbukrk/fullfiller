@@ -2,8 +2,8 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faCopy, faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faCheck, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import fullfiller from 'fullfiller/src';
 import React from 'react';
-import xlorem from 'xlorem/src';
 
 function Form(): JSX.Element {
   // input
@@ -17,7 +17,7 @@ function Form(): JSX.Element {
   // output
   const [output, setOutputBase] = React.useState({ title: '', body: '' });
   const setOutput = async () => {
-    const filler = await xlorem(input, {
+    const filler = await fullfiller(input, {
       unit: unit as 'paragraphs' | 'words',
       quantity,
       format: format as 'plain' | 'html',

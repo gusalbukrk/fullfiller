@@ -1,10 +1,10 @@
 import { program } from 'commander';
-import xlorem from 'xlorem/src';
+import fullfiller from 'fullfiller/src';
 
 import 'cross-fetch/dist/node-polyfill';
 
 program
-  .name('xlorem')
+  .name('fullfiller')
   .description('feature-rich filler text generator')
   .version('0.0.0')
   .requiredOption('-Q, --query <value>', 'Wikipedia query string')
@@ -21,7 +21,7 @@ program.parse();
 const options = program.opts();
 
 (async function cli() {
-  const article = await xlorem(options.query as string, options);
+  const article = await fullfiller(options.query as string, options);
 
   console.log(article); // eslint-disable-line no-console
 })().catch((e) => console.error(e)); // eslint-disable-line no-console

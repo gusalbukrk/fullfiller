@@ -1,6 +1,6 @@
-import CustomError from 'xlorem-common/src/CustomError';
-import { notEnoughWordsInFreqMap } from 'xlorem-common/src/errorMessages';
-import { freqMapType } from 'xlorem-common/src/types';
+import CustomError from 'fullfiller-common/src/CustomError';
+import { notEnoughWordsInFreqMap } from 'fullfiller-common/src/errorMessages';
+import { freqMapType } from 'fullfiller-common/src/types';
 
 import emphasize from './emphasize';
 import generateFreqMapWeightAsKey from './generateFreqMapWeightAsKey';

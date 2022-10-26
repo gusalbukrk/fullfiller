@@ -1,8 +1,4 @@
-import generateTextBase from 'generate-random-text/src';
-import generateFreqMap from 'generate-words-freqmap/src';
-import getWikipediaArticle from 'get-wikipedia-article/src';
-import tokenizeWords from 'tokenize-words/src';
-import { requirementsDefault } from 'xlorem-common/src/constants';
+import { requirementsDefault } from 'fullfiller-common/src/constants';
 import {
   inputType,
   queryInputType,
@@ -12,7 +8,11 @@ import {
   formatType,
   requirementsType,
   freqMapType,
-} from 'xlorem-common/src/types';
+} from 'fullfiller-common/src/types';
+import generateTextBase from 'generate-random-text/src';
+import generateFreqMap from 'generate-words-freqmap/src';
+import getWikipediaArticle from 'get-wikipedia-article/src';
+import tokenizeWords from 'tokenize-words/src';
 
 import validate from './validate';
 
@@ -46,7 +46,7 @@ type output = {
  * @param options Miscellaneous options.
  * @returns Text object containing title and body.
  */
-async function xlorem(
+async function fullfiller(
   input: inputType,
   {
     unit = 'paragraphs',
@@ -107,4 +107,4 @@ async function xlorem(
   return { title: input.title, body: output };
 }
 
-export default xlorem;
+export default fullfiller;

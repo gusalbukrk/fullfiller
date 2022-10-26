@@ -1,4 +1,4 @@
-import { reduce } from 'xlorem-common/src/utils';
+import { reduce } from 'fullfiller-common/src/utils';
 
 import handleCapitalizedLetterPrecededByDotOrStringBeginning from './handleCapitalizedLetterPrecededByDotOrStringBeginning';
 import preserveRemoveOrReplaceDot from './preserveRemoveOrReplaceDot';

@@ -1,5 +1,5 @@
+import { freqMapType } from 'fullfiller-common/src/types';
 import weightedRandomness from 'weighted-randomness/src';
-import { freqMapType } from 'xlorem-common/src/types';
 
 import capitalizeAndPunctuateSentence from './capitalizeAndPunctuateSentence';
 import getRandomWord from './getRandomWord';

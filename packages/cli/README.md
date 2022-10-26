@@ -1,13 +1,13 @@
-# xlorem-cli
+# fullfiller-cli
 
 ## Install
 
-- `npm i -g xlorem-cli`
+- `npm i -g fullfiller-cli`
 
 ## Basic usage
 
-- `xlorem-cli -Q 'harry potter' -u words -q 250 -f html`
+- `fullfiller-cli -Q 'harry potter' -u words -q 250 -f html`
 
 ## Help
 
-- `xlorem-cli --help`
+- `fullfiller-cli --help`
