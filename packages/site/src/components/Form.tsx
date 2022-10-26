@@ -191,6 +191,7 @@ function Form(): JSX.Element {
           cols={50}
           value={output.body}
           readOnly
+          tabIndex={-1}
         />
 
         <article
@@ -215,8 +216,8 @@ function Form(): JSX.Element {
           // https://github.com/typescript-eslint/typescript-eslint/issues/4619
           onClick={handleGenerateButton} // eslint-disable-line @typescript-eslint/no-misused-promises
         >
-          Generate
           <FontAwesomeIcon id="generate-icon" icon={faFileAlt as IconProp} />
+          Generate
         </button>
 
         <button
@@ -225,11 +226,11 @@ function Form(): JSX.Element {
           ref={copyButtonRef}
           onClick={handleCopyButton} // eslint-disable-line @typescript-eslint/no-misused-promises
         >
-          {userHasJustCopiedOutput ? 'Copied' : 'Copy'}
           <FontAwesomeIcon
             id="copy-icon"
             icon={(userHasJustCopiedOutput ? faCheck : faCopy) as IconProp}
           />
+          {userHasJustCopiedOutput ? 'Copied' : 'Copy'}
         </button>
       </section>
     </form>

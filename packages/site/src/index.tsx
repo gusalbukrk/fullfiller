@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <h1>
-        <span>x</span>lorem
+        <span>full</span>filler
       </h1>
       <Form />
     </>

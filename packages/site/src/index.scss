@@ -1,8 +1,9 @@
-$red: red;
-$lighter-gray: #e6e6e6;
-$light-gray: lightgray;
-$gray: gray;
+$black: black;
 $dark-gray: #323232;
+$gray: gray;
+$light-gray: lightgray;
+$lighter-gray: #f1f1f1;
+$red: red;
 
 .d-none {
   display: none !important;
@@ -13,17 +14,28 @@ $dark-gray: #323232;
 }
 
 body {
+  background-image: url('./img/background.jpg');
+  display: flex;
+  flex-direction: column;
   font-family: 'Open Sans', serif;
+  height: 100vh;
+  justify-content: center;
   margin: 0 auto;
   max-width: 550px;
   padding: 1rem;
-  padding-top: 2rem;
+}
+
+#root {
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: rgb(0 0 0 / 30%) 0 19px 38px, rgb(0 0 0 / 22%) 0 15px 12px;
+  padding: 1.5rem;
 }
 
 h1 {
   font-family: 'Source Code Pro', monospace;
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   text-align: center;
 
   span {
@@ -36,7 +48,6 @@ form {
   display: flex;
   flex-direction: column;
   grid-gap: 0.666rem;
-  margin-bottom: 2rem;
 
   input,
   fieldset,
@@ -112,8 +123,9 @@ form {
 
     textarea {
       border: none; /* border is in the outer instead */
+      outline: none;
       padding: 0.5rem;
-      resize: vertical;
+      resize: none;
       width: 100%;
     }
 
@@ -139,6 +151,7 @@ form {
   section#row-four {
     display: flex;
     gap: 1rem;
+    height: 40px;
     justify-content: end;
 
     button#button-generate {
@@ -151,24 +164,26 @@ form {
 
     button {
       align-self: end;
-      background-color: transparent;
-      color: $red;
+      background-color: $lighter-gray;
+      color: $black;
       cursor: pointer;
       flex-basis: 140px;
+      font-family: 'Open Sans', serif;
       font-size: 1rem;
       font-weight: bold;
+      height: 100%;
       padding: 0.25rem 0.5rem;
       text-transform: uppercase;
+      transition: border 0.5s ease-in-out;
 
       #copy-icon,
       #generate-icon {
         color: $red;
         font-size: 1.2rem;
-        margin-left: 0.5rem;
+        margin-right: 0.5rem;
       }
 
       &:hover {
-        background-color: $lighter-gray;
         border-color: $red;
       }
 
