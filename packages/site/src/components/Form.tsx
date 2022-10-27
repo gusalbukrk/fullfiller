@@ -85,6 +85,14 @@ function Form(): JSX.Element {
     if (userHasJustCopiedOutput) return;
 
     try {
+      // NOTE: ´clipboard` inside `navigator` is only available from secure origins
+      // i.e. https or localhost
+      // in a development environment, if you try to access via **ip** (i.e. `http://192.168.1.4:8080`)
+      // instead of using **localhost** (i.e. `http://localhost:8080`)
+      // you will get the following error:
+      // `TypeError: Cannot read properties of undefined (reading 'writeText')`
+      // as a consequence, you cannot test the copy to clipboard functionality from devices
+      // inside your network other than the one from which the files are being served
       await navigator.clipboard.writeText(output.body);
 
       setUserHasJustCopiedOutput(true);
