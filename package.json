@@ -60,7 +60,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-webpack-plugin": "^3.2.0",
     "fs-extra": "^10.1.0",
-    "gusalbukrk-rollup-plugin-includepaths": "^1.0.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.1",
