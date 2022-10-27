@@ -1,3 +1,5 @@
+> `fullfiller` is being built using some of the most popular tools for Web Development: TypeScript, React, Sass, Lerna, Express, Commander, Babel, Webpack, Rollup, Jest, ESLint, Stylelint, Husky, Lint-staged, Commitlint, ...
+
 # fullfiller
 
 > feature-rich filler text generator  

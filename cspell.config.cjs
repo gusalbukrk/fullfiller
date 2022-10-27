@@ -11,6 +11,7 @@ module.exports = {
     'fortawesome',
     'pnpm',
     'commitlint',
+    'stylelint',
   ],
 
   ignoreWords: ['postbuild', 'postpublish', 'monospace'],
@@ -37,7 +38,6 @@ module.exports = {
         'npmignore',
         'corejs',
         'includepaths',
-        'stylelint',
         'abspath',
         'relpath',
         'loglevel',
