@@ -2,7 +2,8 @@ import express from 'express';
 import {
   unitType,
   formatType,
-  requirementsType,
+  sentencesPerParagraphType,
+  wordsPerSentenceType,
 } from 'fullfiller-common/src/types';
 import fullfiller from 'fullfiller/src';
 
@@ -15,7 +16,8 @@ type optionsType = {
   unit: unitType;
   quantity: number;
   format: formatType;
-  requirements: Partial<requirementsType>;
+  sentencesPerParagraph: Partial<sentencesPerParagraphType>;
+  wordsPerSentence: Partial<wordsPerSentenceType>;
 };
 
 // middleware

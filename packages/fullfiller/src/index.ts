@@ -1,4 +1,7 @@
-import { requirementsDefault } from 'fullfiller-common/src/constants';
+import {
+  sentencesPerParagraphDefault,
+  wordsPerSentenceDefault,
+} from 'fullfiller-common/src/constants';
 import {
   inputType,
   queryInputType,
@@ -6,7 +9,8 @@ import {
   wordsArrayInputType,
   unitType,
   formatType,
-  requirementsType,
+  sentencesPerParagraphType,
+  wordsPerSentenceType,
   freqMapType,
 } from 'fullfiller-common/src/types';
 import generateTextBase from 'generate-random-text/src';
@@ -32,7 +36,8 @@ type optionsType = {
   unit: unitType;
   quantity: number;
   format: formatType;
-  requirements: Partial<requirementsType>;
+  sentencesPerParagraph: Partial<sentencesPerParagraphType>;
+  wordsPerSentence: Partial<wordsPerSentenceType>;
 };
 
 type output = {
@@ -52,19 +57,35 @@ async function fullfiller(
     unit = 'paragraphs',
     quantity = unit === 'paragraphs' ? 5 : 200,
     format = 'plain',
-    requirements = requirementsDefault,
+    sentencesPerParagraph = sentencesPerParagraphDefault,
+    wordsPerSentence = wordsPerSentenceDefault,
   }: Partial<optionsType> = {}
 ): Promise<output> {
-  const requirementsMerged = { ...requirementsDefault, ...requirements };
+  const sentencesPerParagraphMerged = {
+    ...sentencesPerParagraphDefault,
+    ...sentencesPerParagraph,
+  };
+  const wordsPerSentenceMerged = {
+    ...wordsPerSentenceDefault,
+    ...wordsPerSentence,
+  };
 
-  validate(input, unit, quantity, format, requirementsMerged);
+  validate(
+    input,
+    unit,
+    quantity,
+    format,
+    sentencesPerParagraphMerged,
+    wordsPerSentenceMerged
+  );
 
   const generateText = (freqMap: freqMapType) =>
     generateTextBase(freqMap, {
       unit,
       quantity,
       format,
-      requirements: requirementsMerged,
+      sentencesPerParagraphArg: sentencesPerParagraphMerged,
+      wordsPerSentenceArg: wordsPerSentenceMerged,
     });
 
   if (isInputQuery(input)) {

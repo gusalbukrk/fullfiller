@@ -22,7 +22,7 @@
 `fullfiller` function takes 2 arguments: `input` and `options`.
 
 - `input` (required) = valid types: _wikipedia query string_, _text_, _wordsArray_ & _freqMap_
-- `options` (optional) = object containing (some or all of) the following properties: _unit_, _format_, _quantity_ and _requirements_
+- `options` (optional) = object containing (some or all of) the following properties: _unit_, _format_, _quantity_, _sentencesPerParagraph_ and _wordsPerSentence_
 
 ### Examples
 
@@ -125,11 +125,13 @@ import fullfiller from 'fullfiller';
     unit: 'paragraphs', // 'paragraphs' or 'words'
     quantity: 5, // number
     format: 'plain', // 'plain' or 'html'
-    requirements: {
-      sentencesPerParagraphMin: 4,
-      sentencesPerParagraphMax: 8, // max must be at least min * 2 - 1
-      wordsPerSentenceMin: 7,
-      wordsPerSentenceMax: 13, // max must be at least min * 2 - 1
+    sentencesPerParagraph: {
+      min: 4,
+      max: 8,
+    },
+    wordsPerSentence {
+      min: 7,
+      max: 13,
     },
   };
 

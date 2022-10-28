@@ -1,4 +1,7 @@
-import { requirementsDefault } from 'fullfiller-common/src/constants';
+import {
+  sentencesPerParagraphDefault,
+  wordsPerSentenceDefault,
+} from 'fullfiller-common/src/constants';
 import { freqMapType } from 'fullfiller-common/src/types';
 import {
   capitalize,
@@ -10,13 +13,6 @@ import {
 import { isStopword } from 'stopwords-utils/src';
 
 import generateText from '.';
-
-const {
-  sentencesPerParagraphMin,
-  sentencesPerParagraphMax,
-  wordsPerSentenceMin,
-  wordsPerSentenceMax,
-} = requirementsDefault;
 
 const removePunctuation = (word: string) =>
   word.replace(/[.!?,:;()[\]"—\s]/g, '');
@@ -42,7 +38,7 @@ describe('`generateText` returns correct number of paragraphs, sentences and wor
   it.each(
     Array.from({ length: 10 }, () => [
       getRandomNumber(
-        sentencesPerParagraphMin * wordsPerSentenceMin, // minimum quantity of words required, otherwise error
+        sentencesPerParagraphDefault.min * wordsPerSentenceDefault.min, // minimum quantity of words required, otherwise error
         500
       ),
     ])
@@ -83,10 +79,10 @@ describe('`generateText` returns correct number of paragraphs, sentences and wor
     );
 
     const min = Math.min(...sentencesPerParagraph);
-    expect(min).toBeGreaterThanOrEqual(sentencesPerParagraphMin);
+    expect(min).toBeGreaterThanOrEqual(sentencesPerParagraphDefault.min);
 
     const max = Math.max(...sentencesPerParagraph);
-    expect(max).toBeLessThanOrEqual(sentencesPerParagraphMax);
+    expect(max).toBeLessThanOrEqual(sentencesPerParagraphDefault.max);
   });
 
   it('words per sentence', () => {
@@ -110,10 +106,10 @@ describe('`generateText` returns correct number of paragraphs, sentences and wor
     );
 
     const min = Math.min(...wordsPerSentence);
-    expect(min).toBeGreaterThanOrEqual(wordsPerSentenceMin);
+    expect(min).toBeGreaterThanOrEqual(wordsPerSentenceDefault.min);
 
     const max = Math.max(...wordsPerSentence);
-    expect(max).toBeLessThanOrEqual(wordsPerSentenceMax);
+    expect(max).toBeLessThanOrEqual(wordsPerSentenceDefault.max);
   });
 });
 

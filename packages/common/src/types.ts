@@ -20,11 +20,14 @@ export type unitType = 'paragraphs' | 'words';
 
 export type formatType = 'plain' | 'html';
 
-export type requirementsType = {
-  sentencesPerParagraphMin: number;
-  sentencesPerParagraphMax: number;
-  wordsPerSentenceMin: number;
-  wordsPerSentenceMax: number;
+export type sentencesPerParagraphType = {
+  min: number;
+  max: number;
+};
+
+export type wordsPerSentenceType = {
+  min: number;
+  max: number;
 };
 
 export type termsType = Partial<{

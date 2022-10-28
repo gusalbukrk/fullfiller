@@ -1,4 +1,7 @@
-import { requirementsDefault } from 'fullfiller-common/src/constants';
+import {
+  sentencesPerParagraphDefault,
+  wordsPerSentenceDefault,
+} from 'fullfiller-common/src/constants';
 import { getRandomNumber } from 'fullfiller-common/src/utils';
 
 import distribute from '.';
@@ -12,7 +15,8 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
     const distribution = distribute(
       quantity,
       'paragraphs',
-      requirementsDefault
+      sentencesPerParagraphDefault,
+      wordsPerSentenceDefault
     );
 
     it('quantity', () => {
@@ -22,7 +26,7 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
       expect(paragraphsQuantity).toStrictEqual(quantity);
     });
 
-    it('quantity of sentences per paragraph conforms with given `requirements`', () => {
+    it('quantity of sentences per paragraph conforms with given `sentencesPerParagraph`', () => {
       expect.assertions(2);
 
       const sentencesQuantityOfEachParagraph = distribution.reduce(
@@ -33,16 +37,12 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
       const min = Math.min(...sentencesQuantityOfEachParagraph);
       const max = Math.max(...sentencesQuantityOfEachParagraph);
 
-      expect(min).toBeGreaterThanOrEqual(
-        requirementsDefault.sentencesPerParagraphMin
-      );
+      expect(min).toBeGreaterThanOrEqual(sentencesPerParagraphDefault.min);
 
-      expect(max).toBeLessThanOrEqual(
-        requirementsDefault.sentencesPerParagraphMax
-      );
+      expect(max).toBeLessThanOrEqual(sentencesPerParagraphDefault.max);
     });
 
-    it('quantity of words per sentence conforms with given `requirements`', () => {
+    it('quantity of words per sentence conforms with given `wordsPerSentence`', () => {
       expect.assertions(2);
 
       const wordsQuantityOfEachSentence = distribution.reduce(
@@ -53,10 +53,8 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
       const min = Math.min(...wordsQuantityOfEachSentence);
       const max = Math.max(...wordsQuantityOfEachSentence);
 
-      expect(min).toBeGreaterThanOrEqual(
-        requirementsDefault.wordsPerSentenceMin
-      );
-      expect(max).toBeLessThanOrEqual(requirementsDefault.wordsPerSentenceMax);
+      expect(min).toBeGreaterThanOrEqual(wordsPerSentenceDefault.min);
+      expect(max).toBeLessThanOrEqual(wordsPerSentenceDefault.max);
     });
   }
 );
@@ -64,13 +62,17 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
 describe.each(
   Array.from({ length: 20 }).map(() =>
     getRandomNumber(
-      requirementsDefault.wordsPerSentenceMin *
-        requirementsDefault.sentencesPerParagraphMin,
+      wordsPerSentenceDefault.min * sentencesPerParagraphDefault.min,
       2000
     )
   )
 )("'words' unit", (quantity) => {
-  const distribution = distribute(quantity, 'words', requirementsDefault);
+  const distribution = distribute(
+    quantity,
+    'words',
+    sentencesPerParagraphDefault,
+    wordsPerSentenceDefault
+  );
 
   it('quantity', () => {
     expect.assertions(1);
@@ -82,7 +84,7 @@ describe.each(
     expect(wordsQuantity).toStrictEqual(quantity);
   });
 
-  it('quantity of sentences per paragraph conforms with given `requirements`', () => {
+  it('quantity of sentences per paragraph conforms with given `sentencesPerParagraph`', () => {
     expect.assertions(2);
 
     const sentencesQuantityOfEachParagraph = distribution.reduce(
@@ -93,16 +95,12 @@ describe.each(
     const min = Math.min(...sentencesQuantityOfEachParagraph);
     const max = Math.max(...sentencesQuantityOfEachParagraph);
 
-    expect(min).toBeGreaterThanOrEqual(
-      requirementsDefault.sentencesPerParagraphMin
-    );
+    expect(min).toBeGreaterThanOrEqual(sentencesPerParagraphDefault.min);
 
-    expect(max).toBeLessThanOrEqual(
-      requirementsDefault.sentencesPerParagraphMax
-    );
+    expect(max).toBeLessThanOrEqual(sentencesPerParagraphDefault.max);
   });
 
-  it('quantity of words per sentence conforms with given `requirements`', () => {
+  it('quantity of words per sentence conforms with given `wordsPerSentence`', () => {
     expect.assertions(2);
 
     const wordsQuantityOfEachSentence = distribution.reduce(
@@ -113,7 +111,7 @@ describe.each(
     const min = Math.min(...wordsQuantityOfEachSentence);
     const max = Math.max(...wordsQuantityOfEachSentence);
 
-    expect(min).toBeGreaterThanOrEqual(requirementsDefault.wordsPerSentenceMin);
-    expect(max).toBeLessThanOrEqual(requirementsDefault.wordsPerSentenceMax);
+    expect(min).toBeGreaterThanOrEqual(wordsPerSentenceDefault.min);
+    expect(max).toBeLessThanOrEqual(wordsPerSentenceDefault.max);
   });
 });

@@ -1,17 +1,23 @@
-import { requirementsDefault } from 'fullfiller-common/src/constants';
 import {
   quantityNotNumber,
   quantityTooSmall,
 } from 'fullfiller-common/src/errorMessages';
-import { unitType } from 'fullfiller-common/src/types';
-
-const { sentencesPerParagraphMin, wordsPerSentenceMin } = requirementsDefault;
+import {
+  unitType,
+  sentencesPerParagraphType,
+  wordsPerSentenceType,
+} from 'fullfiller-common/src/types';
 
 function getType(value: unknown) {
   return Array.isArray(value) ? 'array' : typeof value;
 }
 
-function validateQuantity(quantity: number, unit: unitType): string[] {
+function validateQuantity(
+  quantity: number,
+  unit: unitType,
+  sentencesPerParagraph: sentencesPerParagraphType,
+  wordsPerSentence: wordsPerSentenceType
+): string[] {
   const errors: string[] = [];
 
   const type = getType(quantity);
@@ -20,12 +26,20 @@ function validateQuantity(quantity: number, unit: unitType): string[] {
     errors.push(quantityNotNumber);
   }
 
+  // if (type === 'number' && (unit === 'words' || unit === 'paragraphs')) {
+  //   const wordsPerParagraphMin =
+  //     sentencesPerParagraphDefault.min * wordsPerSentenceDefault.min;
+  //   const minimumQuantityAllowed = unit === 'words' ? wordsPerParagraphMin : 1;
+
+  //   if (quantity < minimumQuantityAllowed) {
+  //     errors.push(quantityTooSmall(minimumQuantityAllowed));
+
   if (type === 'number' && (unit === 'words' || unit === 'paragraphs')) {
-    const wordsPerParagraphMin = sentencesPerParagraphMin * wordsPerSentenceMin;
-    const minimumQuantityAllowed = unit === 'words' ? wordsPerParagraphMin : 1;
+    const minimumQuantityAllowed =
+      unit === 'words' ? sentencesPerParagraph.min * wordsPerSentence.min : 1;
 
     if (quantity < minimumQuantityAllowed) {
-      errors.push(quantityTooSmall);
+      errors.push(quantityTooSmall(minimumQuantityAllowed));
     }
   }
 

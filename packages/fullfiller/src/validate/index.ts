@@ -3,28 +3,32 @@ import {
   inputType,
   unitType,
   formatType,
-  requirementsType,
+  sentencesPerParagraphType,
+  wordsPerSentenceType,
 } from 'fullfiller-common/src/types';
 
 import validateFormat from './validateFormat';
 import validateInput from './validateInput';
 import validateQuantity from './validateQuantity';
-import validateRequirements from './validateRequirements';
+import validateSentencesPerParagraph from './validateSentencesPerParagraph';
 import validateUnit from './validateUnit';
+import validateWordsPerSentence from './validateWordsPerSentence';
 
 function validate(
   input: inputType,
   unit: unitType,
   quantity: number,
   format: formatType,
-  requirements: requirementsType
+  sentencesPerParagraph: sentencesPerParagraphType,
+  wordsPerSentence: wordsPerSentenceType
 ): void {
   const errors = ([] as string[]).concat(
     validateInput(input),
     validateUnit(unit),
-    validateQuantity(quantity, unit),
+    validateQuantity(quantity, unit, sentencesPerParagraph, wordsPerSentence),
     validateFormat(format),
-    validateRequirements(requirements)
+    validateSentencesPerParagraph(sentencesPerParagraph),
+    validateWordsPerSentence(wordsPerSentence)
   );
 
   if (errors.length > 0)

@@ -18,9 +18,9 @@ Content-Type: application/json
     "query": "harry potter",
     "quantity": 1,
     "format": "html",
-    "requirements": {
-      "sentencesPerParagraphMax": 25,
-      "sentencesPerParagraphMax": 50
+    "sentencesPerParagraph": {
+      "min": 25,
+      "max": 50
     }
 }
 

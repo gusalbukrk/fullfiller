@@ -1,11 +1,15 @@
 import CustomError from 'fullfiller-common/src/CustomError';
-import { requirementsDefault } from 'fullfiller-common/src/constants';
-import { wordsQuantityDoesNotMatchRequirements } from 'fullfiller-common/src/errorMessages';
+import {
+  sentencesPerParagraphDefault,
+  wordsPerSentenceDefault,
+} from 'fullfiller-common/src/constants';
+import { quantityTooSmall } from 'fullfiller-common/src/errorMessages';
 import {
   freqMapType,
   unitType,
   formatType,
-  requirementsType,
+  sentencesPerParagraphType,
+  wordsPerSentenceType,
 } from 'fullfiller-common/src/types';
 
 import distribute from './distribute';
@@ -16,21 +20,9 @@ type optionsType = {
   unit: unitType;
   quantity: number;
   format: formatType;
-  requirements: requirementsType;
+  sentencesPerParagraphArg: sentencesPerParagraphType;
+  wordsPerSentenceArg: wordsPerSentenceType;
 };
-
-function getOptionsDefault(unit: unitType = 'paragraphs'): optionsType {
-  return {
-    unit,
-
-    // default for 'paragraphs' is 5 and for 'words' 200.
-    // if neither is supplied, defaults to 5 paragraphs.
-    quantity: unit === 'paragraphs' ? 5 : 200,
-
-    format: 'plain',
-    requirements: requirementsDefault,
-  };
-}
 
 /**
  * Randomly generate text using given `freqMap`.
@@ -41,25 +33,43 @@ function getOptionsDefault(unit: unitType = 'paragraphs'): optionsType {
  */
 function generateText(
   freqMap: freqMapType,
-  options: Partial<optionsType>,
+  {
+    unit = 'paragraphs',
+    quantity = unit === 'paragraphs' ? 5 : 200,
+    format = 'plain',
+    sentencesPerParagraphArg = sentencesPerParagraphDefault,
+    wordsPerSentenceArg = wordsPerSentenceDefault,
+  }: Partial<optionsType> = {},
   stringify = true
 ): string | string[][][] {
-  const { unit, quantity, format, requirements } = {
-    ...getOptionsDefault(options.unit),
-    ...options,
+  const sentencesPerParagraph = {
+    ...sentencesPerParagraphDefault,
+    ...sentencesPerParagraphArg,
+  };
+  const wordsPerSentence = {
+    ...wordsPerSentenceDefault,
+    ...wordsPerSentenceArg,
   };
 
-  const wordsPerParagraphMin =
-    requirements.wordsPerSentenceMin * requirements.sentencesPerParagraphMin;
+  // const wordsPerParagraphMin = wordsPerSentence.min * sentencesPerParagraph.min;
+  const minimumQuantityAllowed =
+    unit === 'paragraphs'
+      ? 1
+      : wordsPerSentence.min * sentencesPerParagraph.min;
 
-  if (unit === 'words' && quantity < wordsPerParagraphMin) {
+  if (quantity < minimumQuantityAllowed) {
     throw new CustomError(
-      wordsQuantityDoesNotMatchRequirements(quantity, wordsPerParagraphMin),
+      quantityTooSmall(minimumQuantityAllowed),
       'generate-random-text'
     );
   }
 
-  const distribution = distribute(quantity, unit, requirements);
+  const distribution = distribute(
+    quantity,
+    unit,
+    sentencesPerParagraph,
+    wordsPerSentence
+  );
 
   const textArray = generateTextArray(freqMap, distribution);
 

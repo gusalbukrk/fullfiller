@@ -1,10 +1,14 @@
-import { requirementsDefault } from 'fullfiller-common/src/constants';
+import {
+  sentencesPerParagraphDefault,
+  wordsPerSentenceDefault,
+} from 'fullfiller-common/src/constants';
 import * as errorMessages from 'fullfiller-common/src/errorMessages';
 import {
   inputType,
   unitType,
   formatType,
-  requirementsType,
+  sentencesPerParagraphType,
+  wordsPerSentenceType,
 } from 'fullfiller-common/src/types';
 import { paramsToObjParam } from 'fullfiller-common/src/utils';
 
@@ -15,7 +19,8 @@ type validateInterface = {
   unit: unitType;
   quantity: number;
   format: formatType;
-  requirements: requirementsType;
+  sentencesPerParagraph: sentencesPerParagraphType;
+  wordsPerSentence: wordsPerSentenceType;
 };
 
 const defaults: validateInterface = {
@@ -23,7 +28,8 @@ const defaults: validateInterface = {
   unit: 'paragraphs',
   quantity: 5,
   format: 'plain',
-  requirements: requirementsDefault,
+  sentencesPerParagraph: sentencesPerParagraphDefault,
+  wordsPerSentence: wordsPerSentenceDefault,
 };
 
 const validate = paramsToObjParam(validateBase, defaults);
@@ -67,7 +73,7 @@ describe('throw error messages correctly', () => {
     const y = () => validate({ quantity: 0 });
 
     expect(x).toThrow(errorMessages.quantityNotNumber);
-    expect(y).toThrow(errorMessages.quantityTooSmall);
+    expect(y).toThrow(errorMessages.quantityTooSmall(1));
   });
 
   it('format argument', () => {
@@ -82,38 +88,36 @@ describe('throw error messages correctly', () => {
     expect(y).toThrow(errorMessages.invalidFormat);
   });
 
-  it('requirements argument', () => {
+  it('`sentencesPerParagraph` & `wordsPerSentence` arguments', () => {
     expect.assertions(4);
 
     // @ts-expect-error: test
-    const w = () => validate({ requirements: {} });
+    const w = () => validate({ sentencesPerParagraph: {} });
     const x = () =>
       validate({
-        requirements: {
-          ...requirementsDefault,
-          wordsPerSentenceMin: 2,
+        wordsPerSentence: {
+          min: 2,
+          max: wordsPerSentenceDefault.max,
         },
       });
     const y = () =>
       validate({
-        requirements: {
-          ...requirementsDefault,
-          sentencesPerParagraphMin: 5,
-          sentencesPerParagraphMax: 5,
+        sentencesPerParagraph: {
+          min: 5,
+          max: 5,
         },
       });
     const z = () =>
       validate({
-        requirements: {
-          ...requirementsDefault,
-          wordsPerSentenceMin: 5,
-          wordsPerSentenceMax: 5,
+        wordsPerSentence: {
+          min: 5,
+          max: 5,
         },
       });
 
-    expect(w).toThrow(errorMessages.invalidRequirements);
-    expect(x).toThrow(errorMessages.requirementsValuesTooSmall);
-    expect(y).toThrow(errorMessages.invalidRequirementsSentencesPerParagraph);
-    expect(z).toThrow(errorMessages.invalidRequirementsWordsPerSentence);
+    expect(w).toThrow(errorMessages.invalidSentencesPerParagraph);
+    expect(x).toThrow(errorMessages.wordsPerSentenceMinTooSmall);
+    expect(y).toThrow(errorMessages.invalidSentencesPerParagraphMax);
+    expect(z).toThrow(errorMessages.invalidWordsPerSentenceMax);
   });
 });
