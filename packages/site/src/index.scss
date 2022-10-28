@@ -9,6 +9,10 @@ $red: red;
   display: none !important;
 }
 
+.bg-light-gray {
+  background-color: $light-gray;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -131,7 +135,6 @@ form {
 
     article#loading-overlay {
       align-items: center;
-      background-color: $light-gray;
       cursor: wait;
       display: flex;
       height: 100%;

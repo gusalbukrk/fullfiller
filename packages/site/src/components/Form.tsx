@@ -16,6 +16,7 @@ function Form(): JSX.Element {
 
   // output
   const [output, setOutputBase] = React.useState({ title: '', body: '' });
+
   const setOutput = async () => {
     const filler = await fullfiller(input, {
       unit: unit as 'paragraphs' | 'words',
@@ -44,37 +45,32 @@ function Form(): JSX.Element {
   const copyButtonRef = React.useRef<HTMLButtonElement>(null);
   const copyButtonElement = copyButtonRef.current as HTMLButtonElement;
 
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const textareaElement = textareaRef.current as HTMLTextAreaElement;
+
   const handleGenerateButton = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
 
-    generateButtonElement.disabled = true;
-
-    copyButtonElement.classList.add('d-none');
     setUserHasJustCopiedOutput(false);
 
-    loadingOverlayElement.classList.remove('d-none');
+    // textarea value is equal to `output.body`
+    // consequently, reset output object will clear the textarea
+    setOutputBase({ title: '', body: '' });
+
+    loadingOverlayElement.classList.remove('d-none'); // display overlay containing spinner
+    textareaElement.classList.add('bg-light-gray'); // enable textarea $light-gray background
+
+    generateButtonElement.disabled = true; // disable generate button
+    copyButtonElement.classList.add('d-none'); // hide copy button
 
     await setOutput();
 
-    // spinner animation is freezing while fetching
-    // it looks weird to suddenly go from freezed spinner to output filled with text
-    // solution: after fetch is done and animation unfreezes, keep the spinner visible for a bit
-    setTimeout(() => {
-      loadingOverlayElement.classList.add('d-none');
-
-      copyButtonElement.classList.remove('d-none');
-
-      // 1 or 2 seconds after the generate button is clicked
-      // site becomes unresponsive and after 1 or 2 seconds comes back to normal
-      // if generate button is clicked while site is unresponsive
-      // click(s) will take effect when site becomes responsive
-      // thus, restarting the fetch process
-      // solution: wait a bit to enable generate button (use `setTimeout`, it can be just 0 seconds)
-      // thus, when delayed clicks come in, generate button would still be disabled
-      generateButtonElement.disabled = false;
-    }, 1500);
+    textareaElement.classList.remove('bg-light-gray'); // revert textarea background to white
+    loadingOverlayElement.classList.add('d-none'); // hide overlay containing spinner
+    copyButtonElement.classList.remove('d-none'); // display copy button
+    generateButtonElement.disabled = false; // reenable generate button
   };
 
   const handleCopyButton = async (
@@ -200,6 +196,8 @@ function Form(): JSX.Element {
           value={output.body}
           readOnly
           tabIndex={-1}
+          className="bg-light-gray"
+          ref={textareaRef}
         />
 
         <article
