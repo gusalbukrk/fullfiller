@@ -4,15 +4,14 @@ export default {
   projects: [
     {
       displayName: 'jest',
-      preset: 'ts-jest',
-      globals: {
-        'ts-jest': {
-          tsconfig: './tsconfig.json',
-        },
-      },
       transform: {
         '^.+\\.jsx?$': 'babel-jest', // to also be able to write tests in javascript
-        '^.+\\.tsx?$': 'ts-jest',
+        '^.+\\.tsx?$': [
+          'ts-jest',
+          {
+            tsconfig: './tsconfig.json',
+          },
+        ],
       },
     },
     {
