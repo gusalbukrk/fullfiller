@@ -9,13 +9,6 @@ config.overrides[0].parserOptions.project = './tsconfig.json';
 config.overrides.push({
   files: ['**/__tests__/**', '**/*{.,_}{test,spec}.{ts,tsx}'],
   rules: {
-    'node/no-extraneous-import': [
-      'error',
-      {
-        allowModules: ['cross-fetch'],
-      },
-    ],
-
     'import/no-extraneous-dependencies': [
       'error',
       { packageDir: [__dirname, path.join(__dirname, '..', '..')] },
