@@ -34,7 +34,7 @@
   "scripts": {
     "build": "rollup -c ./rollup.config.js && cd ../site && npm run build",
     "lint": "eslint src/ --fix && cspell \"**\" -c ../../cspell.config.cjs --no-progress",
-    "postbuild": "eslint dist/index.d.ts --fix --no-ignore --no-error-on-unmatched-pattern",
+    "postbuild": "replace-in-file --configFile=./.replace-in-file.cjs",
     "postpublish": "../../node_modules/rimraf/bin.js dist/",
     "prepublishOnly": "npm run build",
     "test": "jest --passWithNoTests"
