@@ -4,6 +4,9 @@
 GET http://localhost:8888/api/harry potter/words
 
 ###
+GET http://localhost:8888/api/harry potter/paragraphs/3/html/5/25/5/14
+
+###
 
 # query string parameters (`req.query`)
 GET http://localhost:8888/api?query=harry potter&format=html&quantity=2

@@ -11,14 +11,24 @@ import 'cross-fetch/dist/node-polyfill';
 
 const app = express();
 
-type optionsType = {
+type baseType = {
   query: string;
   unit: unitType;
   quantity: number;
   format: formatType;
+};
+
+type inputType = {
+  sentencesPerParagraphMin: number;
+  sentencesPerParagraphMax: number;
+  wordsPerSentenceMin: number;
+  wordsPerSentenceMax: number;
+} & baseType;
+
+type optionsType = {
   sentencesPerParagraph: Partial<sentencesPerParagraphType>;
   wordsPerSentence: Partial<wordsPerSentenceType>;
-};
+} & baseType;
 
 // middleware
 app.use(express.json()); // parse application/json
@@ -49,17 +59,48 @@ app.get('/api/', async (req, res) => {
 });
 
 app.get(
-  '/api/:query/:unit?/:quantity?/:format?',
-  async (req: { params: optionsType }, res) => {
-    if (req.params.quantity)
-      req.params.quantity = parseInt(
-        req.params.quantity as unknown as string,
+  '/api/:query/:unit?/:quantity?/:format?/:sentencesPerParagraphMin?/:sentencesPerParagraphMax?/:wordsPerSentenceMin?/:wordsPerSentenceMax?',
+  async (req: { params: inputType }, res) => {
+    const { params } = req;
+
+    const { query } = params;
+
+    const options: Partial<optionsType> = {
+      ...(params.unit !== undefined ? { unit: params.unit } : {}),
+      ...(params.quantity !== undefined
+        ? { quantity: parseInt(params.quantity as unknown as string, 10) }
+        : {}),
+      ...(params.format !== undefined ? { format: params.format } : {}),
+
+      sentencesPerParagraph: {},
+      wordsPerSentence: {},
+    };
+
+    if (params.sentencesPerParagraphMin !== undefined)
+      options.sentencesPerParagraph!.min = parseInt(
+        params.sentencesPerParagraphMin as unknown as string,
         10
       );
 
-    const { query, ...options } = req.params as unknown as Partial<optionsType>;
+    if (params.sentencesPerParagraphMax !== undefined)
+      options.sentencesPerParagraph!.max = parseInt(
+        params.sentencesPerParagraphMax as unknown as string,
+        10
+      );
 
-    const article = await fullfiller(query!, options); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    if (params.wordsPerSentenceMin !== undefined)
+      options.wordsPerSentence!.min = parseInt(
+        params.wordsPerSentenceMin as unknown as string,
+        10
+      );
+
+    if (params.wordsPerSentenceMax !== undefined)
+      options.wordsPerSentence!.max = parseInt(
+        params.wordsPerSentenceMax as unknown as string,
+        10
+      );
+
+    const article = await fullfiller(query, options); // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
     res.status(200).json(article);
   }
