@@ -5,6 +5,7 @@
   "description": "",
   "license": "MIT",
   "keywords": [],
+  "private": true,
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",
@@ -35,8 +36,6 @@
     "build": "rollup -c ./rollup.config.js && cd ../site && npm run build",
     "lint": "eslint src/ --fix && cspell \"**\" -c ../../cspell.config.cjs --no-progress",
     "postbuild": "replace-in-file --configFile=./.replace-in-file.cjs",
-    "postpublish": "rimraf dist/",
-    "prepublishOnly": "npm run build",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {

@@ -8,16 +8,16 @@
     "pnpm": "use `npm` instead"
   },
   "scripts": {
-    "build": "lerna run build",
+    "build": "lerna run --no-bail build",
     "clean:bootstrap": "rimraf node_modules/ packages/*/node_modules/",
     "clean:build": "rimraf packages/*/dist",
     "create": "node templates/create.js",
     "cspell": "cspell \"{**,**/.*,**/.*/**}\" -c cspell.config.cjs --no-progress",
     "lint": "npm run cspell && npm run lint:config && prettier **/*.{md,json} --write --loglevel warn && npm run lint:src",
     "lint:config": "eslint . --fix --ext .js,.cjs,.json --ignore-pattern '!.*' --ignore-pattern 'src/' --rule 'jest/unbound-method: off'",
-    "lint:src": "lerna run lint",
+    "lint:src": "lerna run --no-bail lint",
     "prepare": "husky install",
-    "test": "lerna run test"
+    "test": "lerna run --no-bail test"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
