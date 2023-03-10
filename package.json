@@ -82,7 +82,6 @@
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
     "stylelint": "^15.2.0",
-    "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-standard": "^30.0.1",
     "stylelint-config-standard-scss": "^7.0.1",
     "stylelint-order": "^6.0.3",
@@ -101,14 +100,14 @@
   "dependencies": {
     "api": "file:packages/api",
     "cli": "file:packages/cli",
+    "fullfiller": "file:packages/fullfiller",
+    "fullfiller-common": "file:packages/common",
     "generate-random-text": "file:packages/generate-random-text",
     "generate-words-freqmap": "file:packages/generate-words-freqmap",
     "get-wikipedia-article": "file:packages/get-wikipedia-article",
     "site": "file:packages/site",
     "stopwords-utils": "file:packages/stopwords-utils",
     "tokenize-words": "file:packages/tokenize-words",
-    "weighted-randomness": "file:packages/weighted-randomness",
-    "fullfiller": "file:packages/fullfiller",
-    "fullfiller-common": "file:packages/common"
+    "weighted-randomness": "file:packages/weighted-randomness"
   }
 }
