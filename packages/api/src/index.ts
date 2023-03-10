@@ -1,11 +1,11 @@
 import express from 'express';
+import fullfiller from 'fullfiller/src';
 import {
   unitType,
   formatType,
   sentencesPerParagraphType,
   wordsPerSentenceType,
 } from 'fullfiller-common/src/types';
-import fullfiller from 'fullfiller/src';
 
 import 'cross-fetch/dist/node-polyfill';
 
