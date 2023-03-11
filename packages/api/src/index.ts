@@ -5,102 +5,175 @@ import {
   formatType,
   sentencesPerParagraphType,
   wordsPerSentenceType,
+  breakdownOptionType,
 } from 'fullfiller-common/src/types';
+import { objectFilter, parseIntR10 } from 'fullfiller-common/src/utils';
 
 import 'cross-fetch/dist/node-polyfill';
 
-const app = express();
-
-type baseType = {
-  query: string;
+type optionsType = Partial<{
   unit: unitType;
   quantity: number;
   format: formatType;
-};
 
-type inputType = {
-  sentencesPerParagraphMin: number;
-  sentencesPerParagraphMax: number;
-  wordsPerSentenceMin: number;
-  wordsPerSentenceMax: number;
-} & baseType;
-
-type optionsType = {
+  // breakdown options
   sentencesPerParagraph: Partial<sentencesPerParagraphType>;
   wordsPerSentence: Partial<wordsPerSentenceType>;
-} & baseType;
+}>;
+
+type inputsType = { query: string } & optionsType;
+
+// requests with route parameters doesn't support objects
+// those requests may contain flat breakdown options which must be unflatten (converted to objects)
+// before being passed to fullfiller function
+// e.g. wordsPerSentenceMin => wordsPerSentence.min
+type routeParamsInputsType = Omit<
+  inputsType,
+  'sentencesPerParagraph' | 'wordsPerSentence'
+> &
+  Partial<{
+    sentencesPerParagraphMin: number;
+    sentencesPerParagraphMax: number;
+    wordsPerSentenceMin: number;
+    wordsPerSentenceMax: number;
+  }>;
+
+// used for requests containing query parameters or x-www-form-urlencoded body
+// parameters to be converted: quantity, sentencesPerParagraph and wordsPerSentence
+function convertNumericParametersToNumbers(inputs: inputsType) {
+  return Object.fromEntries(
+    Object.entries(inputs).map(([k, v]) => {
+      if (k === 'quantity') return [k, parseIntR10(v as number)];
+
+      if (k === 'sentencesPerParagraph' || k === 'wordsPerSentence') {
+        return [
+          k,
+          {
+            ...((v as breakdownOptionType).min !== undefined
+              ? {
+                  min: parseIntR10((v as breakdownOptionType).min),
+                }
+              : {}),
+
+            ...((v as breakdownOptionType).max !== undefined
+              ? {
+                  max: parseIntR10((v as breakdownOptionType).max),
+                }
+              : {}),
+          },
+        ];
+      }
+
+      return [k, v];
+    })
+  ) as inputsType;
+}
+
+function unflattenBreakdownOptions(inputs: routeParamsInputsType): inputsType {
+  return {
+    // filter out flat breakdown options (e.g. wordsPerSentenceMin)
+    ...objectFilter(
+      inputs,
+      ([k]) =>
+        ![
+          'sentencesPerParagraphMin',
+          'sentencesPerParagraphMax',
+          'wordsPerSentenceMin',
+          'wordsPerSentenceMax',
+        ].includes(k)
+    ),
+
+    // convert flat breakdown options to objects (e.g. wordsPerSentenceMin => wordsPerSentence.min)
+    sentencesPerParagraph: {
+      ...(inputs.sentencesPerParagraphMin !== undefined
+        ? {
+            min: parseIntR10(inputs.sentencesPerParagraphMin),
+          }
+        : {}),
+
+      ...(inputs.sentencesPerParagraphMax !== undefined
+        ? {
+            max: parseIntR10(inputs.sentencesPerParagraphMax),
+          }
+        : {}),
+    },
+    //
+    wordsPerSentence: {
+      ...(inputs.wordsPerSentenceMin !== undefined
+        ? {
+            min: parseIntR10(inputs.wordsPerSentenceMin),
+          }
+        : {}),
+
+      ...(inputs.wordsPerSentenceMax !== undefined
+        ? {
+            max: parseIntR10(inputs.wordsPerSentenceMax),
+          }
+        : {}),
+    },
+  };
+}
+
+const app = express();
 
 // middleware
 app.use(express.json()); // parse application/json
 app.use(express.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 
 app.use(express.static('../site/dist/'));
-
+//
 app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
-app.get('/api/', async (req, res) => {
-  // endpoint will receive requests of 2 types:
-  // - requests with query parameters, e.g. `?query=harry potter&format=html`
-  // - requests with bodies containing json or urlencoded data
-
-  const { query, ...options } =
-    Object.keys(req.query).length !== 0
-      ? (req.query as unknown as optionsType)
-      : (req.body as unknown as optionsType);
-
-  if (options.quantity)
-    options.quantity = parseInt(options.quantity as unknown as string, 10);
-
-  const article = await fullfiller(query, options);
-
-  res.status(200).json(article);
-});
-
+// endpoint handles requests of 2 types:
+// - requests with query parameters, e.g. `?query=harry potter&format=html`
+// - requests with a body containing json or urlencoded data
 app.get(
-  '/api/:query/:unit?/:quantity?/:format?/:sentencesPerParagraphMin?/:sentencesPerParagraphMax?/:wordsPerSentenceMin?/:wordsPerSentenceMax?',
-  async (req: { params: inputType }, res) => {
-    const { params } = req;
+  '/api/',
+  async (
+    // express.Request<P, ResBody, ReqBody, ReqQuery, Locals extends Record<string, any>>
+    req: express.Request<
+      { [key: string]: string }, // default is ParamsDictionary, which has this exact interface
+      unknown,
+      inputsType,
+      inputsType,
+      Record<string, unknown>
+    >,
+    res
+  ) => {
+    const inputs = Object.keys(req.query).length !== 0 ? req.query : req.body;
 
-    const { query } = params;
+    const { query, ...options } =
+      // unlike json, query parameters and x-www-form-urlencoded bodies only support strings
+      req.is('application/json') === false
+        ? convertNumericParametersToNumbers(inputs)
+        : inputs;
 
-    const options: Partial<optionsType> = {
-      ...(params.unit !== undefined ? { unit: params.unit } : {}),
-      ...(params.quantity !== undefined
-        ? { quantity: parseInt(params.quantity as unknown as string, 10) }
+    const article = await fullfiller(query, options);
+
+    res.status(200).json(article);
+  }
+);
+
+// endpoint handles requests with route parameters (also known as path)
+app.get(
+  // {0,} = you can leave parameter empty while still being able to declare subsequent parameters
+  '/api/:query/:unit(\\w{0,})?/:quantity(\\d{0,})?/:format(\\w{0,})?/:sentencesPerParagraphMin(\\d{0,})?/:sentencesPerParagraphMax(\\d{0,})?/:wordsPerSentenceMin(\\d{0,})?/:wordsPerSentenceMax(\\d{0,})?',
+  async (req: { params: routeParamsInputsType }, res) => {
+    const inputs = objectFilter(req.params, ([, v]) => v !== ''); // filter out empty inputs
+
+    const { query, ...options } = {
+      ...unflattenBreakdownOptions(inputs),
+
+      ...(inputs.quantity !== undefined
+        ? {
+            quantity: parseIntR10(inputs.quantity),
+          }
         : {}),
-      ...(params.format !== undefined ? { format: params.format } : {}),
-
-      sentencesPerParagraph: {},
-      wordsPerSentence: {},
     };
 
-    if (params.sentencesPerParagraphMin !== undefined)
-      options.sentencesPerParagraph!.min = parseInt(
-        params.sentencesPerParagraphMin as unknown as string,
-        10
-      );
-
-    if (params.sentencesPerParagraphMax !== undefined)
-      options.sentencesPerParagraph!.max = parseInt(
-        params.sentencesPerParagraphMax as unknown as string,
-        10
-      );
-
-    if (params.wordsPerSentenceMin !== undefined)
-      options.wordsPerSentence!.min = parseInt(
-        params.wordsPerSentenceMin as unknown as string,
-        10
-      );
-
-    if (params.wordsPerSentenceMax !== undefined)
-      options.wordsPerSentence!.max = parseInt(
-        params.wordsPerSentenceMax as unknown as string,
-        10
-      );
-
-    const article = await fullfiller(query, options); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    const article = await fullfiller(query, options);
 
     res.status(200).json(article);
   }

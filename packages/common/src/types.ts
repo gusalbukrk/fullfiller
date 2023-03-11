@@ -30,6 +30,11 @@ export type wordsPerSentenceType = {
   max: number;
 };
 
+export type breakdownOptionType = {
+  min: number;
+  max: number;
+};
+
 export type termsType = Partial<{
   alias: string[];
   description: string[];

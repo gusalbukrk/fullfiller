@@ -12,6 +12,7 @@ module.exports = {
     'pnpm',
     'commitlint',
     'stylelint',
+    'unflatten',
   ],
 
   ignoreWords: ['postbuild', 'postpublish', 'monospace'],

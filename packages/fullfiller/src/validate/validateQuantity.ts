@@ -22,7 +22,7 @@ function validateQuantity(
 
   const type = getType(quantity);
 
-  if (type !== 'number') {
+  if (type !== 'number' || Number.isNaN(quantity)) {
     errors.push(quantityNotNumber);
   }
 

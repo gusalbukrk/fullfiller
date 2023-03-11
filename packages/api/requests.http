@@ -1,15 +1,16 @@
-# NOTE: must insert 3 # after each request
+# NOTE: requests must be separated by ###
 
 # route parameters (`req.params`)
-GET http://localhost:8888/api/harry potter/words
-
-###
 GET http://localhost:8888/api/harry potter/paragraphs/3/html/5/25/5/14
 
 ###
 
+GET http://localhost:8888/api/harry potter//2//3///14
+
+###
+
 # query string parameters (`req.query`)
-GET http://localhost:8888/api?query=harry potter&format=html&quantity=2
+GET http://localhost:8888/api?query=harry potter&quantity=3&sentencesPerParagraph[min]=3&wordsPerSentence[max]=21&sentencesPerParagraph[max]=10&format=html&wordsPerSentence[min]=10
 
 ###
 
@@ -35,4 +36,5 @@ Content-Type: application/x-www-form-urlencoded
 
 query=harry potter
 &quantity=2
+&sentencesPerParagraph[max]=20
 &format=html
