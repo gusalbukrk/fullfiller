@@ -22,8 +22,9 @@ type optionsType = Partial<{
 type inputsType = { query: string } & optionsType;
 
 // requests with query parameters or route parameters doesn't support objects
-// they may contain properties like wordsPerSentenceMin that must be converted to
-// wordsPerSentence.min before being passed to fullfiller function
+// those requests may contain flat breakdown options which must be converted to an object(s)
+// before being passed to fullfiller function
+// e.g. wordsPerSentenceMin => wordsPerSentence.min
 type flatInputsType = Omit<
   inputsType,
   'sentencesPerParagraph' | 'wordsPerSentence'
@@ -37,11 +38,26 @@ type flatInputsType = Omit<
 
 const parseIntRadix10 = (n: string) => parseInt(n, 10);
 
-// handles breakdown options (i.e. sentencesPerParagraph and wordsPerSentence)
-// for instance, convert wordsPerSentenceMin to wordsPerSentence.min
-function unflattenBreakdownOptions(
-  inputs: flatInputsType
-): Partial<inputsType> {
+// filter out properties like wordsPerSentenceMin
+function filterOutFlatBreakdownOptions(inputs: flatInputsType): inputsType {
+  return Object.fromEntries(
+    Object.entries(inputs).filter(
+      (
+        [k, v] // eslint-disable-line @typescript-eslint/no-unused-vars
+      ) =>
+        ![
+          'sentencesPerParagraphMin',
+          'sentencesPerParagraphMax',
+          'wordsPerSentenceMin',
+          'wordsPerSentenceMax',
+        ].includes(k)
+    )
+  ) as unknown as inputsType;
+}
+
+// convert flat breakdown options to objects
+// e.g. wordsPerSentenceMin => wordsPerSentence.min
+function unflattenBreakdownOptions(inputs: flatInputsType): inputsType {
   return {
     sentencesPerParagraph: {
       ...(inputs.sentencesPerParagraphMin !== undefined
@@ -76,7 +92,7 @@ function unflattenBreakdownOptions(
           }
         : {}),
     },
-  };
+  } as inputsType;
 }
 
 const app = express();
@@ -94,56 +110,51 @@ app.get('/', (req, res) => {
 // endpoint handles requests of 2 types:
 // - requests with query parameters, e.g. `?query=harry potter&format=html`
 // - requests with a body containing json or urlencoded data
-app.get('/api/', async (req, res) => {
-  const { query, ...options } = (
-    Object.keys(req.query).length !== 0
-      ? {
-          // if request is using query parameters, need to convert breakdown options to objects
-          // example: wordsPerSentenceMin => wordsPerSentence.min
-          ...Object.fromEntries(
-            // filter out breakdown options (e.g. wordsPerSentenceMin)
-            Object.entries(req.query).filter(
-              (
-                [k, v] // eslint-disable-line @typescript-eslint/no-unused-vars
-              ) =>
-                ![
-                  'sentencesPerParagraphMin',
-                  'sentencesPerParagraphMax',
-                  'wordsPerSentenceMin',
-                  'wordsPerSentenceMax',
-                ].includes(k)
-            )
-          ),
-          ...unflattenBreakdownOptions(req.query as unknown as flatInputsType),
-        }
-      : // if request is using body, breakdown options already are objects
-        req.body
-  ) as inputsType;
+app.get(
+  '/api/',
+  async (req: { query: flatInputsType; body: inputsType }, res) => {
+    const inputs = Object.keys(req.query).length !== 0 ? req.query : req.body;
 
-  if ('quantity' in options)
-    options.quantity = parseIntRadix10(options.quantity as unknown as string);
+    const { query, ...options } = {
+      // if query parameters, must convert breakdown options to objects
+      // if body, breakdown options already are objects
+      ...(inputs === req.query
+        ? {
+            ...filterOutFlatBreakdownOptions(inputs),
+            ...unflattenBreakdownOptions(inputs),
+          }
+        : inputs),
 
-  const article = await fullfiller(query, options);
+      ...(inputs.quantity !== undefined
+        ? { quantity: parseIntRadix10(inputs.quantity as unknown as string) }
+        : {}),
+    };
 
-  res.status(200).json(article);
-});
+    console.log(options);
+    const article = await fullfiller(query, options);
+
+    res.status(200).json(article);
+  }
+);
 
 // endpoint handles requests with route parameters (also known as path)
 app.get(
   '/api/:query/:unit?/:quantity?/:format?/:sentencesPerParagraphMin?/:sentencesPerParagraphMax?/:wordsPerSentenceMin?/:wordsPerSentenceMax?',
   async (req: { params: flatInputsType }, res) => {
-    const { params } = req;
-    const { query } = params;
+    const inputs = req.params;
 
-    const options: Omit<inputsType, 'query'> = {
-      ...(params.unit !== undefined ? { unit: params.unit } : {}),
-      ...(params.quantity !== undefined
-        ? { quantity: parseIntRadix10(params.quantity as unknown as string) }
+    const { query, ...options } = {
+      ...filterOutFlatBreakdownOptions(inputs),
+      ...unflattenBreakdownOptions(inputs),
+
+      ...(inputs.quantity !== undefined
+        ? {
+            quantity: parseIntRadix10(inputs.quantity as unknown as string),
+          }
         : {}),
-      ...(params.format !== undefined ? { format: params.format } : {}),
-      ...unflattenBreakdownOptions(params),
     };
 
+    console.log(options);
     const article = await fullfiller(query, options);
 
     res.status(200).json(article);
