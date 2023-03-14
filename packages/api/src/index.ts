@@ -6,7 +6,7 @@ import {
   sentencesPerParagraphType,
   wordsPerSentenceType,
 } from 'fullfiller-common/src/types';
-import { parseIntR10 } from 'fullfiller-common/src/utils';
+import { objectFilter, parseIntR10 } from 'fullfiller-common/src/utils';
 
 import 'cross-fetch/dist/node-polyfill';
 
@@ -40,17 +40,16 @@ type flatInputsType = Omit<
 function unflattenBreakdownOptions(inputs: flatInputsType): inputsType {
   return {
     // filter out flat breakdown options (e.g. wordsPerSentenceMin)
-    ...(Object.fromEntries(
-      Object.entries(inputs).filter(
-        ([k]) =>
-          ![
-            'sentencesPerParagraphMin',
-            'sentencesPerParagraphMax',
-            'wordsPerSentenceMin',
-            'wordsPerSentenceMax',
-          ].includes(k)
-      )
-    ) as unknown as inputsType),
+    ...objectFilter(
+      inputs,
+      ([k]) =>
+        ![
+          'sentencesPerParagraphMin',
+          'sentencesPerParagraphMax',
+          'wordsPerSentenceMin',
+          'wordsPerSentenceMax',
+        ].includes(k)
+    ),
 
     // convert flat breakdown options to objects (e.g. wordsPerSentenceMin => wordsPerSentence.min)
     sentencesPerParagraph: {
@@ -125,10 +124,7 @@ app.get(
   // declare subsequent parameters (https://github.com/expressjs/express/issues/2495)
   '/api/:query/:unit(\\w{0,})?/:quantity(\\d{0,})?/:format(\\w{0,})?/:sentencesPerParagraphMin(\\d{0,})?/:sentencesPerParagraphMax(\\d{0,})?/:wordsPerSentenceMin(\\d{0,})?/:wordsPerSentenceMax(\\d{0,})?',
   async (req: { params: flatInputsType }, res) => {
-    const inputs = Object.fromEntries(
-      // filter out empty inputs
-      Object.entries(req.params).filter(([, v]) => v !== '')
-    ) as flatInputsType;
+    const inputs = objectFilter(req.params, ([, v]) => v !== ''); // filter out empty inputs
 
     const { query, ...options } = {
       ...unflattenBreakdownOptions(inputs),

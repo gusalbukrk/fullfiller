@@ -62,3 +62,10 @@ export function isObject(input: unknown): input is Record<string, unknown> {
 export function parseIntR10(n: string | number) {
   return parseInt(n as string, 10);
 }
+
+export function objectFilter<T extends Record<string, unknown>>(
+  obj: T,
+  predicate: ([k, v]: [string, unknown]) => boolean
+) {
+  return Object.fromEntries(Object.entries(obj).filter(predicate)) as T;
+}
