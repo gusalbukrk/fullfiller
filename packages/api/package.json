@@ -33,7 +33,7 @@
     "!src/**/*.spec.[jt]sx"
   ],
   "scripts": {
-    "build": "rollup -c ./rollup.config.js && cd ../site && npm run build",
+    "build": "rollup -c ./rollup.config.js",
     "lint": "eslint src/ --fix && cspell \"**\" -c ../../cspell.config.cjs --no-progress",
     "postbuild": "replace-in-file --configFile=./.replace-in-file.cjs",
     "test": "jest --passWithNoTests"
