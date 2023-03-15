@@ -5,6 +5,7 @@ import {
   formatType,
   sentencesPerParagraphType,
   wordsPerSentenceType,
+  breakdownOptionType,
 } from 'fullfiller-common/src/types';
 import { objectFilter, parseIntR10 } from 'fullfiller-common/src/utils';
 
@@ -36,8 +37,6 @@ type flatInputsType = Omit<
     wordsPerSentenceMin: number;
     wordsPerSentenceMax: number;
   }>;
-
-type breakdownOptionType = sentencesPerParagraphType | wordsPerSentenceType;
 
 // query parameters to be converted: quantity, sentencesPerParagraph and wordsPerSentence
 function convertNumericQueryStringsToNumbers(inputs: inputsType) {
