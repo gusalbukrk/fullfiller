@@ -14,7 +14,7 @@ GET http://localhost:8888/api/harry potter//2//3///14
 ###
 
 # query string parameters (`req.query`)
-GET http://localhost:8888/api?query=harry potter&quantity=3&sentencesPerParagraphMin=3&wordsPerSentenceMax=21&sentencesPerParagraphMax=10&format=html
+GET http://localhost:8888/api?query=harry potter&quantity=3&sentencesPerParagraph[min]=3&wordsPerSentence[max]=21&sentencesPerParagraph[max]=10&format=html&wordsPerSentence[min]=10
 
 ###
 

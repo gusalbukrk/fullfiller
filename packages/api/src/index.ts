@@ -22,7 +22,7 @@ type optionsType = Partial<{
 
 type inputsType = { query: string } & optionsType;
 
-// requests with query parameters or route parameters doesn't support objects
+// requests with route parameters doesn't support objects
 // those requests may contain flat breakdown options which must be unflatten (converted to objects)
 // before being passed to fullfiller function
 // e.g. wordsPerSentenceMin => wordsPerSentence.min
@@ -36,6 +36,38 @@ type flatInputsType = Omit<
     wordsPerSentenceMin: number;
     wordsPerSentenceMax: number;
   }>;
+
+type breakdownOptionType = sentencesPerParagraphType | wordsPerSentenceType;
+
+// query parameters to be converted: quantity, sentencesPerParagraph and wordsPerSentence
+function convertNumericQueryStringsToNumbers(inputs: inputsType) {
+  return Object.fromEntries(
+    Object.entries(inputs).map(([k, v]) => {
+      if (k === 'quantity') return [k, parseIntR10(v as number)];
+
+      if (k === 'sentencesPerParagraph' || k === 'wordsPerSentence') {
+        return [
+          k,
+          {
+            ...((v as breakdownOptionType).min !== undefined
+              ? {
+                  min: parseIntR10((v as breakdownOptionType).min),
+                }
+              : {}),
+
+            ...((v as breakdownOptionType).max !== undefined
+              ? {
+                  max: parseIntR10((v as breakdownOptionType).max),
+                }
+              : {}),
+          },
+        ];
+      }
+
+      return [k, v];
+    })
+  ) as inputsType;
+}
 
 function unflattenBreakdownOptions(inputs: flatInputsType): inputsType {
   return {
@@ -97,26 +129,16 @@ app.get('/', (req, res) => {
 // endpoint handles requests of 2 types:
 // - requests with query parameters, e.g. `?query=harry potter&format=html`
 // - requests with a body containing json or urlencoded data
-app.get(
-  '/api/',
-  async (req: { query: flatInputsType; body: inputsType }, res) => {
-    const inputs = Object.keys(req.query).length !== 0 ? req.query : req.body;
+app.get('/api/', async (req: { query: inputsType; body: inputsType }, res) => {
+  const inputs = Object.keys(req.query).length !== 0 ? req.query : req.body;
 
-    const { query, ...options } = {
-      // if query parameters, must convert breakdown options to objects
-      // if body, breakdown options already are objects
-      ...(inputs === req.query ? unflattenBreakdownOptions(inputs) : inputs),
+  const { query, ...options } =
+    inputs === req.query ? convertNumericQueryStringsToNumbers(inputs) : inputs;
 
-      ...(inputs.quantity !== undefined
-        ? { quantity: parseIntR10(inputs.quantity) }
-        : {}),
-    };
+  const article = await fullfiller(query, options);
 
-    const article = await fullfiller(query, options);
-
-    res.status(200).json(article);
-  }
-);
+  res.status(200).json(article);
+});
 
 // endpoint handles requests with route parameters (also known as path)
 app.get(
