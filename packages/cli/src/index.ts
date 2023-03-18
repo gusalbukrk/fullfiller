@@ -3,19 +3,10 @@ import fullfiller from 'fullfiller/src';
 import {
   unitType,
   formatType,
-  sentencesPerParagraphType,
-  wordsPerSentenceType,
+  optionsType,
 } from 'fullfiller-common/src/types';
 
 import 'cross-fetch/dist/node-polyfill';
-
-type optionsType = {
-  unit: unitType;
-  quantity: number;
-  format: formatType;
-  sentencesPerParagraph: Partial<sentencesPerParagraphType>;
-  wordsPerSentence: Partial<wordsPerSentenceType>;
-};
 
 program
   .name('fullfiller')

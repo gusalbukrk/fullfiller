@@ -54,10 +54,16 @@ export type articleType = Partial<
 
 export type includeType = Array<keyof articleType>;
 
-export type optionsType = {
-  bodyFormat: 'html' | 'plain';
-};
-
 export type queriesType = {
   [key: string]: string | number | boolean | undefined;
 };
+
+export type optionsType = Partial<{
+  unit: unitType;
+  quantity: number;
+  format: formatType;
+
+  // breakdown options
+  sentencesPerParagraph: Partial<sentencesPerParagraphType>;
+  wordsPerSentence: Partial<wordsPerSentenceType>;
+}>;

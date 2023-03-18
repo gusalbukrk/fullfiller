@@ -7,10 +7,7 @@ import {
   queryInputType,
   textInputType,
   wordsArrayInputType,
-  unitType,
-  formatType,
-  sentencesPerParagraphType,
-  wordsPerSentenceType,
+  optionsType,
   freqMapType,
 } from 'fullfiller-common/src/types';
 import generateTextBase from 'generate-random-text/src';
@@ -31,14 +28,6 @@ function isInputText(input: inputType): input is textInputType {
 function isInputWordsArray(input: inputType): input is wordsArrayInputType {
   return (input as wordsArrayInputType).words !== undefined;
 }
-
-type optionsType = {
-  unit: unitType;
-  quantity: number;
-  format: formatType;
-  sentencesPerParagraph: Partial<sentencesPerParagraphType>;
-  wordsPerSentence: Partial<wordsPerSentenceType>;
-};
 
 type output = {
   title: string;

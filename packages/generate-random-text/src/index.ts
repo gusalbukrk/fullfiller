@@ -6,8 +6,7 @@ import {
 import { quantityTooSmall } from 'fullfiller-common/src/errorMessages';
 import {
   freqMapType,
-  unitType,
-  formatType,
+  optionsType as optionsBaseType,
   sentencesPerParagraphType,
   wordsPerSentenceType,
 } from 'fullfiller-common/src/types';
@@ -16,10 +15,10 @@ import distribute from './distribute';
 import generateTextArray from './generateTextArray';
 import stringifyTextArray from './stringifyTextArray';
 
-type optionsType = {
-  unit: unitType;
-  quantity: number;
-  format: formatType;
+type optionsType = Omit<
+  optionsBaseType,
+  'sentencesPerParagraph' | 'wordsPerSentence'
+> & {
   sentencesPerParagraphArg: sentencesPerParagraphType;
   wordsPerSentenceArg: wordsPerSentenceType;
 };

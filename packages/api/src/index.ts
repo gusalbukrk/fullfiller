@@ -1,25 +1,12 @@
 import express from 'express';
 import fullfiller from 'fullfiller/src';
 import {
-  unitType,
-  formatType,
-  sentencesPerParagraphType,
-  wordsPerSentenceType,
   breakdownOptionType,
+  optionsType,
 } from 'fullfiller-common/src/types';
 import { objectFilter, parseIntR10 } from 'fullfiller-common/src/utils';
 
 import 'cross-fetch/dist/node-polyfill';
-
-type optionsType = Partial<{
-  unit: unitType;
-  quantity: number;
-  format: formatType;
-
-  // breakdown options
-  sentencesPerParagraph: Partial<sentencesPerParagraphType>;
-  wordsPerSentence: Partial<wordsPerSentenceType>;
-}>;
 
 type inputsType = { query: string } & optionsType;
 

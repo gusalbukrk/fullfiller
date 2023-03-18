@@ -1,4 +1,4 @@
-import { optionsType } from 'fullfiller-common/src/types';
+import { formatType } from 'fullfiller-common/src/types';
 
 /**
  * Summary is the initial chunk of text, everything before the first subtitle.
@@ -7,16 +7,16 @@ import { optionsType } from 'fullfiller-common/src/types';
  *
  * @summary Extract summary from article body.
  * @param body Wikipedia article body.
- * @param bodyFormat Article format.
+ * @param format Article format.
  * @returns Wikipedia article summary.
  */
 function extractSummaryFromBody(
   body: string,
-  bodyFormat: optionsType['bodyFormat']
+  format: formatType
 ): string | undefined {
   const plaintextRE = /^[\s\S]*?(?=\n\n\n==)/;
   const htmlRE = /^[\s\S]*?(?=\n\n<h2>)/;
-  const RE = bodyFormat === 'plain' ? plaintextRE : htmlRE;
+  const RE = format === 'plain' ? plaintextRE : htmlRE;
 
   const summary = RE.exec(body)?.[0];
 

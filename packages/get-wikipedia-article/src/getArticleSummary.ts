@@ -1,4 +1,4 @@
-import { optionsType } from 'fullfiller-common/src/types';
+import { formatType } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 
@@ -15,7 +15,7 @@ type response = {
  */
 async function getArticleSummary(
   title: string,
-  format: optionsType['bodyFormat']
+  format: formatType
 ): Promise<string> {
   const queries = {
     action: 'query',

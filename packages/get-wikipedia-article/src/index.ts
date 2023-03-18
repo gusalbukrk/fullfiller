@@ -3,7 +3,7 @@ import { articleIsDisambiguation } from 'fullfiller-common/src/errorMessages';
 import {
   articleType,
   includeType,
-  optionsType,
+  formatType,
   termsType,
 } from 'fullfiller-common/src/types';
 
@@ -30,7 +30,7 @@ const includeDefault: includeType = ['title', 'body'];
 async function getWikipediaArticle(
   query: string,
   include: includeType = includeDefault,
-  { bodyFormat = 'plain' }: Partial<optionsType> = {}
+  { format = 'plain' }: Partial<{ format: formatType }> = {}
 ): Promise<articleType> {
   if (include.length === 0) include.push(...includeDefault);
 
@@ -65,14 +65,14 @@ async function getWikipediaArticle(
 
   // fetch body
   if (include.includes('body')) {
-    article.body = await getArticleBody(titleQuery, bodyFormat);
+    article.body = await getArticleBody(titleQuery, format);
   }
 
   // fetch summary
   if (include.includes('summary')) {
     article.summary = article.body
-      ? extractSummaryFromBody(article.body, bodyFormat)
-      : await getArticleSummary(titleQuery, bodyFormat);
+      ? extractSummaryFromBody(article.body, format)
+      : await getArticleSummary(titleQuery, format);
   }
 
   // fetch categories

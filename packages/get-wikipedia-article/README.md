@@ -20,7 +20,7 @@ import getWikipediaArticle from 'get-wikipedia-article';
   - valid options: `title`, `body`, `related`, `summary`, `links` `categories`, `terms`, `description`, `alias`
   - default value: `['title', 'body']`
 - `options` = object containing miscellaneous options
-  - `bodyFormat` = `plain` (default) or `html`
+  - `format` = `plain` (default) or `html`
 
 ## Todo
 

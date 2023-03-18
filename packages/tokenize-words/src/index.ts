@@ -14,7 +14,7 @@ const optionsDefault: optionsType = {
 /**
  * Break down text string into array of words.
  * @param text
- * @param optionsArg Miscellaneous options.
+ * @param optionsArg Miscellaneous options. See more at {@link optionsType}.
  * @throws Error if `wordsArray` length is less than `options.lengthMin`.
  * @returns Array of words.
  */
