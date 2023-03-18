@@ -9,44 +9,27 @@ module.exports = {
     'subpackages',
     'fontawesome',
     'fortawesome',
-    'pnpm',
     'commitlint',
     'stylelint',
     'unflatten',
+    'corejs',
+    'loglevel',
+    'postbuild',
+    'postpublish',
   ],
-
-  ignoreWords: ['postbuild', 'postpublish', 'monospace'],
 
   ignorePaths: [
     'node_modules',
     'dist/',
     'cspell.config.cjs', // otherwise, would've to be included in every `overrides.filename`
-    '.gitignore',
     '.git/',
-    '.husky/_/',
   ],
 
   overrides: [
     {
-      filename: [
-        'babel.config.cjs',
-        '.eslintrc.cjs',
-        'package.json',
-        'rollup.config.js',
-        'ISSUES.md',
-      ], // config files
-      words: [
-        'npmignore',
-        'corejs',
-        'includepaths',
-        'abspath',
-        'relpath',
-        'loglevel',
-      ],
-    },
-    {
       filename: 'packages/get-wikipedia-article/',
       words: [
+        // specific terms used in Wikipedia's API
         'exintro',
         'explaintext',
         'cllimit',
