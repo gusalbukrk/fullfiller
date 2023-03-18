@@ -2,11 +2,7 @@ import {
   quantityNotNumber,
   quantityTooSmall,
 } from 'fullfiller-common/src/errorMessages';
-import {
-  unitType,
-  sentencesPerParagraphType,
-  wordsPerSentenceType,
-} from 'fullfiller-common/src/types';
+import { unitType, breakdownOptionType } from 'fullfiller-common/src/types';
 
 function getType(value: unknown) {
   return Array.isArray(value) ? 'array' : typeof value;
@@ -15,8 +11,8 @@ function getType(value: unknown) {
 function validateQuantity(
   quantity: number,
   unit: unitType,
-  sentencesPerParagraph: sentencesPerParagraphType,
-  wordsPerSentence: wordsPerSentenceType
+  sentencesPerParagraph: breakdownOptionType,
+  wordsPerSentence: breakdownOptionType
 ): string[] {
   const errors: string[] = [];
 

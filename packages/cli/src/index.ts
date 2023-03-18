@@ -1,10 +1,6 @@
 import { program } from 'commander';
 import fullfiller from 'fullfiller/src';
-import {
-  unitType,
-  formatType,
-  optionsType,
-} from 'fullfiller-common/src/types';
+import { unitType, formatType, optionsType } from 'fullfiller-common/src/types';
 
 import 'cross-fetch/dist/node-polyfill';
 

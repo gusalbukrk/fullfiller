@@ -20,16 +20,8 @@ export type unitType = 'paragraphs' | 'words';
 
 export type formatType = 'plain' | 'html';
 
-export type sentencesPerParagraphType = {
-  min: number;
-  max: number;
-};
-
-export type wordsPerSentenceType = {
-  min: number;
-  max: number;
-};
-
+// previously, there were 2 distinct types that were used for the same purpose
+// i.e. sentencesPerParagraphType and wordsPerSentenceType
 export type breakdownOptionType = {
   min: number;
   max: number;
@@ -64,6 +56,6 @@ export type optionsType = Partial<{
   format: formatType;
 
   // breakdown options
-  sentencesPerParagraph: Partial<sentencesPerParagraphType>;
-  wordsPerSentence: Partial<wordsPerSentenceType>;
+  sentencesPerParagraph: Partial<breakdownOptionType>;
+  wordsPerSentence: Partial<breakdownOptionType>;
 }>;

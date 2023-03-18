@@ -7,8 +7,7 @@ import { quantityTooSmall } from 'fullfiller-common/src/errorMessages';
 import {
   freqMapType,
   optionsType as optionsBaseType,
-  sentencesPerParagraphType,
-  wordsPerSentenceType,
+  breakdownOptionType,
 } from 'fullfiller-common/src/types';
 
 import distribute from './distribute';
@@ -19,8 +18,8 @@ type optionsType = Omit<
   optionsBaseType,
   'sentencesPerParagraph' | 'wordsPerSentence'
 > & {
-  sentencesPerParagraphArg: sentencesPerParagraphType;
-  wordsPerSentenceArg: wordsPerSentenceType;
+  sentencesPerParagraphArg: breakdownOptionType;
+  wordsPerSentenceArg: breakdownOptionType;
 };
 
 /**

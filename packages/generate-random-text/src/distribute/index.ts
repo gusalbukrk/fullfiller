@@ -1,8 +1,4 @@
-import {
-  unitType,
-  sentencesPerParagraphType,
-  wordsPerSentenceType,
-} from 'fullfiller-common/src/types';
+import { unitType, breakdownOptionType } from 'fullfiller-common/src/types';
 import { getRandomNumber } from 'fullfiller-common/src/utils';
 
 import breakNumberIntoChunks from './breakNumberIntoChunks';
@@ -18,8 +14,8 @@ import breakNumberIntoChunks from './breakNumberIntoChunks';
 function distribute(
   quantity: number,
   unit: unitType,
-  sentencesPerParagraph: sentencesPerParagraphType,
-  wordsPerSentence: wordsPerSentenceType
+  sentencesPerParagraph: breakdownOptionType,
+  wordsPerSentence: breakdownOptionType
 ): number[][] {
   const wordsPerParagraphMin = sentencesPerParagraph.min * wordsPerSentence.min;
   const wordsPerParagraphMax = sentencesPerParagraph.max * wordsPerSentence.max;

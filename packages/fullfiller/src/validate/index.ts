@@ -3,8 +3,7 @@ import {
   inputType,
   unitType,
   formatType,
-  sentencesPerParagraphType,
-  wordsPerSentenceType,
+  breakdownOptionType,
 } from 'fullfiller-common/src/types';
 
 import validateFormat from './validateFormat';
@@ -19,8 +18,8 @@ function validate(
   unit: unitType,
   quantity: number,
   format: formatType,
-  sentencesPerParagraph: sentencesPerParagraphType,
-  wordsPerSentence: wordsPerSentenceType
+  sentencesPerParagraph: breakdownOptionType,
+  wordsPerSentence: breakdownOptionType
 ): void {
   const errors = ([] as string[]).concat(
     validateInput(input),

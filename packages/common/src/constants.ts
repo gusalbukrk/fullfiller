@@ -1,4 +1,4 @@
-import { sentencesPerParagraphType, wordsPerSentenceType } from './types';
+import { breakdownOptionType } from './types';
 
 /*
   max must be at least `min * 2 - 1`
@@ -10,12 +10,12 @@ import { sentencesPerParagraphType, wordsPerSentenceType } from './types';
     - range 7 - 10 = couldn't break down 11, 12, 13
     - so on...
  */
-export const sentencesPerParagraphDefault: sentencesPerParagraphType = {
+export const sentencesPerParagraphDefault: breakdownOptionType = {
   min: 4,
   max: 8,
 };
 //
-export const wordsPerSentenceDefault: wordsPerSentenceType = {
+export const wordsPerSentenceDefault: breakdownOptionType = {
   min: 7,
   max: 13,
 };

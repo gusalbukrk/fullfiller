@@ -4,11 +4,11 @@ import {
   wordsPerSentenceMaxTooSmall,
   invalidWordsPerSentenceMax,
 } from 'fullfiller-common/src/errorMessages';
-import { wordsPerSentenceType } from 'fullfiller-common/src/types';
+import { breakdownOptionType } from 'fullfiller-common/src/types';
 import { isObject } from 'fullfiller-common/src/utils';
 
 function validateWordsPerSentence(
-  wordsPerSentence: wordsPerSentenceType
+  wordsPerSentence: breakdownOptionType
 ): string[] {
   const errors: string[] = [];
 

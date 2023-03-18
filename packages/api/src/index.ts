@@ -1,9 +1,6 @@
 import express from 'express';
 import fullfiller from 'fullfiller/src';
-import {
-  breakdownOptionType,
-  optionsType,
-} from 'fullfiller-common/src/types';
+import { breakdownOptionType, optionsType } from 'fullfiller-common/src/types';
 import { objectFilter, parseIntR10 } from 'fullfiller-common/src/utils';
 
 import 'cross-fetch/dist/node-polyfill';

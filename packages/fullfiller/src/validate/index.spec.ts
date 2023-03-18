@@ -7,8 +7,7 @@ import {
   inputType,
   unitType,
   formatType,
-  sentencesPerParagraphType,
-  wordsPerSentenceType,
+  breakdownOptionType,
 } from 'fullfiller-common/src/types';
 import { paramsToObjParam } from 'fullfiller-common/src/utils';
 
@@ -19,8 +18,8 @@ type validateInterface = {
   unit: unitType;
   quantity: number;
   format: formatType;
-  sentencesPerParagraph: sentencesPerParagraphType;
-  wordsPerSentence: wordsPerSentenceType;
+  sentencesPerParagraph: breakdownOptionType;
+  wordsPerSentence: breakdownOptionType;
 };
 
 const defaults: validateInterface = {

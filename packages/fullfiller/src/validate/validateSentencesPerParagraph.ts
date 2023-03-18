@@ -4,11 +4,11 @@ import {
   sentencesPerParagraphMaxTooSmall,
   invalidSentencesPerParagraphMax,
 } from 'fullfiller-common/src/errorMessages';
-import { sentencesPerParagraphType } from 'fullfiller-common/src/types';
+import { breakdownOptionType } from 'fullfiller-common/src/types';
 import { isObject } from 'fullfiller-common/src/utils';
 
 function validateSentencesPerParagraph(
-  sentencesPerParagraph: sentencesPerParagraphType
+  sentencesPerParagraph: breakdownOptionType
 ): string[] {
   const errors: string[] = [];
 
