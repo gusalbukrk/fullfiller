@@ -9,3 +9,6 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+
+    # https://github.com/dependabot/dependabot-core/issues/4993#issuecomment-1289133027
+    versioning-strategy: increase
