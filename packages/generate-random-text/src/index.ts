@@ -17,10 +17,11 @@ import stringifyTextArray from './stringifyTextArray';
 type optionsType = Omit<
   optionsBaseType,
   'sentencesPerParagraph' | 'wordsPerSentence'
-> & {
-  sentencesPerParagraphArg: breakdownOptionType;
-  wordsPerSentenceArg: breakdownOptionType;
-};
+> &
+  Partial<{
+    sentencesPerParagraphArg: breakdownOptionType;
+    wordsPerSentenceArg: breakdownOptionType;
+  }>;
 
 /**
  * Randomly generate text using given `freqMap`.
@@ -37,7 +38,7 @@ function generateText(
     format = 'plain',
     sentencesPerParagraphArg = sentencesPerParagraphDefault,
     wordsPerSentenceArg = wordsPerSentenceDefault,
-  }: Partial<optionsType> = {},
+  }: optionsType = {},
   stringify = true
 ): string | string[][][] {
   const sentencesPerParagraph = {

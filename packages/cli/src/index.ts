@@ -44,7 +44,7 @@ const opts = program.opts();
 (async function cli() {
   const { query } = opts;
 
-  const options: Partial<optionsType> = {
+  const options: optionsType = {
     ...(opts.unit !== undefined ? { unit: opts.unit as unitType } : {}),
     ...(opts.quantity !== undefined
       ? { quantity: opts.quantity as number }

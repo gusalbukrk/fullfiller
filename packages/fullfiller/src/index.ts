@@ -48,7 +48,7 @@ async function fullfiller(
     format = 'plain',
     sentencesPerParagraph = sentencesPerParagraphDefault,
     wordsPerSentence = wordsPerSentenceDefault,
-  }: Partial<optionsType> = {}
+  }: optionsType = {}
 ): Promise<output> {
   const sentencesPerParagraphMerged = {
     ...sentencesPerParagraphDefault,
