@@ -73,8 +73,8 @@ async function fullfiller(
       unit,
       quantity,
       format,
-      sentencesPerParagraphArg: sentencesPerParagraphMerged,
-      wordsPerSentenceArg: wordsPerSentenceMerged,
+      sentencesPerParagraph: sentencesPerParagraphMerged,
+      wordsPerSentence: wordsPerSentenceMerged,
     });
 
   if (isInputQuery(input)) {

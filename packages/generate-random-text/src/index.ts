@@ -4,24 +4,11 @@ import {
   wordsPerSentenceDefault,
 } from 'fullfiller-common/src/constants';
 import { quantityTooSmall } from 'fullfiller-common/src/errorMessages';
-import {
-  freqMapType,
-  optionsType as optionsBaseType,
-  breakdownOptionType,
-} from 'fullfiller-common/src/types';
+import { freqMapType, optionsType } from 'fullfiller-common/src/types';
 
 import distribute from './distribute';
 import generateTextArray from './generateTextArray';
 import stringifyTextArray from './stringifyTextArray';
-
-type optionsType = Omit<
-  optionsBaseType,
-  'sentencesPerParagraph' | 'wordsPerSentence'
-> &
-  Partial<{
-    sentencesPerParagraphArg: breakdownOptionType;
-    wordsPerSentenceArg: breakdownOptionType;
-  }>;
 
 /**
  * Randomly generate text using given `freqMap`.
@@ -36,25 +23,25 @@ function generateText(
     unit = 'paragraphs',
     quantity = unit === 'paragraphs' ? 5 : 200,
     format = 'plain',
-    sentencesPerParagraphArg = sentencesPerParagraphDefault,
-    wordsPerSentenceArg = wordsPerSentenceDefault,
+    sentencesPerParagraph = sentencesPerParagraphDefault,
+    wordsPerSentence = wordsPerSentenceDefault,
   }: optionsType = {},
   stringify = true
 ): string | string[][][] {
-  const sentencesPerParagraph = {
+  const sentencesPerParagraphMerged = {
     ...sentencesPerParagraphDefault,
-    ...sentencesPerParagraphArg,
+    ...sentencesPerParagraph,
   };
-  const wordsPerSentence = {
+  const wordsPerSentenceMerged = {
     ...wordsPerSentenceDefault,
-    ...wordsPerSentenceArg,
+    ...wordsPerSentence,
   };
 
   // const wordsPerParagraphMin = wordsPerSentence.min * sentencesPerParagraph.min;
   const minimumQuantityAllowed =
     unit === 'paragraphs'
       ? 1
-      : wordsPerSentence.min * sentencesPerParagraph.min;
+      : wordsPerSentenceMerged.min * sentencesPerParagraphMerged.min;
 
   if (quantity < minimumQuantityAllowed) {
     throw new CustomError(
@@ -66,8 +53,8 @@ function generateText(
   const distribution = distribute(
     quantity,
     unit,
-    sentencesPerParagraph,
-    wordsPerSentence
+    sentencesPerParagraphMerged,
+    wordsPerSentenceMerged
   );
 
   const textArray = generateTextArray(freqMap, distribution);
