@@ -8,31 +8,32 @@ import {
   textInputType,
   wordsArrayInputType,
   optionsType,
-  freqMapType,
+  freqMapInputType,
+  articleType,
 } from 'fullfiller-common/src/types';
-import generateTextBase from 'generate-random-text/src';
+import generateText from 'generate-random-text/src';
 import generateFreqMap from 'generate-words-freqmap/src';
 import getWikipediaArticle from 'get-wikipedia-article/src';
 import tokenizeWords from 'tokenize-words/src';
 
 import validate from './validate';
 
-function isInputQuery(input: inputType): input is queryInputType {
-  return typeof input === 'string';
-}
-
-function isInputText(input: inputType): input is textInputType {
-  return (input as textInputType).body !== undefined;
-}
-
-function isInputWordsArray(input: inputType): input is wordsArrayInputType {
-  return (input as wordsArrayInputType).words !== undefined;
-}
-
 type output = {
   title: string;
   body: string;
 };
+
+/** @returns one of the possible input types. See more at {@link inputType}. */
+function getInputType(
+  input: inputType
+): 'query' | 'text' | 'wordsArray' | 'freqMap' | undefined {
+  if (typeof input === 'string') return 'query';
+  if ('body' in input) return 'text';
+  if ('words' in input) return 'wordsArray';
+  if ('map' in input) return 'freqMap';
+
+  return undefined;
+}
 
 /**
  * Feature-rich filler text generator.
@@ -68,53 +69,58 @@ async function fullfiller(
     wordsPerSentenceMerged
   );
 
-  const generateText = (freqMap: freqMapType) =>
-    generateTextBase(freqMap, {
-      unit,
-      quantity,
-      format,
-      sentencesPerParagraph: sentencesPerParagraphMerged,
-      wordsPerSentence: wordsPerSentenceMerged,
-    });
+  /*
+    eslint-disable
+      @typescript-eslint/no-unnecessary-type-assertion,
+      @typescript-eslint/no-non-null-assertion,
+      no-case-declarations,
+      no-fallthrough
+  */
+  switch (getInputType(input)) {
+    case 'query':
+      const article = (await getWikipediaArticle(input as queryInputType, [
+        'title',
+        'body',
+        'related',
+      ])) as Required<Pick<articleType, 'title' | 'body' | 'related'>>;
 
-  if (isInputQuery(input)) {
-    const { title, body, related } = (await getWikipediaArticle(input, [
-      'title',
-      'body',
-      'related',
-    ])) as { title: string; body: string; related: string[] };
+    case 'text':
+      const wordsArray = tokenizeWords(
+        (input as textInputType).body ?? article!.body
+      );
 
-    const wordsArray = tokenizeWords(body);
+    case 'wordsArray':
+      const freqMap = generateFreqMap(
+        (input as wordsArrayInputType).words ?? wordsArray!
+      );
 
-    const freqMap = generateFreqMap(wordsArray, related);
+    case 'freqMap':
+      const output = generateText((input as freqMapInputType).map ?? freqMap!, {
+        unit,
+        quantity,
+        format,
+        sentencesPerParagraph: sentencesPerParagraphMerged,
+        wordsPerSentence: wordsPerSentenceMerged,
+      }) as string;
 
-    const output = generateText(freqMap) as string;
+      return {
+        title:
+          (input as textInputType | wordsArrayInputType | freqMapInputType)
+            .title ?? article!.title,
+        body: output,
+      };
 
-    return { title, body: output };
+    default:
+      // TODO: improve handling of unknown input type
+      throw new Error('Invalid input type');
   }
-
-  if (isInputText(input)) {
-    const wordsArray = tokenizeWords(input.body);
-
-    const freqMap = generateFreqMap(wordsArray);
-
-    const output = generateText(freqMap) as string;
-
-    return { title: input.title, body: output };
-  }
-
-  if (isInputWordsArray(input)) {
-    const freqMap = generateFreqMap(input.words);
-
-    const output = generateText(freqMap) as string;
-
-    return { title: input.title, body: output };
-  }
-
-  // if none of the `if` blocks above are true, input already is freqMap
-  const output = generateText(input.map) as string;
-
-  return { title: input.title, body: output };
+  /*
+    eslint-enable
+      @typescript-eslint/no-unnecessary-type-assertion,
+      @typescript-eslint/no-non-null-assertion,
+      no-case-declarations,
+      no-fallthrough
+  */
 }
 
 export default fullfiller;
