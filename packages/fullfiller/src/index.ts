@@ -10,6 +10,7 @@ import {
   optionsType,
   freqMapInputType,
   articleType,
+  DeepRequired,
 } from 'fullfiller-common/src/types';
 import generateText from 'generate-random-text/src';
 import generateFreqMap from 'generate-words-freqmap/src';
@@ -35,6 +36,25 @@ function getInputType(
   return undefined;
 }
 
+// merge default options with options passed as argument
+function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
+  return {
+    unit: optionsArg.unit ?? 'paragraphs',
+    quantity: optionsArg.quantity ?? (optionsArg.unit === 'words' ? 200 : 5),
+    format: optionsArg.format ?? 'plain',
+
+    sentencesPerParagraph: {
+      ...sentencesPerParagraphDefault,
+      ...optionsArg.sentencesPerParagraph,
+    },
+
+    wordsPerSentence: {
+      ...wordsPerSentenceDefault,
+      ...optionsArg.wordsPerSentence,
+    },
+  };
+}
+
 /**
  * Feature-rich filler text generator.
  * @param input Filler text will be generated from this parameter.
@@ -43,31 +63,11 @@ function getInputType(
  */
 async function fullfiller(
   input: inputType,
-  {
-    unit = 'paragraphs',
-    quantity = unit === 'paragraphs' ? 5 : 200,
-    format = 'plain',
-    sentencesPerParagraph = sentencesPerParagraphDefault,
-    wordsPerSentence = wordsPerSentenceDefault,
-  }: optionsType = {}
+  optionsArg: optionsType = {}
 ): Promise<output> {
-  const sentencesPerParagraphMerged = {
-    ...sentencesPerParagraphDefault,
-    ...sentencesPerParagraph,
-  };
-  const wordsPerSentenceMerged = {
-    ...wordsPerSentenceDefault,
-    ...wordsPerSentence,
-  };
+  const options = mergeOptions(optionsArg);
 
-  validate(
-    input,
-    unit,
-    quantity,
-    format,
-    sentencesPerParagraphMerged,
-    wordsPerSentenceMerged
-  );
+  validate(input, options);
 
   /*
     eslint-disable
@@ -95,13 +95,10 @@ async function fullfiller(
       );
 
     case 'freqMap':
-      const output = generateText((input as freqMapInputType).map ?? freqMap!, {
-        unit,
-        quantity,
-        format,
-        sentencesPerParagraph: sentencesPerParagraphMerged,
-        wordsPerSentence: wordsPerSentenceMerged,
-      }) as string;
+      const output = generateText(
+        (input as freqMapInputType).map ?? freqMap!,
+        options
+      ) as string;
 
       return {
         title:

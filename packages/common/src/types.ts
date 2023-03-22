@@ -59,3 +59,5 @@ export type optionsType = Partial<{
   sentencesPerParagraph: Partial<breakdownOptionType>;
   wordsPerSentence: Partial<breakdownOptionType>;
 }>;
+
+export type DeepRequired<T> = { [P in keyof T]-?: DeepRequired<T[P]> };

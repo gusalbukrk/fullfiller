@@ -1,9 +1,8 @@
 import CustomError from 'fullfiller-common/src/CustomError';
 import {
   inputType,
-  unitType,
-  formatType,
-  breakdownOptionType,
+  optionsType,
+  DeepRequired,
 } from 'fullfiller-common/src/types';
 
 import validateFormat from './validateFormat';
@@ -15,11 +14,13 @@ import validateWordsPerSentence from './validateWordsPerSentence';
 
 function validate(
   input: inputType,
-  unit: unitType,
-  quantity: number,
-  format: formatType,
-  sentencesPerParagraph: breakdownOptionType,
-  wordsPerSentence: breakdownOptionType
+  {
+    unit,
+    quantity,
+    format,
+    sentencesPerParagraph,
+    wordsPerSentence,
+  }: DeepRequired<optionsType>
 ): void {
   const errors = ([] as string[]).concat(
     validateInput(input),

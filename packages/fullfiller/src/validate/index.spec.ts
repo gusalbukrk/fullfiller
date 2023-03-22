@@ -3,120 +3,99 @@ import {
   wordsPerSentenceDefault,
 } from 'fullfiller-common/src/constants';
 import * as errorMessages from 'fullfiller-common/src/errorMessages';
-import {
-  inputType,
-  unitType,
-  formatType,
-  breakdownOptionType,
-} from 'fullfiller-common/src/types';
-import { paramsToObjParam } from 'fullfiller-common/src/utils';
 
-import validateBase from '.';
-
-type validateInterface = {
-  input: inputType;
-  unit: unitType;
-  quantity: number;
-  format: formatType;
-  sentencesPerParagraph: breakdownOptionType;
-  wordsPerSentence: breakdownOptionType;
-};
-
-const defaults: validateInterface = {
-  input: '...',
-  unit: 'paragraphs',
-  quantity: 5,
-  format: 'plain',
-  sentencesPerParagraph: sentencesPerParagraphDefault,
-  wordsPerSentence: wordsPerSentenceDefault,
-};
-
-const validate = paramsToObjParam(validateBase, defaults);
+import validateFormat from './validateFormat';
+import validateInput from './validateInput';
+import validateQuantity from './validateQuantity';
+import validateSentencesPerParagraph from './validateSentencesPerParagraph';
+import validateUnit from './validateUnit';
+import validateWordsPerSentence from './validateWordsPerSentence';
 
 describe('throw error messages correctly', () => {
   it('input argument', () => {
     expect.assertions(4);
 
     // @ts-expect-error: test
-    const w = () => validate({ input: true });
+    const w = validateInput(true)[0];
 
     // @ts-expect-error: test
-    const x = () => validate({ input: () => null });
+    const x = validateInput(() => null)[0];
 
-    const y = () => validate({ input: '' });
-    const z = () => validate({ input: { title: 'test', body: '' } });
+    const y = validateInput('')[0];
+    const z = validateInput({ title: 'test', body: '' })[0];
 
-    expect(w).toThrow(errorMessages.invalidInput);
-    expect(x).toThrow(errorMessages.invalidInput);
-    expect(y).toThrow(errorMessages.emptyQueryString);
-    expect(z).toThrow(errorMessages.textTooShort);
+    expect(w).toBe(errorMessages.invalidInput);
+    expect(x).toBe(errorMessages.invalidInput);
+    expect(y).toBe(errorMessages.emptyQueryString);
+    expect(z).toBe(errorMessages.textTooShort);
   });
 
   it('unit argument', () => {
     expect.assertions(2);
 
     // @ts-expect-error: test
-    const x = () => validate({ unit: '' });
+    const x = validateUnit('')[0];
     // @ts-expect-error: test
-    const y = () => validate({ unit: 'abcde' });
+    const y = validateUnit('abcde')[0];
 
-    expect(x).toThrow(errorMessages.invalidUnit);
-    expect(y).toThrow(errorMessages.invalidUnit);
+    expect(x).toBe(errorMessages.invalidUnit);
+    expect(y).toBe(errorMessages.invalidUnit);
   });
 
   it('quantity argument', () => {
     expect.assertions(2);
 
-    // @ts-expect-error: test
-    const x = () => validate({ quantity: '...' });
-    const y = () => validate({ quantity: 0 });
+    const x = validateQuantity(
+      // @ts-expect-error: test
+      '...',
+      'paragraphs',
+      sentencesPerParagraphDefault,
+      wordsPerSentenceDefault
+    )[0];
+    const y = validateQuantity(
+      0,
+      'paragraphs',
+      sentencesPerParagraphDefault,
+      wordsPerSentenceDefault
+    )[0];
 
-    expect(x).toThrow(errorMessages.quantityNotNumber);
-    expect(y).toThrow(errorMessages.quantityTooSmall(1));
+    expect(x).toBe(errorMessages.quantityNotNumber);
+    expect(y).toBe(errorMessages.quantityTooSmall(1));
   });
 
   it('format argument', () => {
     expect.assertions(2);
 
     // @ts-expect-error: test
-    const x = () => validate({ format: '' });
+    const x = validateFormat('')[0];
     // @ts-expect-error: test
-    const y = () => validate({ format: 'abcde' });
+    const y = validateFormat('abcde')[0];
 
-    expect(x).toThrow(errorMessages.invalidFormat);
-    expect(y).toThrow(errorMessages.invalidFormat);
+    expect(x).toBe(errorMessages.invalidFormat);
+    expect(y).toBe(errorMessages.invalidFormat);
   });
 
   it('`sentencesPerParagraph` & `wordsPerSentence` arguments', () => {
     expect.assertions(4);
 
     // @ts-expect-error: test
-    const w = () => validate({ sentencesPerParagraph: {} });
-    const x = () =>
-      validate({
-        wordsPerSentence: {
-          min: 2,
-          max: wordsPerSentenceDefault.max,
-        },
-      });
-    const y = () =>
-      validate({
-        sentencesPerParagraph: {
-          min: 5,
-          max: 5,
-        },
-      });
-    const z = () =>
-      validate({
-        wordsPerSentence: {
-          min: 5,
-          max: 5,
-        },
-      });
+    const w = validateSentencesPerParagraph({})[0];
+    const x = validateWordsPerSentence({
+      min: 2,
+      max: wordsPerSentenceDefault.max,
+    })[0];
+    const y = validateSentencesPerParagraph({
+      min: 5,
+      max: 5,
+    })[0];
+    const z = validateWordsPerSentence({
+      min: 5,
+      max: 5,
+    })[0];
 
-    expect(w).toThrow(errorMessages.invalidSentencesPerParagraph);
-    expect(x).toThrow(errorMessages.wordsPerSentenceMinTooSmall);
-    expect(y).toThrow(errorMessages.invalidSentencesPerParagraphMax);
-    expect(z).toThrow(errorMessages.invalidWordsPerSentenceMax);
+    expect(w).toBe(errorMessages.invalidSentencesPerParagraph);
+    expect(x).toBe(errorMessages.wordsPerSentenceMinTooSmall);
+    expect(y).toBe(errorMessages.invalidSentencesPerParagraphMax);
+    expect(z).toBe(errorMessages.invalidWordsPerSentenceMax);
   });
 });
