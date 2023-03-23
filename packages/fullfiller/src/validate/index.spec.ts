@@ -76,26 +76,52 @@ describe('throw error messages correctly', () => {
   });
 
   it('`sentencesPerParagraph` & `wordsPerSentence` arguments', () => {
-    expect.assertions(4);
+    expect.assertions(8);
 
     // @ts-expect-error: test
-    const w = validateSentencesPerParagraph({})[0];
-    const x = validateWordsPerSentence({
+    const s = validateSentencesPerParagraph({})[0];
+    //
+    const t = validateSentencesPerParagraph({
       min: 2,
-      max: wordsPerSentenceDefault.max,
-    })[0];
-    const y = validateSentencesPerParagraph({
-      min: 5,
       max: 5,
     })[0];
-    const z = validateWordsPerSentence({
+    //
+    const u = validateSentencesPerParagraph({
+      min: 3,
+      max: 2,
+    })[0];
+    //
+    const v = validateSentencesPerParagraph({
       min: 5,
-      max: 5,
+      max: 8,
     })[0];
 
-    expect(w).toBe(errorMessages.invalidSentencesPerParagraph);
+    // @ts-expect-error: test
+    const w = validateWordsPerSentence({})[0];
+    //
+    const x = validateWordsPerSentence({
+      min: 2,
+      max: 5,
+    })[0];
+    //
+    const y = validateWordsPerSentence({
+      min: 3,
+      max: 2,
+    })[0];
+    //
+    const z = validateWordsPerSentence({
+      min: 8,
+      max: 12,
+    })[0];
+
+    expect(s).toBe(errorMessages.invalidSentencesPerParagraph);
+    expect(t).toBe(errorMessages.sentencesPerParagraphMinTooSmall);
+    expect(u).toBe(errorMessages.sentencesPerParagraphMaxTooSmall);
+    expect(v).toBe(errorMessages.invalidSentencesPerParagraphMax);
+
+    expect(w).toBe(errorMessages.invalidWordsPerSentence);
     expect(x).toBe(errorMessages.wordsPerSentenceMinTooSmall);
-    expect(y).toBe(errorMessages.invalidSentencesPerParagraphMax);
+    expect(y).toBe(errorMessages.wordsPerSentenceMaxTooSmall);
     expect(z).toBe(errorMessages.invalidWordsPerSentenceMax);
   });
 });
