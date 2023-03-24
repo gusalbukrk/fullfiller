@@ -27,13 +27,22 @@ export function escapeRegExp(regexpString: string): string {
   return regexpString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// I = fn params interface
-// T = Parameters<typeof fn>
-// RT = fn return type
+/**
+ * Convert `func(a, b, c)` to `func({ a, b, c })`.
+ * The generic types parameters are inferred — I is the interface of the `defaults` object,
+ * T is the tuple obtained from `fn` parameters, and RT is `fn` return type.
+ * @param fn A function that takes a list of parameters.
+ * @param defaults An object containing default values for `fn`
+ * (its keys must share the same order as `fn` parameters).
+ * @returns A wrapper to `fn` which takes an object instead of a list of parameters.
+ */
 export function paramsToObjParam<I, T extends unknown[], RT>(
   fn: (...params: T) => RT,
   defaults: I
 ): (args?: Partial<I>) => RT {
+  // defaults keys must follow same order as fn parameters
+  // in args, keys can be in any order
+  // because defaults are spread first which ensures the correct order
   return function fnWrapper(args: Partial<I> = {}) {
     return fn(...(Object.values({ ...defaults, ...args }) as T));
   };
