@@ -60,4 +60,18 @@ export type optionsType = Partial<{
   wordsPerSentence: Partial<breakdownOptionType>;
 }>;
 
+// in the cli and in the api (specifically in the endpoint which handles route parameters)
+// there's no native way to allow for the input of objects
+// (although it could be done by accepting a string and parse it into an object)
+export type flatOptionsType = Omit<
+  optionsType,
+  'sentencesPerParagraph' | 'wordsPerSentence'
+> &
+  Partial<{
+    sentencesPerParagraphMin: number;
+    sentencesPerParagraphMax: number;
+    wordsPerSentenceMin: number;
+    wordsPerSentenceMax: number;
+  }>;
+
 export type DeepRequired<T> = { [P in keyof T]-?: DeepRequired<T[P]> };

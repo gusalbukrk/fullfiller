@@ -1,3 +1,5 @@
+import { flatOptionsType, optionsType } from './types';
+
 export function last<T>(arr: T[]): T {
   return arr[arr.length - 1];
 }
@@ -77,4 +79,53 @@ export function objectFilter<T extends Record<string, unknown>>(
   predicate: ([k, v]: [string, unknown]) => boolean
 ) {
   return Object.fromEntries(Object.entries(obj).filter(predicate)) as T;
+}
+
+export function unflattenBreakdownOptions(
+  options: flatOptionsType
+): optionsType {
+  return {
+    // filter out flat breakdown options (e.g. wordsPerSentenceMin)
+    ...objectFilter(
+      options,
+      ([k]) =>
+        ![
+          'sentencesPerParagraphMin',
+          'sentencesPerParagraphMax',
+          'wordsPerSentenceMin',
+          'wordsPerSentenceMax',
+        ].includes(k)
+    ),
+
+    // convert flat breakdown options to objects
+    // e.g. wordsPerSentenceMin => wordsPerSentence.min
+    //
+    sentencesPerParagraph: {
+      ...(options.sentencesPerParagraphMin !== undefined
+        ? {
+            min: parseIntR10(options.sentencesPerParagraphMin),
+          }
+        : {}),
+
+      ...(options.sentencesPerParagraphMax !== undefined
+        ? {
+            max: parseIntR10(options.sentencesPerParagraphMax),
+          }
+        : {}),
+    },
+    //
+    wordsPerSentence: {
+      ...(options.wordsPerSentenceMin !== undefined
+        ? {
+            min: parseIntR10(options.wordsPerSentenceMin),
+          }
+        : {}),
+
+      ...(options.wordsPerSentenceMax !== undefined
+        ? {
+            max: parseIntR10(options.wordsPerSentenceMax),
+          }
+        : {}),
+    },
+  };
 }

@@ -1,26 +1,26 @@
 import express from 'express';
 import fullfiller from 'fullfiller/src';
-import { breakdownOptionType, optionsType } from 'fullfiller-common/src/types';
-import { objectFilter, parseIntR10 } from 'fullfiller-common/src/utils';
+import {
+  breakdownOptionType,
+  optionsType,
+  flatOptionsType,
+} from 'fullfiller-common/src/types';
+import {
+  objectFilter,
+  parseIntR10,
+  unflattenBreakdownOptions,
+} from 'fullfiller-common/src/utils';
 
 import 'cross-fetch/dist/node-polyfill';
 
+// for requests containing query parameters or body
 type inputsType = { query: string } & optionsType;
 
 // requests with route parameters doesn't support objects
 // those requests may contain flat breakdown options which must be unflatten (converted to objects)
 // before being passed to fullfiller function
 // e.g. wordsPerSentenceMin => wordsPerSentence.min
-type routeParamsInputsType = Omit<
-  inputsType,
-  'sentencesPerParagraph' | 'wordsPerSentence'
-> &
-  Partial<{
-    sentencesPerParagraphMin: number;
-    sentencesPerParagraphMax: number;
-    wordsPerSentenceMin: number;
-    wordsPerSentenceMax: number;
-  }>;
+type routeParamsInputsType = { query: string } & flatOptionsType;
 
 // used for requests containing query parameters or x-www-form-urlencoded body
 // parameters to be converted: quantity, sentencesPerParagraph and wordsPerSentence
@@ -51,51 +51,6 @@ function convertNumericParametersToNumbers(inputs: inputsType) {
       return [k, v];
     })
   ) as inputsType;
-}
-
-function unflattenBreakdownOptions(inputs: routeParamsInputsType): inputsType {
-  return {
-    // filter out flat breakdown options (e.g. wordsPerSentenceMin)
-    ...objectFilter(
-      inputs,
-      ([k]) =>
-        ![
-          'sentencesPerParagraphMin',
-          'sentencesPerParagraphMax',
-          'wordsPerSentenceMin',
-          'wordsPerSentenceMax',
-        ].includes(k)
-    ),
-
-    // convert flat breakdown options to objects (e.g. wordsPerSentenceMin => wordsPerSentence.min)
-    sentencesPerParagraph: {
-      ...(inputs.sentencesPerParagraphMin !== undefined
-        ? {
-            min: parseIntR10(inputs.sentencesPerParagraphMin),
-          }
-        : {}),
-
-      ...(inputs.sentencesPerParagraphMax !== undefined
-        ? {
-            max: parseIntR10(inputs.sentencesPerParagraphMax),
-          }
-        : {}),
-    },
-    //
-    wordsPerSentence: {
-      ...(inputs.wordsPerSentenceMin !== undefined
-        ? {
-            min: parseIntR10(inputs.wordsPerSentenceMin),
-          }
-        : {}),
-
-      ...(inputs.wordsPerSentenceMax !== undefined
-        ? {
-            max: parseIntR10(inputs.wordsPerSentenceMax),
-          }
-        : {}),
-    },
-  };
 }
 
 const app = express();
@@ -148,7 +103,7 @@ app.get(
     const inputs = objectFilter(req.params, ([, v]) => v !== ''); // filter out empty inputs
 
     const { query, ...options } = {
-      ...unflattenBreakdownOptions(inputs),
+      ...(unflattenBreakdownOptions(inputs) as inputsType),
 
       ...(inputs.quantity !== undefined
         ? {
