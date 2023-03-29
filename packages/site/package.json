@@ -27,6 +27,7 @@
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.9",
     "fullfiller": "file:../fullfiller",
-    "fullfiller-common": "file:../common"
+    "fullfiller-common": "file:../common",
+    "idb": "7.1.1"
   }
 }

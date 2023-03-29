@@ -3,8 +3,24 @@ import { faCopy, faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faCheck, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fullfiller from 'fullfiller/src';
-import { outputType, WithRequired } from 'fullfiller-common/src/types';
+import {
+  outputType,
+  WithRequired,
+  freqMapType,
+} from 'fullfiller-common/src/types';
+import { openDB, DBSchema } from 'idb';
 import React from 'react';
+
+type fullfillerDBType = DBSchema & {
+  cache: {
+    key: string;
+    value: {
+      title: string;
+      query: string[];
+      map: freqMapType;
+    };
+  };
+};
 
 function Form(): JSX.Element {
   // input
@@ -19,11 +35,44 @@ function Form(): JSX.Element {
   const [output, setOutputBase] = React.useState({ title: '', body: '' });
 
   const setOutput = async () => {
-    const filler = (await fullfiller(input, {
-      unit: unit as 'paragraphs' | 'words',
-      quantity,
-      format: format as 'plain' | 'html',
-    })) as WithRequired<outputType, 'title'>;
+    const db = await openDB<fullfillerDBType>('fullfiller', 1, {
+      upgrade(database) {
+        database.createObjectStore('cache', { keyPath: 'title' });
+      },
+    });
+
+    const record = (await db.getAll('cache')).find((r) =>
+      r.query.includes(input)
+    );
+
+    const filler = (await fullfiller(
+      record !== undefined ? { title: record.title, map: record.map } : input,
+      {
+        unit: unit as 'paragraphs' | 'words',
+        quantity,
+        format: format as 'plain' | 'html',
+      },
+      ['title', 'freqMap']
+    )) as WithRequired<outputType, 'title' | 'freqMap'>;
+
+    if (record === undefined) {
+      const recordWithMatchingTitle = await db.get('cache', filler.title);
+
+      if (recordWithMatchingTitle !== undefined) {
+        await db.put('cache', {
+          ...recordWithMatchingTitle,
+          query: [...recordWithMatchingTitle.query, input],
+        });
+      } else {
+        await db.add('cache', {
+          query: [input],
+          title: filler.title,
+          map: filler.freqMap,
+        });
+      }
+    }
+
+    db.close();
 
     setOutputBase({
       title: filler.title,
