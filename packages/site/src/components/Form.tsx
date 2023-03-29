@@ -3,6 +3,7 @@ import { faCopy, faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faCheck, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fullfiller from 'fullfiller/src';
+import { outputType, WithRequired } from 'fullfiller-common/src/types';
 import React from 'react';
 
 function Form(): JSX.Element {
@@ -18,11 +19,11 @@ function Form(): JSX.Element {
   const [output, setOutputBase] = React.useState({ title: '', body: '' });
 
   const setOutput = async () => {
-    const filler = await fullfiller(input, {
+    const filler = (await fullfiller(input, {
       unit: unit as 'paragraphs' | 'words',
       quantity,
       format: format as 'plain' | 'html',
-    });
+    })) as WithRequired<outputType, 'title'>;
 
     setOutputBase({
       title: filler.title,

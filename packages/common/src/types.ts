@@ -74,4 +74,13 @@ export type flatOptionsType = Omit<
     wordsPerSentenceMax: number;
   }>;
 
+export type outputType = {
+  body: string;
+  title?: string;
+  freqMap?: freqMapType;
+};
+
 export type DeepRequired<T> = { [P in keyof T]-?: DeepRequired<T[P]> };
+
+/** set to required the key(s) passed as K */
+export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };

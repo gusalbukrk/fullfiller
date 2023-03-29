@@ -11,6 +11,7 @@ import {
   freqMapInputType,
   articleType,
   DeepRequired,
+  outputType,
 } from 'fullfiller-common/src/types';
 import generateText from 'generate-random-text/src';
 import generateFreqMap from 'generate-words-freqmap/src';
@@ -18,11 +19,6 @@ import getWikipediaArticle from 'get-wikipedia-article/src';
 import tokenizeWords from 'tokenize-words/src';
 
 import validate from './validate';
-
-type output = {
-  title: string;
-  body: string;
-};
 
 /** @returns one of the possible input types. See more at {@link inputType}. */
 function getInputType(
@@ -59,12 +55,14 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
  * Feature-rich filler text generator.
  * @param input Filler text will be generated from this parameter.
  * @param options Miscellaneous options.
- * @returns Text object containing title and body.
+ * @param include What should be included on the output object besides the body.
+ * @returns Filler object containing body and maybe (depending on include) title and freqMap.
  */
 async function fullfiller(
   input: inputType,
-  optionsArg: optionsType = {}
-): Promise<output> {
+  optionsArg: optionsType = {},
+  include: Array<keyof outputType> = ['title']
+): Promise<outputType> {
   const options = mergeOptions(optionsArg);
 
   validate(input, options);
@@ -95,16 +93,26 @@ async function fullfiller(
       );
 
     case 'freqMap':
-      const output = generateText(
-        (input as freqMapInputType).map ?? freqMap!,
-        options
-      ) as string;
+      const fm = (input as freqMapInputType).map ?? freqMap!;
+
+      const output = generateText(fm, options) as string;
 
       return {
-        title:
-          (input as textInputType | wordsArrayInputType | freqMapInputType)
-            .title ?? article!.title,
         body: output,
+
+        ...(include.includes('title')
+          ? {
+              title:
+                (
+                  input as
+                    | textInputType
+                    | wordsArrayInputType
+                    | freqMapInputType
+                ).title ?? article!.title,
+            }
+          : {}),
+
+        ...(include.includes('freqMap') ? { freqMap: fm } : {}),
       };
 
     default:
