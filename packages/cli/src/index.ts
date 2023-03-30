@@ -47,7 +47,7 @@ type inputsType = { query: string } & optionsType;
     program.opts()
   ) as inputsType;
 
-  const article = await fullfiller(query, options);
+  const filler = await fullfiller(query, options);
 
-  console.log(article); // eslint-disable-line no-console
+  console.log(filler); // eslint-disable-line no-console
 })().catch((e) => console.error(e)); // eslint-disable-line no-console

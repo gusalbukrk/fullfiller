@@ -74,7 +74,8 @@ export type flatOptionsType = Omit<
     wordsPerSentenceMax: number;
   }>;
 
-export type outputType = {
+// fullfiller return type
+export type fillerType = {
   body: string;
   title?: string;
   freqMap?: freqMapType;

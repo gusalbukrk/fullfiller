@@ -89,9 +89,9 @@ app.get(
         ? convertNumericParametersToNumbers(inputs)
         : inputs;
 
-    const article = await fullfiller(query, options);
+    const filler = await fullfiller(query, options);
 
-    res.status(200).json(article);
+    res.status(200).json(filler);
   }
 );
 
@@ -112,9 +112,9 @@ app.get(
         : {}),
     };
 
-    const article = await fullfiller(query, options);
+    const filler = await fullfiller(query, options);
 
-    res.status(200).json(article);
+    res.status(200).json(filler);
   }
 );
 

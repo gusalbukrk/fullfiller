@@ -17,11 +17,11 @@ describe('main function', () => {
     async ({ input }) => {
       expect.assertions(3);
 
-      const output = await fullfiller(input);
+      const filler = await fullfiller(input);
 
-      expect(Object.keys(output)).toHaveLength(2);
-      expect(output.title).toBe('Lorem ipsum');
-      expect(typeof output.body).toBe('string');
+      expect(Object.keys(filler)).toHaveLength(2);
+      expect(filler.title).toBe('Lorem ipsum');
+      expect(typeof filler.body).toBe('string');
     },
     15000
   );

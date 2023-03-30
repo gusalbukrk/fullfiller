@@ -1,7 +1,9 @@
+import CustomError from 'fullfiller-common/src/CustomError';
 import {
   sentencesPerParagraphDefault,
   wordsPerSentenceDefault,
 } from 'fullfiller-common/src/constants';
+import { invalidInput } from 'fullfiller-common/src/errorMessages';
 import {
   inputType,
   queryInputType,
@@ -11,7 +13,7 @@ import {
   freqMapInputType,
   articleType,
   DeepRequired,
-  outputType,
+  fillerType,
 } from 'fullfiller-common/src/types';
 import generateText from 'generate-random-text/src';
 import generateFreqMap from 'generate-words-freqmap/src';
@@ -55,14 +57,14 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
  * Feature-rich filler text generator.
  * @param input Filler text will be generated from this parameter.
  * @param options Miscellaneous options.
- * @param include What should be included on the output object besides the body.
+ * @param include What should be included on the output besides the body.
  * @returns Filler object containing body and maybe (depending on include) title and freqMap.
  */
 async function fullfiller(
   input: inputType,
   optionsArg: optionsType = {},
-  include: Array<keyof outputType> = ['title']
-): Promise<outputType> {
+  include: Array<keyof fillerType> = ['title']
+): Promise<fillerType> {
   const options = mergeOptions(optionsArg);
 
   validate(input, options);
@@ -76,11 +78,9 @@ async function fullfiller(
   */
   switch (getInputType(input)) {
     case 'query':
-      const article = (await getWikipediaArticle(input as queryInputType, [
-        'title',
-        'body',
-        'related',
-      ])) as Required<Pick<articleType, 'title' | 'body' | 'related'>>;
+      const article = (await getWikipediaArticle(
+        input as queryInputType
+      )) as Required<Pick<articleType, 'title' | 'body'>>;
 
     case 'text':
       const wordsArray = tokenizeWords(
@@ -95,10 +95,10 @@ async function fullfiller(
     case 'freqMap':
       const fm = (input as freqMapInputType).map ?? freqMap!;
 
-      const output = generateText(fm, options) as string;
+      const body = generateText(fm, options) as string;
 
       return {
-        body: output,
+        body,
 
         ...(include.includes('title')
           ? {
@@ -116,8 +116,7 @@ async function fullfiller(
       };
 
     default:
-      // TODO: improve handling of unknown input type
-      throw new Error('Invalid input type');
+      throw new CustomError(invalidInput, 'fullfiller');
   }
   /*
     eslint-enable

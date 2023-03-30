@@ -4,7 +4,7 @@ import { faCheck, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fullfiller from 'fullfiller/src';
 import {
-  outputType,
+  fillerType,
   WithRequired,
   freqMapType,
 } from 'fullfiller-common/src/types';
@@ -53,7 +53,7 @@ function Form(): JSX.Element {
         format: format as 'plain' | 'html',
       },
       ['title', 'freqMap']
-    )) as WithRequired<outputType, 'title' | 'freqMap'>;
+    )) as WithRequired<fillerType, 'title' | 'freqMap'>;
 
     if (record === undefined) {
       const recordWithMatchingTitle = await db.get('cache', filler.title);
