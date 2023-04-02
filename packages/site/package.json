@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "description": "",
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "fullfiller"
+  ],
   "private": true,
   "type": "module",
   "main": "src/index.ts",

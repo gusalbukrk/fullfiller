@@ -5,10 +5,17 @@
   "description": "Generate a weighted random function from a frequency map.",
   "license": "MIT",
   "keywords": [
+    "fullfiller",
     "random",
     "weighted",
     "weights"
   ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/tree/main/packages/weighted-randomness#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/weighted-randomness"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",

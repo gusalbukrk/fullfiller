@@ -4,7 +4,15 @@
   "version": "0.0.3-alpha.0",
   "description": "Common files for fullfiller monorepo.",
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "fullfiller"
+  ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/tree/main/packages/common#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/common"
+  },
   "type": "module",
   "engines": {
     "node": ">=14.0.0"

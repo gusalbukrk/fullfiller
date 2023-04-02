@@ -5,12 +5,16 @@
   "description": "Utilities for working with English stopwords.",
   "license": "MIT",
   "keywords": [
-    "stopwords",
-    "isStopword",
-    "getRandomStopword",
-    "NLP",
-    "natural language processing"
+    "fullfiller",
+    "nlp",
+    "stopwords"
   ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/tree/main/packages/stopwords-utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/stopwords-utils"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",

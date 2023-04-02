@@ -5,16 +5,22 @@
   "description": "Feature-rich filler text generator.",
   "license": "MIT",
   "keywords": [
-    "generator",
-    "text",
+    "fullfiller",
     "lorem",
     "ipsum",
     "filler",
+    "text",
     "dummy",
     "placeholder",
     "mockup",
     "prototyping"
   ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/fullfiller"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",

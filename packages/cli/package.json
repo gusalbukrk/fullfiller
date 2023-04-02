@@ -2,9 +2,26 @@
   "name": "fullfiller-cli",
   "author": "gusalbukrk",
   "version": "0.0.0-alpha",
-  "description": "",
+  "description": "Command-line interface for fullfiller.",
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "fullfiller",
+    "cli",
+    "lorem",
+    "ipsum",
+    "filler",
+    "text",
+    "dummy",
+    "placeholder",
+    "mockup",
+    "prototyping"
+  ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/tree/main/packages/cli#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/cli"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",

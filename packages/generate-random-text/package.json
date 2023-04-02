@@ -5,11 +5,16 @@
   "description": "Randomly generate text using given frequency map.",
   "license": "MIT",
   "keywords": [
+    "fullfiller",
     "random",
-    "generator",
-    "text",
-    "frequency map"
+    "text"
   ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/tree/main/packages/generate-random-text#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/generate-random-text"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",

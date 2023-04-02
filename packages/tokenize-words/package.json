@@ -5,13 +5,18 @@
   "description": "Break down text into array of words.",
   "license": "MIT",
   "keywords": [
+    "fullfiller",
+    "nlp",
     "tokenizer",
     "tokenization",
-    "segmentation",
-    "word segmentation",
-    "NLP",
-    "natural language processing"
+    "segmentation"
   ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/tree/main/packages/tokenize-words#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/tokenize-words"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",

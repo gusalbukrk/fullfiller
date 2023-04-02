@@ -2,14 +2,21 @@
   "name": "get-wikipedia-article",
   "author": "gusalbukrk",
   "version": "0.0.3-alpha.0",
-  "description": "Fetch Wikipedia article resources.",
+  "description": "Fetch Wikipedia article resources (e.g. title, body, links...).",
   "license": "MIT",
   "keywords": [
-    "wikipedia",
+    "fullfiller",
     "api",
-    "search",
-    "article"
+    "wiki",
+    "wikipedia",
+    "encyclopedia"
   ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/tree/main/packages/get-wikipedia-article#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/get-wikipedia-article"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",

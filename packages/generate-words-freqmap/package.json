@@ -5,8 +5,17 @@
   "description": "Generate frequency map from array of strings.",
   "license": "MIT",
   "keywords": [
-    "frequency map"
+    "fullfiller",
+    "nlp",
+    "frequency",
+    "occurrences"
   ],
+  "homepage": "https://github.com/gusalbukrk/fullfiller/tree/main/packages/generate-words-freqmap#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusalbukrk/fullfiller.git",
+    "directory": "packages/generate-words-freqmap"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",
