@@ -1,6 +1,7 @@
 import { program } from 'commander';
 import fullfiller from 'fullfiller/src';
 import { unflattenBreakdownOptions } from 'fullfiller-common/src/utils';
+import inquirer from 'inquirer';
 
 import pkg from '../package.json';
 
@@ -11,7 +12,8 @@ import 'cross-fetch/dist/node-polyfill';
     .name('fullfiller')
     .description('feature-rich filler text generator')
     .version(pkg.version, '-v, --version')
-    .argument('<query>', 'Wikipedia query string')
+    .argument('[query]', 'Wikipedia query string') // optional only for interactive mode
+    .option('-i, --interactive', 'interactive mode')
     .option('-u, --unit <string>', '`paragraphs` or `words`')
     .option(
       '-q, --quantity <number>',
@@ -42,10 +44,24 @@ import 'cross-fetch/dist/node-polyfill';
 
   program.parse();
 
-  const query = program.args[0];
-  const options = unflattenBreakdownOptions(program.opts());
+  if (program.opts().interactive === true) {
+    console.log('interactive mode');
 
-  const filler = await fullfiller(query, options);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'query',
+      },
+    ]);
 
-  console.log(filler); // eslint-disable-line no-console
+    console.log(answers);
+  } else {
+    const query = program.args[0];
+    const options = unflattenBreakdownOptions(program.opts());
+
+    const filler = await fullfiller(query, options);
+
+    console.log(filler); // eslint-disable-line no-console
+  }
 })().catch((e) => console.error(e)); // eslint-disable-line no-console
