@@ -1,18 +1,17 @@
 import { program } from 'commander';
 import fullfiller from 'fullfiller/src';
-import { optionsType } from 'fullfiller-common/src/types';
 import { unflattenBreakdownOptions } from 'fullfiller-common/src/utils';
 
-import 'cross-fetch/dist/node-polyfill';
+import pkg from '../package.json';
 
-type inputsType = { query: string } & optionsType;
+import 'cross-fetch/dist/node-polyfill';
 
 (async () => {
   program
     .name('fullfiller')
     .description('feature-rich filler text generator')
-    .version('0.0.0')
-    .requiredOption('-Q, --query <string>', 'Wikipedia query string')
+    .version(pkg.version, '-v, --version')
+    .argument('<query>', 'Wikipedia query string')
     .option('-u, --unit <string>', '`paragraphs` or `words`')
     .option(
       '-q, --quantity <number>',
@@ -43,9 +42,8 @@ type inputsType = { query: string } & optionsType;
 
   program.parse();
 
-  const { query, ...options } = unflattenBreakdownOptions(
-    program.opts()
-  ) as inputsType;
+  const query = program.args[0];
+  const options = unflattenBreakdownOptions(program.opts());
 
   const filler = await fullfiller(query, options);
 
