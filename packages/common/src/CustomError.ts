@@ -1,5 +1,4 @@
 type libraryName =
-  | 'generate-random-text'
   | 'generate-words-freqmap'
   | 'get-wikipedia-article'
   | 'stopwords-utils'

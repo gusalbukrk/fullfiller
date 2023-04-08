@@ -24,11 +24,6 @@ export default {
     // futhermore, when typescript add support for `exports`, I'll probably add `./src` export
     // to every package for clarity's sake, which would make these aliases redundant
     alias: {
-      'generate-random-text': path.resolve(
-        __dirname,
-        '..',
-        'generate-random-text'
-      ),
       'generate-words-freqmap': path.resolve(
         __dirname,
         '..',

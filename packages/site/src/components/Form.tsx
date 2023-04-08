@@ -7,6 +7,7 @@ import {
   fillerType,
   WithRequired,
   freqMapType,
+  Overwrite,
 } from 'fullfiller-common/src/types';
 import { openDB, DBSchema } from 'idb';
 import React from 'react';
@@ -53,7 +54,10 @@ function Form(): JSX.Element {
         format: format as 'plain' | 'html',
       },
       ['title', 'freqMap']
-    )) as WithRequired<fillerType, 'title' | 'freqMap'>;
+    )) as WithRequired<
+      Overwrite<fillerType, { body: string }>,
+      'title' | 'freqMap'
+    >;
 
     if (record === undefined) {
       const recordWithMatchingTitle = await db.get('cache', filler.title);

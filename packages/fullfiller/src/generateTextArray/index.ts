@@ -4,7 +4,7 @@ import weightedRandomness from 'weighted-randomness/src';
 import capitalizeAndPunctuateSentence from './capitalizeAndPunctuateSentence';
 import getRandomWord from './getRandomWord';
 
-function generateTextArray(
+function generateTextArray( // TODO: rename function
   freqMap: freqMapType,
   distribution: number[][]
 ): string[][][] {

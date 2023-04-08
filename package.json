@@ -103,7 +103,6 @@
     "cli": "file:packages/cli",
     "fullfiller": "file:packages/fullfiller",
     "fullfiller-common": "file:packages/common",
-    "generate-random-text": "file:packages/generate-random-text",
     "generate-words-freqmap": "file:packages/generate-words-freqmap",
     "get-wikipedia-article": "file:packages/get-wikipedia-article",
     "site": "file:packages/site",

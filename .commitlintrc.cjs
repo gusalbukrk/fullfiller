@@ -26,7 +26,6 @@ module.exports = {
         'cli',
         'common',
         'fullfiller',
-        'generate-random-text',
         'generate-words-freqmap',
         'get-wikipedia-article',
         'site',

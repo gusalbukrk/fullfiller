@@ -53,12 +53,12 @@
     "test": "node --no-experimental-fetch ../../node_modules/jest/bin/jest --passWithNoTests"
   },
   "dependencies": {
-    "generate-random-text": "file:../generate-random-text",
     "generate-words-freqmap": "file:../generate-words-freqmap",
     "get-wikipedia-article": "file:../get-wikipedia-article",
     "stopwords-utils": "file:../stopwords-utils",
     "tokenize-words": "file:../tokenize-words",
-    "fullfiller-common": "file:../common"
+    "fullfiller-common": "file:../common",
+    "weighted-randomness": "file:../weighted-randomness"
   },
   "devDependencies": {
     "cross-fetch": "^3.1.5"

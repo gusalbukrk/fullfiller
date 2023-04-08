@@ -150,7 +150,6 @@ import fullfiller from 'fullfiller';
 - [tokenize-words](https://github.com/gusalbukrk/fullfiller/tree/main/packages/tokenize-words): Break down text into array of words.
 - [generate-words-freqmap](https://github.com/gusalbukrk/fullfiller/tree/main/packages/generate-words-freqmap): Generate frequency map from array of strings.
 - [weighted-randomness](https://github.com/gusalbukrk/fullfiller/tree/main/packages/weighted-randomness): Generate a weighted random function from a frequency map.
-- [generate-random-text](https://github.com/gusalbukrk/fullfiller/tree/main/packages/generate-random-text): Randomly generate text using given frequency map.
 
 #### similar
 

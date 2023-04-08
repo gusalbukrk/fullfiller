@@ -76,7 +76,7 @@ export type flatOptionsType = Omit<
 
 // fullfiller return type
 export type fillerType = {
-  body: string;
+  body: string | string[][][];
   title?: string;
   freqMap?: freqMapType;
 };
@@ -85,3 +85,6 @@ export type DeepRequired<T> = { [P in keyof T]-?: DeepRequired<T[P]> };
 
 /** set to required the key(s) passed as K */
 export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
+/** add or alter (if it already exists) to T the properties of U */
+export type Overwrite<T, U> = Omit<T, keyof U> & U;

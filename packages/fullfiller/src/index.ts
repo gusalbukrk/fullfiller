@@ -15,11 +15,13 @@ import {
   DeepRequired,
   fillerType,
 } from 'fullfiller-common/src/types';
-import generateText from 'generate-random-text/src';
 import generateFreqMap from 'generate-words-freqmap/src';
 import getWikipediaArticle from 'get-wikipedia-article/src';
 import tokenizeWords from 'tokenize-words/src';
 
+import distribute from './distribute';
+import generateTextArray from './generateTextArray';
+import stringifyTextArray from './stringifyTextArray';
 import validate from './validate';
 
 /** @returns one of the possible input types. See more at {@link inputType}. */
@@ -63,7 +65,8 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
 async function fullfiller(
   input: inputType,
   optionsArg: optionsType = {},
-  include: Array<keyof fillerType> = ['title']
+  include: Array<keyof fillerType> = ['title'],
+  stringify = true
 ): Promise<fillerType> {
   const options = mergeOptions(optionsArg);
 
@@ -95,7 +98,17 @@ async function fullfiller(
     case 'freqMap':
       const fm = (input as freqMapInputType).map ?? freqMap!;
 
-      const body = generateText(fm, options) as string;
+      const distribution = distribute(
+        options.quantity,
+        options.unit,
+        options.sentencesPerParagraph,
+        options.wordsPerSentence
+      );
+
+      const bodyArray = generateTextArray(fm, distribution);
+      const body = stringify
+        ? stringifyTextArray(bodyArray, options.format)
+        : bodyArray;
 
       return {
         body,
