@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import fullfiller from 'fullfiller/src';
 import {
   breakdownOptionType,
@@ -118,7 +119,7 @@ app.get(
   }
 );
 
-const PORT = process.env.PORT || 8888;
+const PORT = process.env.PORT || 80;
 
 app.listen(
   PORT,
