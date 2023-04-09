@@ -85,9 +85,9 @@ app.get(
 
     const { query, ...options } =
       // unlike json, query parameters and x-www-form-urlencoded bodies only support strings
-      req.is('application/json') === false
-        ? convertNumericParametersToNumbers(inputs)
-        : inputs;
+      req.is('application/json') === 'json'
+        ? inputs
+        : convertNumericParametersToNumbers(inputs);
 
     const filler = await fullfiller(query, options);
 
