@@ -35,7 +35,7 @@
     "!src/**/*.spec.[jt]sx"
   ],
   "scripts": {
-    "build": "rollup -c ./rollup.config.js",
+    "build": "rollup -c ./rollup.config.js && mv dist api && mv api/bundle.js api/index.js",
     "lint": "eslint src/ --fix && cspell \"**\" -c ../../cspell.config.cjs --no-progress",
     "postbuild": "replace-in-file --configFile=./.replace-in-file.cjs",
     "test": "jest --passWithNoTests"

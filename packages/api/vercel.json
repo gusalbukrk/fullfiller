@@ -1,0 +1,6 @@
+{
+  "installCommand": "cd ../.. && npm install && cd packages/api",
+  "outputDirectory": ".",
+
+  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+}
