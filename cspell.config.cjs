@@ -16,6 +16,7 @@ module.exports = {
     'loglevel',
     'postbuild',
     'postpublish',
+    'vercel',
   ],
 
   ignorePaths: [
@@ -26,6 +27,22 @@ module.exports = {
   ],
 
   overrides: [
+    {
+      filename: '.gitignore',
+      words: [
+        'pids',
+        'jscoverage',
+        'lcov',
+        'wscript',
+        'jspm',
+        'tsbuildinfo',
+        'eslintcache',
+        'Microbundle',
+        'dotenv',
+        'nuxt',
+        'vuepress',
+      ],
+    },
     {
       filename: 'packages/get-wikipedia-article/',
       words: [
