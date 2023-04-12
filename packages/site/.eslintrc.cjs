@@ -71,6 +71,8 @@ module.exports = {
 
     'jest/require-hook': 'off',
 
+    // can only be enable when parser is set to @typescript-eslint/parser
+    // which only is the case for .ts and .tsx files (check overrides below)
     'jest/unbound-method': 'off',
   },
 
@@ -124,6 +126,8 @@ module.exports = {
         ],
 
         '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+
+        'jest/unbound-method': 'error',
       },
     },
     {

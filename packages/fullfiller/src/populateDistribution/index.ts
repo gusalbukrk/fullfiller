@@ -1,16 +1,16 @@
-import { freqMapType } from 'fullfiller-common/src/types';
+import { freqMapType, fillerBodyArrayType } from 'fullfiller-common/src/types';
 import weightedRandomness from 'weighted-randomness/src';
 
 import capitalizeAndPunctuateSentence from './capitalizeAndPunctuateSentence';
 import getRandomWord from './getRandomWord';
 
-function generateTextArray( // TODO: rename function
+function populateDistribution(
   freqMap: freqMapType,
   distribution: number[][]
-): string[][][] {
+): fillerBodyArrayType {
   const getRandomArticleWord = weightedRandomness(freqMap);
 
-  const textArray = distribution.map((paragraphBreakdown) =>
+  const populated = distribution.map((paragraphBreakdown) =>
     paragraphBreakdown.map((sentenceIntendedLength) =>
       capitalizeAndPunctuateSentence(
         Array.from({ length: sentenceIntendedLength }).reduce<string[]>(
@@ -28,7 +28,7 @@ function generateTextArray( // TODO: rename function
     )
   );
 
-  return textArray;
+  return populated;
 }
 
-export default generateTextArray;
+export default populateDistribution;

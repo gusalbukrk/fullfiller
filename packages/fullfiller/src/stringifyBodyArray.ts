@@ -1,13 +1,13 @@
-import { formatType } from 'fullfiller-common/src/types';
+import { formatType, fillerBodyArrayType } from 'fullfiller-common/src/types';
 
 const stringifyParagraph = (paragraph: string[][]) =>
   paragraph.map((sentence) => sentence.join(' ')).join(' ');
 
-function stringifyTextArray(
-  textArray: string[][][],
+function stringifyBodyArray(
+  bodyArray: fillerBodyArrayType,
   format: formatType
 ): string {
-  const text = textArray
+  const body = bodyArray
     .map((paragraph) =>
       format === 'plain'
         ? stringifyParagraph(paragraph)
@@ -15,7 +15,7 @@ function stringifyTextArray(
     )
     .join(format === 'plain' ? '\n' : '');
 
-  return text;
+  return body;
 }
 
-export default stringifyTextArray;
+export default stringifyBodyArray;

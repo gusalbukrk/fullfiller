@@ -74,10 +74,12 @@ export type flatOptionsType = Omit<
     wordsPerSentenceMax: number;
   }>;
 
+export type fillerBodyArrayType = string[][][];
+
 // fullfiller return type
 export type fillerType = {
-  body: string | string[][][];
   title?: string;
+  body: string | fillerBodyArrayType;
   freqMap?: freqMapType;
 };
 

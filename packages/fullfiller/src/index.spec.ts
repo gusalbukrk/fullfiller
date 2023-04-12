@@ -8,6 +8,7 @@ import {
   freqMapInputType,
   Overwrite,
   fillerType,
+  fillerBodyArrayType,
 } from 'fullfiller-common/src/types';
 import {
   capitalize,
@@ -41,10 +42,13 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
     async (quantity) => {
       expect.assertions(1);
 
-      const textArray = (
-        await fullfiller(freqMapDefault, { quantity }, undefined, false)
-      ).body;
-      expect(textArray).toHaveLength(quantity);
+      const { body } = await fullfiller(
+        freqMapDefault,
+        { quantity },
+        undefined,
+        false
+      );
+      expect(body).toHaveLength(quantity);
     }
   );
 
@@ -58,19 +62,17 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
   )('words', async (quantity) => {
     expect.assertions(1);
 
-    const textArray = (
-      (await fullfiller(
-        freqMapDefault,
-        {
-          unit: 'words',
-          quantity,
-        },
-        undefined,
-        false
-      )) as Overwrite<fillerType, { body: string[][][] }>
-    ).body;
+    const { body } = (await fullfiller(
+      freqMapDefault,
+      {
+        unit: 'words',
+        quantity,
+      },
+      undefined,
+      false
+    )) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
 
-    const wordsCount = textArray.reduce<number>(
+    const wordsCount = body.reduce<number>(
       (acc, paragraph) =>
         acc +
         paragraph.reduce<number>((acc2, sentence) => acc2 + sentence.length, 0),
@@ -83,16 +85,14 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
   it('sentences per paragraph', async () => {
     expect.assertions(2);
 
-    const textArray = (
-      (await fullfiller(
-        freqMapDefault,
-        { quantity: 15 },
-        undefined,
-        false
-      )) as Overwrite<fillerType, { body: string[][][] }>
-    ).body;
+    const { body } = (await fullfiller(
+      freqMapDefault,
+      { quantity: 15 },
+      undefined,
+      false
+    )) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
 
-    const sentencesPerParagraph = textArray.reduce<number[]>(
+    const sentencesPerParagraph = body.reduce<number[]>(
       (acc, paragraph) => acc.concat(paragraph.length),
       []
     );
@@ -107,16 +107,14 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
   it('words per sentence', async () => {
     expect.assertions(2);
 
-    const textArray = (
-      (await fullfiller(
-        freqMapDefault,
-        { quantity: 10 },
-        undefined,
-        false
-      )) as Overwrite<fillerType, { body: string[][][] }>
-    ).body;
+    const { body } = (await fullfiller(
+      freqMapDefault,
+      { quantity: 10 },
+      undefined,
+      false
+    )) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
 
-    const wordsPerSentence = textArray.reduce<number[]>(
+    const wordsPerSentence = body.reduce<number[]>(
       (acc, paragraph) =>
         acc.concat(
           paragraph.reduce<number[]>(
@@ -174,7 +172,7 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
     const allSentencesFirstLettersAreCapitalized = (
       (await fullfiller(freqMapDefault, {}, undefined, false)) as Overwrite<
         fillerType,
-        { body: string[][][] }
+        { body: fillerBodyArrayType }
       >
     ).body.every((paragraph) =>
       paragraph.every(
@@ -196,7 +194,7 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
             { quantity: 20 },
             undefined,
             false
-          )) as Overwrite<fillerType, { body: string[][][] }>
+          )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
         ).body
           .reduce((acc, paragraph) => acc.concat(paragraph))
           .map((sentence) => last(last(sentence).split('')))
@@ -217,7 +215,7 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
             { quantity: 40 },
             undefined,
             false
-          )) as Overwrite<fillerType, { body: string[][][] }>
+          )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
         ).body
           .map((paragraph) =>
             paragraph.map((sentence) => sentence.join(' ')).join(' ')
@@ -252,7 +250,7 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
         { quantity: 40 },
         undefined,
         false
-      )) as Overwrite<fillerType, { body: string[][][] }>
+      )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
     ).body
       .reduce((acc, paragraph) => acc.concat(paragraph))
       .every((sentence) =>
@@ -277,7 +275,7 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
         { quantity: 30 },
         undefined,
         false
-      )) as Overwrite<fillerType, { body: string[][][] }>
+      )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
     ).body
       .reduce((acc, paragraph) => acc.concat(paragraph))
       .every((sentence) => {
@@ -306,24 +304,24 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
 });
 
 describe('`fullfiller` returns correct word placement', () => {
-  let textArray: string[][][];
+  let body: fillerBodyArrayType;
 
   // eslint-disable-next-line jest/no-hooks
   beforeAll(async () => {
-    textArray = (
+    body = (
       (await fullfiller(
         freqMapDefault,
         { quantity: 25 },
         undefined,
         false
-      )) as Overwrite<fillerType, { body: string[][][] }>
+      )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
     ).body;
   });
 
   it("there're no more than 2 subsequent stopwords", () => {
     expect.assertions(1);
 
-    const noMoreThan2SubsequentStopwords = textArray.every((paragraph) =>
+    const noMoreThan2SubsequentStopwords = body.every((paragraph) =>
       paragraph.every((sentence) =>
         sentence.every((_, index, array) => {
           if (index === 0 || index === array.length - 1) return true;
@@ -341,7 +339,7 @@ describe('`fullfiller` returns correct word placement', () => {
   it("there're no more than 3 subsequent non-stopwords", () => {
     expect.assertions(1);
 
-    const noMoreThan3SubsequentNonStopwords = textArray.every((paragraph) =>
+    const noMoreThan3SubsequentNonStopwords = body.every((paragraph) =>
       paragraph.every((sentence) =>
         sentence.every((_, index, array) => {
           if (index === 0 || index >= array.length - 2) return true;
@@ -359,7 +357,7 @@ describe('`fullfiller` returns correct word placement', () => {
   it("sentences doesn't contain duplicate words", () => {
     expect.assertions(1);
 
-    const noDuplicateWords = textArray.every((paragraph) =>
+    const noDuplicateWords = body.every((paragraph) =>
       paragraph.every((sentence) =>
         sentence
           .map((word, index) =>
@@ -386,11 +384,10 @@ describe('`fullfiller` returns correct word placement', () => {
   it('sentences neither start nor end with numbers', () => {
     expect.assertions(1);
 
-    const sentencesNeitherStartNorEndWithNumbers = textArray.every(
-      (paragraph) =>
-        paragraph.every(
-          (sentence) => !isNumeric(sentence[0]) && !isNumeric(last(sentence))
-        )
+    const sentencesNeitherStartNorEndWithNumbers = body.every((paragraph) =>
+      paragraph.every(
+        (sentence) => !isNumeric(sentence[0]) && !isNumeric(last(sentence))
+      )
     );
 
     expect(sentencesNeitherStartNorEndWithNumbers).toBe(true);
@@ -399,7 +396,7 @@ describe('`fullfiller` returns correct word placement', () => {
   it("sentences doesn't have more than one number", () => {
     expect.assertions(1);
 
-    const noMoreThan1NumberPerSentence = textArray.every((paragraph) =>
+    const noMoreThan1NumberPerSentence = body.every((paragraph) =>
       paragraph.every(
         (sentence) => sentence.filter((word) => isNumeric(word)).length <= 1
       )

@@ -17,6 +17,7 @@ module.exports = {
     'postbuild',
     'postpublish',
     'vercel',
+    'npmignore',
   ],
 
   ignorePaths: [

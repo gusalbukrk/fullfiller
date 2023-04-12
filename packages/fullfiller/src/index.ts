@@ -20,8 +20,8 @@ import getWikipediaArticle from 'get-wikipedia-article/src';
 import tokenizeWords from 'tokenize-words/src';
 
 import distribute from './distribute';
-import generateTextArray from './generateTextArray';
-import stringifyTextArray from './stringifyTextArray';
+import populateDistribution from './populateDistribution';
+import stringifyBodyArray from './stringifyBodyArray';
 import validate from './validate';
 
 /** @returns one of the possible input types. See more at {@link inputType}. */
@@ -105,14 +105,12 @@ async function fullfiller(
         options.wordsPerSentence
       );
 
-      const bodyArray = generateTextArray(fm, distribution);
+      const bodyArray = populateDistribution(fm, distribution);
       const body = stringify
-        ? stringifyTextArray(bodyArray, options.format)
+        ? stringifyBodyArray(bodyArray, options.format)
         : bodyArray;
 
       return {
-        body,
-
         ...(include.includes('title')
           ? {
               title:
@@ -124,6 +122,8 @@ async function fullfiller(
                 ).title ?? article!.title,
             }
           : {}),
+
+        body,
 
         ...(include.includes('freqMap') ? { freqMap: fm } : {}),
       };
