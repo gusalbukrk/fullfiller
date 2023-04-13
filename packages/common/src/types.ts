@@ -54,6 +54,7 @@ export type optionsType = Partial<{
   unit: unitType;
   quantity: number;
   format: formatType;
+  stringify: boolean;
 
   // breakdown options
   sentencesPerParagraph: Partial<breakdownOptionType>;

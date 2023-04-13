@@ -22,6 +22,10 @@ import 'cross-fetch/dist/node-polyfill';
     )
     .option('-f, --format <string>', '`plain` (default) or `html`')
     .option(
+      '--no-stringify', // a negatable boolean (leading 'no-') is true by default
+      'return an array instead of string'
+    )
+    .option(
       '--sentencesPerParagraphMin <number>',
       'min quantity of sentences per paragraph',
       parseInt
@@ -62,6 +66,7 @@ import 'cross-fetch/dist/node-polyfill';
 
     const filler = await fullfiller(query, options);
 
-    console.log(filler); // eslint-disable-line no-console
+    // using console.dir instead of console.log because log only show the first 2 levels of depth
+    console.dir(filler, { depth: null, colors: true }); // eslint-disable-line no-console
   }
 })().catch((e) => console.error(e)); // eslint-disable-line no-console

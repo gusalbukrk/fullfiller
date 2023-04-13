@@ -9,6 +9,7 @@ import validateFormat from './validateFormat';
 import validateInput from './validateInput';
 import validateQuantity from './validateQuantity';
 import validateSentencesPerParagraph from './validateSentencesPerParagraph';
+import validateStringify from './validateStringify';
 import validateUnit from './validateUnit';
 import validateWordsPerSentence from './validateWordsPerSentence';
 
@@ -18,6 +19,7 @@ function validate(
     unit,
     quantity,
     format,
+    stringify,
     sentencesPerParagraph,
     wordsPerSentence,
   }: DeepRequired<optionsType>
@@ -27,6 +29,7 @@ function validate(
     validateUnit(unit),
     validateQuantity(quantity, unit, sentencesPerParagraph, wordsPerSentence),
     validateFormat(format),
+    validateStringify(stringify),
     validateSentencesPerParagraph(sentencesPerParagraph),
     validateWordsPerSentence(wordsPerSentence)
   );

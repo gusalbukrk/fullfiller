@@ -42,12 +42,10 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
     async (quantity) => {
       expect.assertions(1);
 
-      const { body } = await fullfiller(
-        freqMapDefault,
-        { quantity },
-        undefined,
-        false
-      );
+      const { body } = await fullfiller(freqMapDefault, {
+        quantity,
+        stringify: false,
+      });
       expect(body).toHaveLength(quantity);
     }
   );
@@ -62,15 +60,11 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
   )('words', async (quantity) => {
     expect.assertions(1);
 
-    const { body } = (await fullfiller(
-      freqMapDefault,
-      {
-        unit: 'words',
-        quantity,
-      },
-      undefined,
-      false
-    )) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
+    const { body } = (await fullfiller(freqMapDefault, {
+      unit: 'words',
+      quantity,
+      stringify: false,
+    })) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
 
     const wordsCount = body.reduce<number>(
       (acc, paragraph) =>
@@ -85,12 +79,10 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
   it('sentences per paragraph', async () => {
     expect.assertions(2);
 
-    const { body } = (await fullfiller(
-      freqMapDefault,
-      { quantity: 15 },
-      undefined,
-      false
-    )) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
+    const { body } = (await fullfiller(freqMapDefault, {
+      quantity: 15,
+      stringify: false,
+    })) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
 
     const sentencesPerParagraph = body.reduce<number[]>(
       (acc, paragraph) => acc.concat(paragraph.length),
@@ -107,12 +99,10 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
   it('words per sentence', async () => {
     expect.assertions(2);
 
-    const { body } = (await fullfiller(
-      freqMapDefault,
-      { quantity: 10 },
-      undefined,
-      false
-    )) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
+    const { body } = (await fullfiller(freqMapDefault, {
+      quantity: 10,
+      stringify: false,
+    })) as Overwrite<fillerType, { body: fillerBodyArrayType }>;
 
     const wordsPerSentence = body.reduce<number[]>(
       (acc, paragraph) =>
@@ -170,7 +160,7 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
     expect.assertions(1);
 
     const allSentencesFirstLettersAreCapitalized = (
-      (await fullfiller(freqMapDefault, {}, undefined, false)) as Overwrite<
+      (await fullfiller(freqMapDefault, { stringify: false })) as Overwrite<
         fillerType,
         { body: fillerBodyArrayType }
       >
@@ -189,12 +179,10 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
     const endOfSentencePunctuation = [
       ...new Set(
         (
-          (await fullfiller(
-            freqMapDefault,
-            { quantity: 20 },
-            undefined,
-            false
-          )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
+          (await fullfiller(freqMapDefault, {
+            quantity: 20,
+            stringify: false,
+          })) as Overwrite<fillerType, { body: fillerBodyArrayType }>
         ).body
           .reduce((acc, paragraph) => acc.concat(paragraph))
           .map((sentence) => last(last(sentence).split('')))
@@ -210,12 +198,10 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
     const midOfSentencePunctuation = [
       ...new Set(
         (
-          (await fullfiller(
-            freqMapDefault,
-            { quantity: 40 },
-            undefined,
-            false
-          )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
+          (await fullfiller(freqMapDefault, {
+            quantity: 40,
+            stringify: false,
+          })) as Overwrite<fillerType, { body: fillerBodyArrayType }>
         ).body
           .map((paragraph) =>
             paragraph.map((sentence) => sentence.join(' ')).join(' ')
@@ -245,12 +231,10 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
       /[,;:]/.test(word);
 
     const wordsBetweenPunctuationAreNeitherStopwordsNorNumbers = (
-      (await fullfiller(
-        freqMapDefault,
-        { quantity: 40 },
-        undefined,
-        false
-      )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
+      (await fullfiller(freqMapDefault, {
+        quantity: 40,
+        stringify: false,
+      })) as Overwrite<fillerType, { body: fillerBodyArrayType }>
     ).body
       .reduce((acc, paragraph) => acc.concat(paragraph))
       .every((sentence) =>
@@ -270,12 +254,10 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
     expect.assertions(1);
 
     const wordsBetweenPunctuationAreNotStopwords = (
-      (await fullfiller(
-        freqMapDefault,
-        { quantity: 30 },
-        undefined,
-        false
-      )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
+      (await fullfiller(freqMapDefault, {
+        quantity: 30,
+        stringify: false,
+      })) as Overwrite<fillerType, { body: fillerBodyArrayType }>
     ).body
       .reduce((acc, paragraph) => acc.concat(paragraph))
       .every((sentence) => {
@@ -309,12 +291,10 @@ describe('`fullfiller` returns correct word placement', () => {
   // eslint-disable-next-line jest/no-hooks
   beforeAll(async () => {
     body = (
-      (await fullfiller(
-        freqMapDefault,
-        { quantity: 25 },
-        undefined,
-        false
-      )) as Overwrite<fillerType, { body: fillerBodyArrayType }>
+      (await fullfiller(freqMapDefault, {
+        quantity: 25,
+        stringify: false,
+      })) as Overwrite<fillerType, { body: fillerBodyArrayType }>
     ).body;
   });
 

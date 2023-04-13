@@ -42,6 +42,7 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
     unit: optionsArg.unit ?? 'paragraphs',
     quantity: optionsArg.quantity ?? (optionsArg.unit === 'words' ? 200 : 5),
     format: optionsArg.format ?? 'plain',
+    stringify: optionsArg.stringify ?? true,
 
     sentencesPerParagraph: {
       ...sentencesPerParagraphDefault,
@@ -65,8 +66,7 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
 async function fullfiller(
   input: inputType,
   optionsArg: optionsType = {},
-  include: Array<keyof fillerType> = ['title'],
-  stringify = true
+  include: Array<keyof fillerType> = ['title']
 ): Promise<fillerType> {
   const options = mergeOptions(optionsArg);
 
@@ -106,7 +106,7 @@ async function fullfiller(
       );
 
       const bodyArray = populateDistribution(fm, distribution);
-      const body = stringify
+      const body = options.stringify
         ? stringifyBodyArray(bodyArray, options.format)
         : bodyArray;
 

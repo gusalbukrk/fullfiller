@@ -125,6 +125,7 @@ import fullfiller from 'fullfiller';
     unit: 'paragraphs', // 'paragraphs' or 'words'
     quantity: 5, // number
     format: 'plain', // 'plain' or 'html'
+    stringify: true, // if false, filler.body would be an 3D array instead of string
     sentencesPerParagraph: {
       min: 4,
       max: 8,

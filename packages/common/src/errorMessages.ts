@@ -11,14 +11,17 @@ export const textTooShort =
   'Expected given text (in `input.body` argument) to have at least 150 words.';
 //
 export const invalidUnit =
-  "Expected `unit` argument to be 'words' or 'paragraphs'.";
+  'Expected `unit` argument to be `words` or `paragraphs`.';
 //
 export const quantityNotNumber = 'Expected `quantity` argument to be a number.';
 export const quantityTooSmall = (wordsMinimum: number) =>
   `Expected \`quantity\` argument to be greater than 1 paragraph / ${wordsMinimum} words.`;
 //
 export const invalidFormat =
-  "Expected `format` argument to be 'plain' or 'html'.";
+  'Expected `format` argument to be `plain` or `html`.';
+//
+export const invalidStringify =
+  'Expected `stringify` argument to be a boolean (`true` or `false`).';
 //
 export const invalidSentencesPerParagraph =
   'Expected `sentencesPerParagraph` argument to be an object (`{ min: number, max: number }`).';

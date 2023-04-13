@@ -24,11 +24,19 @@ type inputsType = { query: string } & optionsType;
 type routeParamsInputsType = { query: string } & flatOptionsType;
 
 // used for requests containing query parameters or x-www-form-urlencoded body
-// parameters to be converted: quantity, sentencesPerParagraph and wordsPerSentence
-function convertNumericParametersToNumbers(inputs: inputsType) {
+// convert: quantity, sentencesPerParagraph & wordsPerSentence to numbers; stringify to boolean
+function convertParameters(inputs: inputsType) {
   return Object.fromEntries(
     Object.entries(inputs).map(([k, v]) => {
       if (k === 'quantity') return [k, parseIntR10(v as number)];
+
+      // convert to boolean only if stringify is 'true' or 'false'
+      // otherwise, pass as it is so fullfiller validate can throw invalidStringify error
+      if (k === 'stringify')
+        return [
+          k,
+          ['true', 'false'].includes(v as unknown as string) ? v === 'true' : v,
+        ];
 
       if (k === 'sentencesPerParagraph' || k === 'wordsPerSentence') {
         return [
@@ -88,7 +96,7 @@ app.get(
       // unlike json, query parameters and x-www-form-urlencoded bodies only support strings
       req.is('application/json') === 'json'
         ? inputs
-        : convertNumericParametersToNumbers(inputs);
+        : convertParameters(inputs);
 
     const filler = await fullfiller(query, options);
 
@@ -99,7 +107,9 @@ app.get(
 // endpoint handles requests with route parameters (also known as path)
 app.get(
   // {0,} = you can leave parameter empty while still being able to declare subsequent parameters
-  '/api/:query/:unit(\\w{0,})?/:quantity(\\d{0,})?/:format(\\w{0,})?/:sentencesPerParagraphMin(\\d{0,})?/:sentencesPerParagraphMax(\\d{0,})?/:wordsPerSentenceMin(\\d{0,})?/:wordsPerSentenceMax(\\d{0,})?',
+  // `\\w` is preferred over for instance `(paragraphs|words)` so errors can be
+  // treated in fullfiller instead of getting an generic `Cannot GET` error
+  '/api/:query/:unit(\\w{0,})?/:quantity(\\d{0,})?/:format(\\w{0,})?/:stringify(\\w{0,})?/:sentencesPerParagraphMin(\\d{0,})?/:sentencesPerParagraphMax(\\d{0,})?/:wordsPerSentenceMin(\\d{0,})?/:wordsPerSentenceMax(\\d{0,})?',
   async (req: { params: routeParamsInputsType }, res) => {
     const inputs = objectFilter(req.params, ([, v]) => v !== ''); // filter out empty inputs
 
@@ -109,6 +119,15 @@ app.get(
       ...(inputs.quantity !== undefined
         ? {
             quantity: parseIntR10(inputs.quantity),
+          }
+        : {}),
+
+      // convert to boolean only if stringify is 'true' or 'false'
+      // otherwise, pass as it is so fullfiller validate can throw invalidStringify error
+      ...(inputs.stringify !== undefined &&
+      ['true', 'false'].includes(inputs.stringify as unknown as string)
+        ? {
+            stringify: (inputs.stringify as unknown as string) === 'true',
           }
         : {}),
     };
