@@ -1,6 +1,9 @@
 // https://commitlint.js.org/#/reference-rules
 // https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional
 
+// eslint-disable-next-line import/no-extraneous-dependencies, node/no-unpublished-require
+const defaults = require('@commitlint/config-conventional');
+
 module.exports = {
   extends: [
     '@commitlint/config-conventional',
@@ -33,6 +36,14 @@ module.exports = {
         'tokenize-words',
         'weighted-randomness',
       ],
+    ],
+
+    // if @commitlint/prompt-cli were being used,
+    // would additionally need to add any new type to `defaults.prompt.questions.type.enum`
+    'type-enum': [
+      2,
+      'always',
+      [...defaults.rules['type-enum'][2], 'config'].sort(),
     ],
   },
 };

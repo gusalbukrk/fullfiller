@@ -8,7 +8,9 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "daily" # on every weekday (Monday to Friday)
 
     # https://github.com/dependabot/dependabot-core/issues/4993#issuecomment-1289133027
     versioning-strategy: increase
+
+    open-pull-requests-limit: 100 # default is 5 for version updates
