@@ -39,7 +39,7 @@
     "@types/react-dom": "^18.0.11",
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
-    "@typescript-eslint/parser": "^5.57.0",
+    "@typescript-eslint/parser": "^5.58.0",
     "babel-loader": "^9.1.2",
     "babel-plugin-styled-components": "^2.0.7",
     "clean-webpack-plugin": "*",
