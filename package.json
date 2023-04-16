@@ -43,7 +43,7 @@
     "babel-loader": "^9.1.2",
     "babel-plugin-styled-components": "^2.0.7",
     "clean-webpack-plugin": "*",
-    "core-js": "^3.29.1",
+    "core-js": "^3.30.1",
     "cross-fetch": "^3.1.5",
     "cspell": "^6.31.1",
     "css-loader": "^6.7.3",
