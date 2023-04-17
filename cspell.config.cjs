@@ -25,6 +25,7 @@ module.exports = {
     'dist/',
     'cspell.config.cjs', // otherwise, would've to be included in every `overrides.filename`
     '.git/',
+    'packages/get-wikipedia-article/src/languages.json',
   ],
 
   overrides: [
@@ -61,6 +62,8 @@ module.exports = {
         'opensearch',
         'pageprops',
         'ppprop',
+        'sitematrix',
+        'localname',
       ],
     },
     {
