@@ -16,6 +16,11 @@ import getArticleTerms from './getArticleTerms';
 import getMatchingArticlesTitles from './getMatchingArticlesTitles';
 import queryPointsToADisambiguationPage from './queryPointsToADisambiguationPage';
 
+type optionsType = Partial<{
+  include: includeType;
+  format: formatType;
+}>;
+
 const includeDefault: includeType = ['title', 'body'];
 
 /**
@@ -29,8 +34,7 @@ const includeDefault: includeType = ['title', 'body'];
  */
 async function getWikipediaArticle(
   query: string,
-  include: includeType = includeDefault,
-  { format = 'plain' }: Partial<{ format: formatType }> = {}
+  { include = includeDefault, format = 'plain' }: optionsType = {}
 ): Promise<articleType> {
   if (include.length === 0) include.push(...includeDefault);
 

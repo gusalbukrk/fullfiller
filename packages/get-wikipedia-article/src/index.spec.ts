@@ -42,7 +42,7 @@ describe('main function returns correctly', () => {
       'label',
     ].sort() as includeType;
 
-    const article = await getWikipediaArticle('harry potter', include);
+    const article = await getWikipediaArticle('harry potter', { include });
 
     expect(Object.keys(article).sort()).toStrictEqual(include);
 
@@ -63,7 +63,9 @@ describe('main function returns correctly', () => {
   it('request summary, but not body (that is, use `getArticleSummary`)', async () => {
     expect.assertions(3);
 
-    const article = await getWikipediaArticle('harry potter', ['summary']);
+    const article = await getWikipediaArticle('harry potter', {
+      include: ['summary'],
+    });
 
     expect(Object.keys(article)).toStrictEqual(['summary']);
     expect(typeof article.summary).toBe('string');
@@ -91,7 +93,9 @@ describe('main function throws errors correctly', () => {
     );
 
     // when there're suggestions
-    await expect(getWikipediaArticle(query, ['related'])).rejects.toThrow(
+    await expect(
+      getWikipediaArticle(query, { include: ['related'] })
+    ).rejects.toThrow(
       new RegExp(`^${articleIsDisambiguation([]).split(/(?<=\.)\s/)[0]}`)
     );
   });
