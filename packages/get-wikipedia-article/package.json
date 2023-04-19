@@ -41,7 +41,7 @@
     "!src/**/*.spec.[jt]sx"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js",
+    "build": "rollup -c ../../rollup.config.js",
     "lint": "eslint src/ --fix && cspell \"**\" -c ../../cspell.config.cjs --no-progress",
     "postbuild": "eslint dist/index.d.ts --fix --no-ignore && replace-in-file --configFile=../../.replace-in-file.cjs",
     "postpublish": "rimraf dist/",
