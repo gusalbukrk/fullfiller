@@ -1,4 +1,4 @@
-import { formatType } from 'fullfiller-common/src/types';
+import { formatType, languagesType } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 
@@ -14,6 +14,7 @@ type response = {
  * @returns Wikipedia article body.
  */
 async function getArticleSummary(
+  language: languagesType,
   title: string,
   format: formatType
 ): Promise<string> {
@@ -26,7 +27,7 @@ async function getArticleSummary(
     titles: encodeURIComponent(title),
   };
 
-  const resp = (await fetchResource(queries)) as unknown as response;
+  const resp = (await fetchResource(language, queries)) as unknown as response;
 
   const summary = resp.extract;
 

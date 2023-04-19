@@ -1,3 +1,5 @@
+import { languages } from './constants';
+
 type tier = string[];
 /** e.g.: `{ 1: ['foo', 'bar'], 3: ['baz'] }` */
 export type freqMapType = {
@@ -83,6 +85,8 @@ export type fillerType = {
   body: string | fillerBodyArrayType;
   freqMap?: freqMapType;
 };
+
+export type languagesType = keyof typeof languages;
 
 export type DeepRequired<T> = { [P in keyof T]-?: DeepRequired<T[P]> };
 

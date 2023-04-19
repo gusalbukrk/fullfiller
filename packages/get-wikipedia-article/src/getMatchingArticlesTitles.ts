@@ -1,5 +1,6 @@
 import CustomError from 'fullfiller-common/src/CustomError';
 import { articleNotFound } from 'fullfiller-common/src/errorMessages';
+import { languagesType } from 'fullfiller-common/src/types';
 
 import { generateRequestURL } from './common/utils';
 
@@ -12,9 +13,10 @@ import { generateRequestURL } from './common/utils';
  */
 async function getMatchingArticlesTitles(
   query: string,
+  language: languagesType,
   single = false
 ): Promise<string[]> {
-  const requestURL = generateRequestURL({
+  const requestURL = generateRequestURL(language, {
     action: 'opensearch',
     limit: single ? 1 : 'max',
 

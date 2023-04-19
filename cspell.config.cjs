@@ -81,5 +81,9 @@ module.exports = {
         'Snape',
       ],
     },
+    {
+      filename: './packages/common/src/languages.js',
+      words: ['localname'],
+    },
   ],
 };

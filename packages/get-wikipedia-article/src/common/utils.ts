@@ -1,12 +1,15 @@
-import { queriesType } from 'fullfiller-common/src/types';
+import { languagesType, queriesType } from 'fullfiller-common/src/types';
 
 /**
  * Join Wikipedia API base URL and `queries`.
  * @param queries Object to be converted to query string.
  * @returns URL to make API call.
  */
-export function generateRequestURL(queries: queriesType): string {
-  const baseAPI = `https://en.wikipedia.org/w/api.php?&format=json&origin=*&`;
+export function generateRequestURL(
+  language: languagesType,
+  queries: queriesType
+): string {
+  const baseAPI = `https://${language}.wikipedia.org/w/api.php?&format=json&origin=*&`;
 
   const queryString = Object.entries(queries)
     .map(([key, value]) =>
@@ -37,9 +40,10 @@ type response = {
  * @returns Object containing json.query.pages[pageID] and json.continue (if it exists) contents.
  */
 export async function fetchResource(
+  language: languagesType,
   queries: queriesType
 ): Promise<Record<string, unknown>> {
-  const url = generateRequestURL(queries);
+  const url = generateRequestURL(language, queries);
 
   const json = (await (await fetch(url)).json()) as response;
 
