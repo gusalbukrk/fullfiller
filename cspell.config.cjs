@@ -25,6 +25,7 @@ module.exports = {
     'dist/',
     'cspell.config.cjs', // otherwise, would've to be included in every `overrides.filename`
     '.git/',
+    './packages/stopwords-utils/src/stopwords.json',
   ],
 
   overrides: [
@@ -84,6 +85,10 @@ module.exports = {
     {
       filename: './packages/common/src/languages.js',
       words: ['localname'],
+    },
+    {
+      filename: './packages/stopwords-utils/README.md',
+      words: ['Lucene', 'Stoplist'],
     },
   ],
 };
