@@ -2,11 +2,11 @@ import CustomError from 'fullfiller-common/src/CustomError';
 import { articleIsDisambiguation } from 'fullfiller-common/src/errorMessages';
 import {
   articleType,
-  includeType,
   formatType,
   termsType,
 } from 'fullfiller-common/src/types';
 
+import { includeType } from './common/types';
 import extractSummaryFromBody from './extractSummaryFromBody';
 import getArticleBody from './getArticleBody';
 import getArticleCategories from './getArticleCategories';

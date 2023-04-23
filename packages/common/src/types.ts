@@ -44,17 +44,18 @@ export type articleType = Partial<
   } & termsType
 >;
 
-export type includeType = Array<keyof articleType>;
-
 export type queriesType = {
   [key: string]: string | number | boolean | undefined;
 };
+
+export type includeType = Array<keyof fillerType>;
 
 export type optionsType = Partial<{
   unit: unitType;
   quantity: number;
   format: formatType;
   stringify: boolean;
+  include: includeType;
 
   // breakdown options
   sentencesPerParagraph: Partial<breakdownOptionType>;

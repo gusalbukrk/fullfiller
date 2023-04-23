@@ -52,8 +52,8 @@ function Form(): JSX.Element {
         unit: unit as 'paragraphs' | 'words',
         quantity,
         format: format as 'plain' | 'html',
-      },
-      ['title', 'freqMap']
+        include: ['title', 'freqMap'],
+      }
     )) as WithRequired<
       Overwrite<fillerType, { body: string }>,
       'title' | 'freqMap'

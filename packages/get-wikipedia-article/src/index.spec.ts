@@ -4,7 +4,8 @@ import {
   articleNotFound,
   articleIsDisambiguation,
 } from 'fullfiller-common/src/errorMessages';
-import { includeType } from 'fullfiller-common/src/types';
+
+import { includeType } from './common/types';
 
 import getWikipediaArticleBase from '.';
 

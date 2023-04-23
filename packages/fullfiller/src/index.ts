@@ -43,6 +43,7 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
     quantity: optionsArg.quantity ?? (optionsArg.unit === 'words' ? 200 : 5),
     format: optionsArg.format ?? 'plain',
     stringify: optionsArg.stringify ?? true,
+    include: optionsArg.include ?? ['title'],
 
     sentencesPerParagraph: {
       ...sentencesPerParagraphDefault,
@@ -65,8 +66,7 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
  */
 async function fullfiller(
   input: inputType,
-  optionsArg: optionsType = {},
-  include: Array<keyof fillerType> = ['title']
+  optionsArg: optionsType = {}
 ): Promise<fillerType> {
   const options = mergeOptions(optionsArg);
 
@@ -111,7 +111,7 @@ async function fullfiller(
         : bodyArray;
 
       return {
-        ...(include.includes('title')
+        ...(options.include.includes('title')
           ? {
               title:
                 (
@@ -125,7 +125,7 @@ async function fullfiller(
 
         body,
 
-        ...(include.includes('freqMap') ? { freqMap: fm } : {}),
+        ...(options.include.includes('freqMap') ? { freqMap: fm } : {}),
       };
 
     default:
