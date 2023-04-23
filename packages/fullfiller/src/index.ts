@@ -39,6 +39,7 @@ function getInputType(
 // merge default options with options passed as argument
 function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
   return {
+    language: optionsArg.language ?? 'en',
     unit: optionsArg.unit ?? 'paragraphs',
     quantity: optionsArg.quantity ?? (optionsArg.unit === 'words' ? 200 : 5),
     format: optionsArg.format ?? 'plain',

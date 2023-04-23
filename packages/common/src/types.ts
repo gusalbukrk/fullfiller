@@ -111,7 +111,10 @@ export type languagesTypeSU =
   | 'zh'
   | 'zu';
 
+export type languagesType = languagesTypeGWA & languagesTypeSU;
+
 export type optionsType = Partial<{
+  language: languagesType;
   unit: unitType;
   quantity: number;
   format: formatType;
