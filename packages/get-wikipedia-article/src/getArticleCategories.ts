@@ -1,3 +1,5 @@
+import { languagesTypeGWA as languagesType } from 'fullfiller-common/src/types';
+
 import { fetchResource } from './common/utils';
 
 type response = {
@@ -9,7 +11,10 @@ type response = {
  * @param title Wikipedia article title.
  * @returns Array of Wikipedia categories names.
  */
-async function getArticleCategories(title: string): Promise<string[]> {
+async function getArticleCategories(
+  language: languagesType,
+  title: string
+): Promise<string[]> {
   const queries = {
     action: 'query',
     prop: 'categories',
@@ -24,7 +29,7 @@ async function getArticleCategories(title: string): Promise<string[]> {
   // (https://en.wikipedia.org/wiki/Special:MostCategories);
   // request below will fetch at most 500 normal (not hidden) categories
 
-  const resp = (await fetchResource(queries)) as unknown as response;
+  const resp = (await fetchResource(language, queries)) as unknown as response;
 
   const categories = resp.categories.map((obj) =>
     obj.title.replace(/^Category:/, '')

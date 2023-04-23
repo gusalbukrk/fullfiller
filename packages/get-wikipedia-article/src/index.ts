@@ -1,9 +1,11 @@
 import CustomError from 'fullfiller-common/src/CustomError';
+import { languages } from 'fullfiller-common/src/constants';
 import { articleIsDisambiguation } from 'fullfiller-common/src/errorMessages';
 import {
   articleType,
   formatType,
   termsType,
+  languagesTypeGWA as languagesType,
 } from 'fullfiller-common/src/types';
 
 import { includeType } from './common/types';
@@ -17,6 +19,7 @@ import getMatchingArticlesTitles from './getMatchingArticlesTitles';
 import queryPointsToADisambiguationPage from './queryPointsToADisambiguationPage';
 
 type optionsType = Partial<{
+  language: languagesType;
   include: includeType;
   format: formatType;
 }>;
@@ -34,8 +37,21 @@ const includeDefault: includeType = ['title', 'body'];
  */
 async function getWikipediaArticle(
   query: string,
-  { include = includeDefault, format = 'plain' }: optionsType = {}
+  {
+    language = 'en',
+    include = includeDefault,
+    format = 'plain',
+  }: optionsType = {}
 ): Promise<articleType> {
+  if (!Object.keys(languages).includes(language)) {
+    throw new CustomError(
+      `Unrecognized language. Available languages are: ${Object.keys(
+        languages
+      ).join(', ')}.`,
+      'get-wikipedia-article'
+    );
+  }
+
   if (include.length === 0) include.push(...includeDefault);
 
   const article: articleType = {};
@@ -43,14 +59,17 @@ async function getWikipediaArticle(
   // fetch title, related
   if (include.includes('title') && include.includes('related')) {
     // first result will be selected as the article to be fetched
-    const [title, ...related] = await getMatchingArticlesTitles(query);
+    const [title, ...related] = await getMatchingArticlesTitles(
+      language,
+      query
+    );
     article.title = title;
     article.related = related;
   } else if (include.includes('title')) {
-    const [title] = await getMatchingArticlesTitles(query);
+    const [title] = await getMatchingArticlesTitles(language, query);
     article.title = title;
   } else if (include.includes('related')) {
-    const [, ...related] = await getMatchingArticlesTitles(query);
+    const [, ...related] = await getMatchingArticlesTitles(language, query);
     article.related = related;
   }
 
@@ -60,7 +79,7 @@ async function getWikipediaArticle(
 
   // the only option other than to make a separate request at main function checking if page is
   // disambiguation, would be to check if page is disambiguation at every resource request
-  if (await queryPointsToADisambiguationPage(titleQuery)) {
+  if (await queryPointsToADisambiguationPage(language, titleQuery)) {
     throw new CustomError(
       articleIsDisambiguation(article.related || [] /* suggestions */),
       'get-wikipedia-article'
@@ -69,24 +88,24 @@ async function getWikipediaArticle(
 
   // fetch body
   if (include.includes('body')) {
-    article.body = await getArticleBody(titleQuery, format);
+    article.body = await getArticleBody(language, titleQuery, format);
   }
 
   // fetch summary
   if (include.includes('summary')) {
     article.summary = article.body
       ? extractSummaryFromBody(article.body, format)
-      : await getArticleSummary(titleQuery, format);
+      : await getArticleSummary(language, titleQuery, format);
   }
 
   // fetch categories
   if (include.includes('categories')) {
-    article.categories = await getArticleCategories(titleQuery);
+    article.categories = await getArticleCategories(language, titleQuery);
   }
 
   // fetch links
   if (include.includes('links')) {
-    article.links = await getArticleLinks(titleQuery);
+    article.links = await getArticleLinks(language, titleQuery);
   }
 
   // fetch terms
@@ -95,7 +114,7 @@ async function getWikipediaArticle(
   ).filter((term) => include.includes(term));
 
   if (termsToInclude.length > 0) {
-    const terms = await getArticleTerms(titleQuery, termsToInclude);
+    const terms = await getArticleTerms(language, titleQuery, termsToInclude);
 
     (Object.keys(terms) as (keyof termsType)[]).forEach((term) => {
       article[term] = terms[term];

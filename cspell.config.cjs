@@ -25,6 +25,7 @@ module.exports = {
     'dist/',
     'cspell.config.cjs', // otherwise, would've to be included in every `overrides.filename`
     '.git/',
+    './packages/common/src/languages.json',
   ],
 
   overrides: [
@@ -80,6 +81,10 @@ module.exports = {
         'wizarding',
         'Snape',
       ],
+    },
+    {
+      filename: './packages/common/src/languages.js',
+      words: ['sitematrix', 'localname'],
     },
   ],
 };

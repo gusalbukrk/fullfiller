@@ -1,3 +1,5 @@
+import { languages } from './constants';
+
 type tier = string[];
 /** e.g.: `{ 1: ['foo', 'bar'], 3: ['baz'] }` */
 export type freqMapType = {
@@ -49,6 +51,9 @@ export type queriesType = {
 };
 
 export type includeType = Array<keyof fillerType>;
+
+// languagesType used on `get-wikipedia-article`'s main function
+export type languagesTypeGWA = keyof typeof languages;
 
 export type optionsType = Partial<{
   unit: unitType;

@@ -1,4 +1,7 @@
-import { queriesType } from 'fullfiller-common/src/types';
+import {
+  queriesType,
+  languagesTypeGWA as languagesType,
+} from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 
@@ -7,15 +10,18 @@ type response = {
   plcontinue: string;
 };
 
-async function getLinksRecursively(queries: queriesType): Promise<string[]> {
-  const resp = (await fetchResource(queries)) as unknown as response;
+async function getLinksRecursively(
+  language: languagesType,
+  queries: queriesType
+): Promise<string[]> {
+  const resp = (await fetchResource(language, queries)) as unknown as response;
 
   const links = resp.links.map((obj) => obj.title);
 
   return !('plcontinue' in resp)
     ? links
     : links.concat(
-        await getLinksRecursively({
+        await getLinksRecursively(language, {
           ...queries,
           plcontinue: encodeURIComponent(resp.plcontinue),
         })
@@ -27,7 +33,10 @@ async function getLinksRecursively(queries: queriesType): Promise<string[]> {
  * @param title Wikipedia article title.
  * @returns Array of Wikipedia articles titles.
  */
-async function getArticleLinks(title: string): Promise<string[]> {
+async function getArticleLinks(
+  language: languagesType,
+  title: string
+): Promise<string[]> {
   const queries = {
     action: 'query',
     prop: 'links',
@@ -37,7 +46,7 @@ async function getArticleLinks(title: string): Promise<string[]> {
     titles: encodeURIComponent(title),
   };
 
-  const links = await getLinksRecursively(queries);
+  const links = await getLinksRecursively(language, queries);
 
   return links;
 }

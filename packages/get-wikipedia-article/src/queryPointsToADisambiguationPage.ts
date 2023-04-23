@@ -1,3 +1,5 @@
+import { languagesTypeGWA as languagesType } from 'fullfiller-common/src/types';
+
 import { fetchResource } from './common/utils';
 
 type response = {
@@ -7,6 +9,7 @@ type response = {
 };
 
 async function queryPointsToADisambiguationPage(
+  language: languagesType,
   title: string
 ): Promise<boolean> {
   const queries = {
@@ -17,7 +20,7 @@ async function queryPointsToADisambiguationPage(
     titles: encodeURIComponent(title),
   };
 
-  const resp = (await fetchResource(queries)) as unknown as response;
+  const resp = (await fetchResource(language, queries)) as unknown as response;
 
   const pointsToDisambiguation = resp.pageprops?.disambiguation !== undefined;
 
