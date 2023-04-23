@@ -10,14 +10,14 @@ describe('isStopword', () => {
     expect(isStopword('THE')).toBe(true);
   });
 
-  // it(`single letter isn't stopword, except 'a' & 'i'`, () => {
-  //   expect.assertions(4);
+  it(`single letter isn't stopword, except 'a' & 'i'`, () => {
+    expect.assertions(4);
 
-  //   expect(isStopword('a')).toBe(true);
-  //   expect(isStopword('i')).toBe(true);
-  //   expect(isStopword('t')).toBe(false);
-  //   expect(isStopword('e')).toBe(false);
-  // });
+    expect(isStopword('a')).toBe(true);
+    expect(isStopword('i')).toBe(true);
+    expect(isStopword('t')).toBe(false);
+    expect(isStopword('e')).toBe(false);
+  });
 });
 
 // describe('getRandomStopword', () => {
