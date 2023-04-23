@@ -26,6 +26,7 @@ module.exports = {
     'cspell.config.cjs', // otherwise, would've to be included in every `overrides.filename`
     '.git/',
     './packages/common/src/languages.json',
+    './packages/common/src/stopwords.json',
   ],
 
   overrides: [
@@ -85,6 +86,10 @@ module.exports = {
     {
       filename: './packages/common/src/languages.js',
       words: ['sitematrix', 'localname'],
+    },
+    {
+      filename: './packages/common/README.md',
+      words: ['Lucene', 'Stoplist'],
     },
   ],
 };

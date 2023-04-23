@@ -47,6 +47,7 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "fullfiller-common": "file:./common",
     "weighted-randomness": "file:../weighted-randomness"
   }
 }

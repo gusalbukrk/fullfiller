@@ -52,8 +52,64 @@ export type queriesType = {
 
 export type includeType = Array<keyof fillerType>;
 
-// languagesType used on `get-wikipedia-article`'s main function
+// languagesType used on `get-wikipedia-article`
 export type languagesTypeGWA = keyof typeof languages;
+
+// languagesType used on `stopwords-utils`
+// equivalent to `keyof typeof stopwords`
+// which can't be used directly because json can't be packed in declaration file
+// error: `RollupError: Could not resolve "./stopwords.json" from "dist/types/index.d.ts"`
+export type languagesTypeSU =
+  | 'af'
+  | 'ar'
+  | 'bg'
+  | 'bn'
+  | 'br'
+  | 'ca'
+  | 'cs'
+  | 'da'
+  | 'de'
+  | 'el'
+  | 'en'
+  | 'eo'
+  | 'es'
+  | 'et'
+  | 'eu'
+  | 'fa'
+  | 'fi'
+  | 'fr'
+  | 'ga'
+  | 'gl'
+  | 'ha'
+  | 'he'
+  | 'hi'
+  | 'hr'
+  | 'hu'
+  | 'hy'
+  | 'id'
+  | 'it'
+  | 'ja'
+  | 'ko'
+  | 'la'
+  | 'lv'
+  | 'mr'
+  | 'nl'
+  | 'no'
+  | 'pl'
+  | 'pt'
+  | 'ro'
+  | 'ru'
+  | 'sk'
+  | 'sl'
+  | 'so'
+  | 'st'
+  | 'sv'
+  | 'sw'
+  | 'th'
+  | 'tr'
+  | 'yo'
+  | 'zh'
+  | 'zu';
 
 export type optionsType = Partial<{
   unit: unitType;

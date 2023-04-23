@@ -1,12 +1,14 @@
-import weightedRandomness from 'weighted-randomness/src';
+import stopwords from 'fullfiller-common/src/stopwords.json';
+import { languagesTypeSU as languagesType } from 'fullfiller-common/src/types';
 
-import mostCommonStopwordsFreqMap from './mostCommonStopwordsFreqMap.json';
-import stopwords from './stopwords.json';
-
-function isStopword(word: string): boolean {
-  return stopwords.includes(word.toLowerCase());
+function isStopword(word: string, language: languagesType = 'en'): boolean {
+  return stopwords[language].includes(word.toLowerCase());
 }
 
-const getRandomStopword = weightedRandomness(mostCommonStopwordsFreqMap);
+function getRandomStopword(language: languagesType = 'en') {
+  const sw = stopwords[language];
+
+  return sw[Math.floor(Math.random() * sw.length)];
+}
 
 export { isStopword, getRandomStopword };
