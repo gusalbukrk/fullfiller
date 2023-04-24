@@ -27,7 +27,7 @@
     "core-js": "^3.30.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^5.3.9",
+    "styled-components": "^5.3.10",
     "fullfiller": "file:../fullfiller",
     "fullfiller-common": "file:../common",
     "idb": "7.1.1"
