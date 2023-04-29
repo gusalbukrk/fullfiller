@@ -3,12 +3,14 @@ import { notEnoughWordsInWordsArray } from 'fullfiller-common/src/errorMessages'
 
 import normalizeText from './normalizeText';
 
-type optionsType = {
+type optionsType = Partial<{
   lengthMin: number;
-};
+  removeStopwords: boolean;
+}>;
 
-const optionsDefault: optionsType = {
+const optionsDefault: Required<optionsType> = {
   lengthMin: 0, // don't error even if return array is empty
+  removeStopwords: true,
 };
 
 /**
@@ -18,10 +20,11 @@ const optionsDefault: optionsType = {
  * @throws Error if `wordsArray` length is less than `options.lengthMin`.
  * @returns Array of words.
  */
-function tokenizeWords(text: string, optionsArg?: optionsType): string[] {
+function tokenizeWords(text: string, optionsArg: optionsType = {}): string[] {
   const options = { ...optionsDefault, ...optionsArg };
 
-  const wordsArray = normalizeText(text).match(/\S+/g) || [];
+  const wordsArray =
+    normalizeText(text, options.removeStopwords).match(/\S+/g) || [];
 
   const wordsArrayLength = wordsArray.length;
 

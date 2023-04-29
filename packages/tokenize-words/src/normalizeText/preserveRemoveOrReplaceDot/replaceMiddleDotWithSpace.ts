@@ -8,18 +8,24 @@ import { getCorrectWordCase } from '../../common/utils';
  *
  * @summary Replace dot with space and fix the case of the word after dot.
  */
-function replaceMiddleDotWithSpace(match: string, text: string): string {
+function replaceMiddleDotWithSpace(
+  match: string,
+  text: string,
+  removeStopwords: boolean
+): string {
   const [, wordBeforeDot, wordAfterDot] = /^(.+)\.(.+)$/.exec(
     match
   ) as unknown as [string, string, string];
-  const isWordBeforeDotStopword = isStopword(wordBeforeDot);
-  const isWordAfterDotStopword = isStopword(wordAfterDot);
+  if (removeStopwords) {
+    const isWordBeforeDotStopword = isStopword(wordBeforeDot);
+    const isWordAfterDotStopword = isStopword(wordAfterDot);
 
-  if (isWordBeforeDotStopword && isWordAfterDotStopword) return '';
-  if (isWordBeforeDotStopword) return getCorrectWordCase(wordAfterDot, text);
-  if (isWordAfterDotStopword) return wordBeforeDot;
+    if (isWordBeforeDotStopword && isWordAfterDotStopword) return '';
+    if (isWordBeforeDotStopword) return getCorrectWordCase(wordAfterDot, text);
+    if (isWordAfterDotStopword) return wordBeforeDot;
+  }
 
-  // if neither is stopword
+  // if removeStopwords is false or neither word is stopword
   return `${wordBeforeDot} ${getCorrectWordCase(wordAfterDot, text)}`;
 }
 

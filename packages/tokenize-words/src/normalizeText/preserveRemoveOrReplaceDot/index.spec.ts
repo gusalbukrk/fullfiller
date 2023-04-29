@@ -1,4 +1,7 @@
-import preserveRemoveOrReplaceDot from '.';
+import preserveRemoveOrReplaceDotBase from '.';
+
+const preserveRemoveOrReplaceDot = (text: string) =>
+  preserveRemoveOrReplaceDotBase(text, true);
 
 describe('preserveRemoveOrReplaceDot', () => {
   it('preserve dot if numeric value', () => {

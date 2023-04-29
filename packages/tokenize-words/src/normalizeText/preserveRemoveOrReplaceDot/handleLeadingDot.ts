@@ -8,11 +8,12 @@ import { getCorrectWordCase } from '../../common/utils';
  */
 function handleLeadingDot(
   wordContainingLeadingDot: string,
-  text: string
+  text: string,
+  removeStopwords: boolean
 ): string {
   const wordWithoutDot = wordContainingLeadingDot.substring(1);
 
-  if (isStopword(wordWithoutDot)) return '';
+  if (removeStopwords && isStopword(wordWithoutDot)) return '';
 
   const doesTextContainsMultipleOccurrences =
     (

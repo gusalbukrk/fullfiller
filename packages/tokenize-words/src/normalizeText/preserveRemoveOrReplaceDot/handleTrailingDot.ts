@@ -33,11 +33,12 @@ function shouldPreserveTrailingDot(
  */
 function handleTrailingDot(
   wordContainingTrailingDot: string,
-  text: string
+  text: string,
+  removeStopwords: boolean
 ): string {
   const wordWithoutDot = wordContainingTrailingDot.slice(0, -1);
 
-  if (isStopword(wordWithoutDot)) return '';
+  if (removeStopwords && isStopword(wordWithoutDot)) return '';
 
   const preserveTrailingDot = shouldPreserveTrailingDot(
     wordContainingTrailingDot,

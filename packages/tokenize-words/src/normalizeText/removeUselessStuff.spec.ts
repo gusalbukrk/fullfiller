@@ -1,4 +1,7 @@
-import removeUselessStuff from './removeUselessStuff';
+import removeUselessStuffBase from './removeUselessStuff';
+
+const removeUselessStuff = (string: string) =>
+  removeUselessStuffBase(string, true);
 
 // trim and collapse whitespace
 const trim = (str: string, replaceBy = ' ') =>

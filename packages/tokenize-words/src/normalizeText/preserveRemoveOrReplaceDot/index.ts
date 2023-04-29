@@ -4,7 +4,12 @@ import handleLeadingDot from './handleLeadingDot';
 import handleTrailingDot from './handleTrailingDot';
 import replaceMiddleDotWithSpace from './replaceMiddleDotWithSpace';
 
-function replacer(wordContainingDot: string, offset: number, whole: string) {
+function replacerBase(
+  wordContainingDot: string,
+  offset: number,
+  whole: string,
+  removeStopwords: boolean
+) {
   if (/^[.]+$/.test(wordContainingDot)) return '';
 
   // string containing only numeric values
@@ -18,8 +23,8 @@ function replacer(wordContainingDot: string, offset: number, whole: string) {
     wordContainingDot.match(/\./g)?.length === 1
   ) {
     return wordContainingDot.startsWith('.')
-      ? handleLeadingDot(wordContainingDot, whole)
-      : handleTrailingDot(wordContainingDot, whole);
+      ? handleLeadingDot(wordContainingDot, whole, removeStopwords)
+      : handleTrailingDot(wordContainingDot, whole, removeStopwords);
   }
 
   // fix something like `word.Word`
@@ -27,7 +32,7 @@ function replacer(wordContainingDot: string, offset: number, whole: string) {
     /[a-z0-9]\.[A-Z0-9]/.test(wordContainingDot) &&
     wordContainingDot.match(/\./g)?.length === 1
   ) {
-    return replaceMiddleDotWithSpace(wordContainingDot, whole);
+    return replaceMiddleDotWithSpace(wordContainingDot, whole, removeStopwords);
   }
 
   // else, preserve dot in:
@@ -39,7 +44,13 @@ function replacer(wordContainingDot: string, offset: number, whole: string) {
   return wordContainingDot;
 }
 
-function preserveRemoveOrReplaceDot(text: string): string {
+function preserveRemoveOrReplaceDot(
+  text: string,
+  removeStopwords: boolean
+): string {
+  const replacer = (wordContainingDot: string, offset: number, whole: string) =>
+    replacerBase(wordContainingDot, offset, whole, removeStopwords);
+
   return text.replace(
     /\S*\.\S*/g, // word containing dot(s) at any position
     replacer

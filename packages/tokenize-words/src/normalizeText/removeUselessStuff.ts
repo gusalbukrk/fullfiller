@@ -16,7 +16,7 @@ function preserveCommaOrColonIfSurroundedByNumbers(
   return isCommaOrColonSurroundedByNumbers ? preserved : removed;
 }
 
-function removeUselessStuff(string: string): string {
+function removeUselessStuff(string: string, removeStopwords: boolean): string {
   const removed = string
     // remove useless punctuation
     // `.?!,:;-–—<>[]{}()'"…` = 15 punctuations signs in english
@@ -31,7 +31,9 @@ function removeUselessStuff(string: string): string {
     .replace(/\n+/g, ' ')
 
     // remove stopwords
-    .replace(/\S+/g, (match: string) => (isStopword(match) ? '' : match))
+    .replace(/\S+/g, (match: string) =>
+      removeStopwords && isStopword(match) ? '' : match
+    )
 
     // remove space between initials
     .replace(
