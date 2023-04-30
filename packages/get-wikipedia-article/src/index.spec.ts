@@ -25,7 +25,7 @@ async function getWikipediaArticle(
 const isArrayOfStrings = (arg: unknown) =>
   Array.isArray(arg) && arg.every((el) => typeof el === 'string');
 
-jest.setTimeout(10000);
+jest.setTimeout(60000);
 
 describe('main function returns correctly', () => {
   it('request all resources', async () => {
@@ -56,7 +56,7 @@ describe('main function returns correctly', () => {
     expect(isArrayOfStrings(article.description)).toBe(true);
     expect(isArrayOfStrings(article.label)).toBe(true);
     expect(isArrayOfStrings(article.alias)).toBe(true);
-  }, 20000);
+  }, 120000);
 
   // when requesting `summary`,
   // `getArticleSummary` will only be used when `body` isn't requested

@@ -401,6 +401,6 @@ describe('`fullfiller` handles different input types correctly', () => {
       expect(filler.title).toBe('Lorem ipsum');
       expect(typeof filler.body).toBe('string');
     },
-    15000
+    60000
   );
 });
