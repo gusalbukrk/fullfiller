@@ -29,7 +29,7 @@ function replacerBase(
 
   // fix something like `word.Word`
   if (
-    /[a-z0-9]\.[A-Z0-9]/.test(wordContainingDot) &&
+    /[\p{Ll}\p{Nd}]\.[\p{Lu}\p{Nd}]/u.test(wordContainingDot) &&
     wordContainingDot.match(/\./g)?.length === 1
   ) {
     return replaceMiddleDotWithSpace(wordContainingDot, whole, removeStopwords);

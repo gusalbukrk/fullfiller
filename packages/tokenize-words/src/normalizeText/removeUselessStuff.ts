@@ -37,7 +37,7 @@ function removeUselessStuff(string: string, removeStopwords: boolean): string {
 
     // remove space between initials
     .replace(
-      /(^|\s)([A-Z]\.(\s|$)){2,}/g,
+      /(^|\s)(\p{Lu}\.(\s|$)){2,}/gu,
       (initials: string) => ` ${initials.replace(/\s/g, '')} `
     );
 

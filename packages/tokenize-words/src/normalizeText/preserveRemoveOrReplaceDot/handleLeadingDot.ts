@@ -19,8 +19,10 @@ function handleLeadingDot(
     (
       text.match(
         new RegExp(
-          `(^|\\W)${escapeRegExp(wordContainingLeadingDot)}(?=(\\W|$))`,
-          'g'
+          `(^|[^\\p{L}\\p{Nd}])${escapeRegExp(
+            wordContainingLeadingDot
+          )}(?=([^\\p{L}\\p{Nd}]|$))`,
+          'gu'
         )
       ) || []
     ).length > 1;

@@ -7,9 +7,9 @@ function handleCapitalizedLetterPrecededByDotOrStringBeginning(
   text: string
 ): string {
   return text.replace(
-    /(?:^|\.\s+)([A-Z]\S*)/g, // capitalizedLetterPrecededByDotOrStringBeginning
+    /(?:^|\.\s+)(\p{Lu}\S*)/gu, // capitalizedLetterPrecededByDotOrStringBeginning
     (match: string, wordAfterDot: string, _, whole: string): string =>
-      /^[A-Z]+$/.test(wordAfterDot)
+      /^[\p{Lu}]+$/u.test(wordAfterDot)
         ? match // if word is acronym (all uppercase), leave as it is
         : match.replace(wordAfterDot, getCorrectWordCase(wordAfterDot, whole))
   );
