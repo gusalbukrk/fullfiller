@@ -14,6 +14,7 @@ import shortenFreqMap from './shortenFreqMap';
  * @property tierWeightMin Filter out from return any tier which weight is less than this number.
  * @property tierWeightMax Filter out from return any tier which weight is more than this number.
  * @property mergePosteriorTiersAt Merge at this tier all posterior tiers (tiers w/ higher weight).
+ * @property caseInsensitive If `true`, all words will be converted to lowercase.
  */
 type optionsType = {
   emphasizeBy: number;
@@ -21,6 +22,7 @@ type optionsType = {
   tierWeightMin: number;
   tierWeightMax: number;
   mergePosteriorTiersAt: number;
+  caseInsensitive: boolean;
 };
 
 const optionsDefault: optionsType = {
@@ -29,6 +31,7 @@ const optionsDefault: optionsType = {
   tierWeightMin: 1, // don't filter out any tier
   tierWeightMax: -1, // disable option
   mergePosteriorTiersAt: -1, // disable option
+  caseInsensitive: false,
 };
 
 /**
@@ -47,7 +50,7 @@ function generateFreqMap(
   const options = { ...optionsDefault, ...optionsArg };
 
   const freqMapWordAsKey = emphasize(
-    generateFreqMapWordAsKey(wordsArray),
+    generateFreqMapWordAsKey(wordsArray, options.caseInsensitive),
     wordsToEmphasize || [],
     options.emphasizeBy
   );
