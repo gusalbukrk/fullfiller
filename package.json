@@ -84,7 +84,7 @@
     "style-loader": "^3.3.2",
     "stylelint": "^15.5.0",
     "stylelint-config-standard": "^33.0.0",
-    "stylelint-config-standard-scss": "^8.0.0",
+    "stylelint-config-standard-scss": "^9.0.0",
     "stylelint-order": "^6.0.3",
     "stylelint-prettier": "^3.0.0",
     "stylelint-webpack-plugin": "^4.1.1",
