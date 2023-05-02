@@ -5,7 +5,7 @@ import {
   articleType,
   formatType,
   termsType,
-  languagesTypeGWA as languagesType,
+  languagesTypeWikipedia as languagesType,
 } from 'fullfiller-common/src/types';
 
 import { includeType } from './common/types';

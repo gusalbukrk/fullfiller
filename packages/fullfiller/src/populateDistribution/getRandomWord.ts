@@ -3,7 +3,7 @@ import {
   isLowercase,
   isNumeric,
 } from 'fullfiller-common/src/utils';
-import { isStopword, getRandomStopword } from 'stopwords-utils/src';
+import { isStopword } from 'stopwords-utils/src';
 
 function isWordPlacementInvalid(
   randomWord: string,
@@ -27,7 +27,8 @@ function isWordPlacementInvalid(
 function getRandomWord(
   sentence: string[],
   sentenceIntendedLength: number,
-  getRandomArticleWord: () => string
+  getRandomArticleWord: () => string,
+  getRandomStopword: () => string
 ): string {
   let randomWord: string;
 

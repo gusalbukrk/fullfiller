@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { isStopword, getRandomStopword } from './index';
 
 describe('isStopword', () => {
@@ -20,27 +19,14 @@ describe('isStopword', () => {
   });
 });
 
-// describe('getRandomStopword', () => {
-//   it('all words in freqMap are returned', () => {
-//     expect.assertions(1);
+describe('getRandomStopword', () => {
+  it('returns `() => string`', () => {
+    expect.assertions(2);
 
-//     const stopwordsFreqMapCount = Object.keys(stopwordsFreqMap).reduce(
-//       (count, key) =>
-//         count + stopwordsFreqMap[key as keyof typeof stopwordsFreqMap].length,
-//       0
-//     );
+    const fn = getRandomStopword();
+    const sw = fn();
 
-//     function allWordsInFreqMapAreReturned(
-//       stopwords: Set<string> = new Set()
-//     ): true {
-//       const stopwordsUpdated = new Set([...stopwords]).add(getRandomStopword());
-
-//       return stopwordsUpdated.size === stopwordsFreqMapCount
-//         ? true
-//         : allWordsInFreqMapAreReturned(stopwordsUpdated);
-//     }
-
-//     expect(allWordsInFreqMapAreReturned()).toBe(true);
-//   });
-// });
-/* eslint-enable */
+    expect(typeof fn).toBe('function');
+    expect(typeof sw).toBe('string');
+  });
+});
