@@ -27,6 +27,7 @@ module.exports = {
     '.git/',
     './packages/common/src/languages.json',
     './packages/common/src/stopwords.json',
+    './packages/stopwords-utils/src/stopwords-frequency.json',
   ],
 
   overrides: [

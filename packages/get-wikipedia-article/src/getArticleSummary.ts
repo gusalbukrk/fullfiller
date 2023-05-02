@@ -1,6 +1,6 @@
 import {
   formatType,
-  languagesTypeGWA as languagesType,
+  languagesTypeWikipedia as languagesType,
 } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';

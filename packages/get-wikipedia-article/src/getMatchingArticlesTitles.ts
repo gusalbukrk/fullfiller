@@ -1,6 +1,6 @@
 import CustomError from 'fullfiller-common/src/CustomError';
 import { articleNotFound } from 'fullfiller-common/src/errorMessages';
-import { languagesTypeGWA as languagesType } from 'fullfiller-common/src/types';
+import { languagesTypeWikipedia as languagesType } from 'fullfiller-common/src/types';
 
 import { generateRequestURL } from './common/utils';
 

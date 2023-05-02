@@ -106,7 +106,11 @@ async function fullfiller(
         options.wordsPerSentence
       );
 
-      const bodyArray = populateDistribution(fm, distribution);
+      const bodyArray = populateDistribution(
+        fm,
+        options.language,
+        distribution
+      );
       const body = options.stringify
         ? stringifyBodyArray(bodyArray, options.format)
         : bodyArray;

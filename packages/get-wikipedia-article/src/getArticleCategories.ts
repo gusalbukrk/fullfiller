@@ -1,4 +1,4 @@
-import { languagesTypeGWA as languagesType } from 'fullfiller-common/src/types';
+import { languagesTypeWikipedia as languagesType } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 
