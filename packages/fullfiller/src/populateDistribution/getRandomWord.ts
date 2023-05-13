@@ -1,9 +1,10 @@
+import { languagesType } from 'fullfiller-common/src/types';
 import {
   capitalize,
   isLowercase,
   isNumeric,
 } from 'fullfiller-common/src/utils';
-import { isStopword } from 'stopwords-utils/src';
+import { isStopword as isStopwordBase } from 'stopwords-utils/src';
 
 function isWordPlacementInvalid(
   randomWord: string,
@@ -27,9 +28,12 @@ function isWordPlacementInvalid(
 function getRandomWord(
   sentence: string[],
   sentenceIntendedLength: number,
+  language: languagesType,
   getRandomArticleWord: () => string,
   getRandomStopword: () => string
 ): string {
+  const isStopword = (word: string) => isStopwordBase(word, language);
+
   let randomWord: string;
 
   do {

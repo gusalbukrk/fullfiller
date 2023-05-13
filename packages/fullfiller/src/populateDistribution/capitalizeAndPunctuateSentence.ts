@@ -1,11 +1,11 @@
-import { freqMapType } from 'fullfiller-common/src/types';
+import { freqMapType, languagesType } from 'fullfiller-common/src/types';
 import {
   capitalize,
   getRandomArrayElement,
   last,
   isNumeric,
 } from 'fullfiller-common/src/utils';
-import { isStopword } from 'stopwords-utils/src';
+import { isStopword as isStopwordBase } from 'stopwords-utils/src';
 import weightedRandomness from 'weighted-randomness/src';
 
 function capitalizeSentence(sentenceArray: string[]) {
@@ -33,7 +33,9 @@ function addEndSentencePunctuation(arr: string[]) {
   return sentenceArray;
 }
 
-function addMidSentencePunctuation(arr: string[]) {
+function addMidSentencePunctuation(arr: string[], language: languagesType) {
+  const isStopword = (word: string) => isStopwordBase(word, language);
+
   const sentenceArray = [...arr];
 
   if (sentenceArray.length > 8 && Math.random() < 0.8) {
@@ -98,11 +100,16 @@ function addMidSentencePunctuation(arr: string[]) {
   return sentenceArray;
 }
 
-function capitalizeAndPunctuateSentence(arr: string[]): string[] {
+function capitalizeAndPunctuateSentence(
+  arr: string[],
+  language: languagesType
+): string[] {
   const sentenceArray = [...arr];
 
   return capitalizeSentence(
-    addEndSentencePunctuation(addMidSentencePunctuation(sentenceArray))
+    addEndSentencePunctuation(
+      addMidSentencePunctuation(sentenceArray, language)
+    )
   );
 }
 

@@ -3,7 +3,7 @@ import {
   fillerBodyArrayType,
   languagesType,
 } from 'fullfiller-common/src/types';
-import { getRandomStopword as getRandomStopwordBase } from 'stopwords-utils/src';
+import { generateGetRandomStopwordFn } from 'stopwords-utils/src';
 import weightedRandomness from 'weighted-randomness/src';
 
 import capitalizeAndPunctuateSentence from './capitalizeAndPunctuateSentence';
@@ -15,7 +15,7 @@ function populateDistribution(
   distribution: number[][]
 ): fillerBodyArrayType {
   const getRandomArticleWord = weightedRandomness(freqMap);
-  const getRandomStopword = getRandomStopwordBase(language);
+  const getRandomStopword = generateGetRandomStopwordFn(language);
 
   const populated = distribution.map((paragraphBreakdown) =>
     paragraphBreakdown.map((sentenceIntendedLength) =>
@@ -26,12 +26,14 @@ function populateDistribution(
               getRandomWord(
                 sentence,
                 sentenceIntendedLength,
+                language,
                 getRandomArticleWord,
                 getRandomStopword
               )
             ),
           []
-        )
+        ),
+        language
       )
     )
   );

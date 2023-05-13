@@ -17,6 +17,7 @@ import {
 } from 'fullfiller-common/src/types';
 import generateFreqMap from 'generate-words-freqmap/src';
 import getWikipediaArticle from 'get-wikipedia-article/src';
+import { isStopword } from 'stopwords-utils/src';
 import tokenizeWords from 'tokenize-words/src';
 
 import distribute from './distribute';
@@ -82,14 +83,14 @@ async function fullfiller(
   */
   switch (getInputType(input)) {
     case 'query':
-      const article = (await getWikipediaArticle(
-        input as queryInputType
-      )) as Required<Pick<articleType, 'title' | 'body'>>;
+      const article = (await getWikipediaArticle(input as queryInputType, {
+        language: options.language,
+      })) as Required<Pick<articleType, 'title' | 'body'>>;
 
     case 'text':
       const wordsArray = tokenizeWords(
         (input as textInputType).body ?? article!.body
-      );
+      ).filter((w) => !isStopword(w, options.language));
 
     case 'wordsArray':
       const freqMap = generateFreqMap(
