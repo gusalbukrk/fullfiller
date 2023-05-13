@@ -1,6 +1,6 @@
 import {
   formatType,
-  languagesTypeWikipedia as languagesType,
+  wikipediaLanguageType as languageType,
 } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
@@ -17,7 +17,7 @@ type response = {
  * @returns Wikipedia article body.
  */
 async function getArticleBody(
-  language: languagesType,
+  language: languageType,
   title: string,
   format: formatType
 ): Promise<string> {

@@ -1,4 +1,4 @@
-import { languagesType } from 'fullfiller-common/src/types';
+import { languageType } from 'fullfiller-common/src/types';
 import {
   capitalize,
   isLowercase,
@@ -28,7 +28,7 @@ function isWordPlacementInvalid(
 function getRandomWord(
   sentence: string[],
   sentenceIntendedLength: number,
-  language: languagesType,
+  language: languageType,
   getRandomArticleWord: () => string,
   getRandomStopword: () => string
 ): string {

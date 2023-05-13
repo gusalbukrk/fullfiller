@@ -1,4 +1,4 @@
-import { languages } from './constants';
+import { wikipediaLanguages } from './constants';
 
 type tier = string[];
 /** e.g.: `{ 1: ['foo', 'bar'], 3: ['baz'] }` */
@@ -52,13 +52,16 @@ export type queriesType = {
 
 export type includeType = Array<keyof fillerType>;
 
-// languagesType used on `get-wikipedia-article`
-export type languagesTypeWikipedia = keyof typeof languages;
+// languageType used on `get-wikipedia-article`
+export type wikipediaLanguageType = keyof typeof wikipediaLanguages;
 
+// languageType used on `stopwords-utils`'s `isStopword()`
+// subset of wikipediaLanguageType
+// Wikipedia supports 300+ languages but `stopwords.json` only contains stopwords for 50 languages
 // equivalent to `keyof typeof stopwords` (stopwords from `./stopwords.json`)
-// which can't be used directly because json can't be packed in declaration file
+// which can't be used directly because json can't be packed in declaration files
 // error: `RollupError: Could not resolve "./stopwords.json" from "dist/types/index.d.ts"`
-export type languagesTypeStopwords =
+export type stopwordsLanguageType =
   | 'af'
   | 'ar'
   | 'bg'
@@ -111,15 +114,16 @@ export type languagesTypeStopwords =
   | 'zu';
 
 // used on `fullfiller` and `stopwords-utils`'s `generateGetRandomStopwordsFn()`
+// subset of stopwordsLanguageType
 // languages being excluded are languages in which words aren't delimited by space
 // and, therefore, can't be segmented using `tokenize-words`
-export type languagesType = Exclude<
-  languagesTypeWikipedia & languagesTypeStopwords,
+export type languageType = Exclude<
+  wikipediaLanguageType & stopwordsLanguageType,
   'ja' | 'zh' | 'th'
 >;
 
 export type optionsType = Partial<{
-  language: languagesType;
+  language: languageType;
   unit: unitType;
   quantity: number;
   format: formatType;

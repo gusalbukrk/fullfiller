@@ -20,9 +20,10 @@ export const wordsPerSentenceDefault: breakdownOptionType = {
   max: 13,
 };
 
+// all languages in which Wikipedia is available
 // script used to fetch languages object is at `./languages.js`
 /* cSpell:disable */
-export const languages = {
+export const wikipediaLanguages = {
   aa: 'Afar',
   ab: 'Abkhazian',
   ace: 'Achinese',

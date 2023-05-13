@@ -1,6 +1,6 @@
 import {
   termsType,
-  languagesTypeWikipedia as languagesType,
+  wikipediaLanguageType as languageType,
 } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
@@ -16,7 +16,7 @@ type response = {
  * @returns Array of Wikipedia article terms.
  */
 async function getArticleTerms(
-  language: languagesType,
+  language: languageType,
   title: string,
   include: (keyof termsType)[]
 ): Promise<termsType> {

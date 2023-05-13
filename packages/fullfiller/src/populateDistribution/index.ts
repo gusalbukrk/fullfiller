@@ -1,7 +1,7 @@
 import {
   freqMapType,
   fillerBodyArrayType,
-  languagesType,
+  languageType,
 } from 'fullfiller-common/src/types';
 import { generateGetRandomStopwordFn } from 'stopwords-utils/src';
 import weightedRandomness from 'weighted-randomness/src';
@@ -11,7 +11,7 @@ import getRandomWord from './getRandomWord';
 
 function populateDistribution(
   freqMap: freqMapType,
-  language: languagesType,
+  language: languageType,
   distribution: number[][]
 ): fillerBodyArrayType {
   const getRandomArticleWord = weightedRandomness(freqMap);

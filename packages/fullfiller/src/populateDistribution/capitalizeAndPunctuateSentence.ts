@@ -1,4 +1,4 @@
-import { freqMapType, languagesType } from 'fullfiller-common/src/types';
+import { freqMapType, languageType } from 'fullfiller-common/src/types';
 import {
   capitalize,
   getRandomArrayElement,
@@ -33,7 +33,7 @@ function addEndSentencePunctuation(arr: string[]) {
   return sentenceArray;
 }
 
-function addMidSentencePunctuation(arr: string[], language: languagesType) {
+function addMidSentencePunctuation(arr: string[], language: languageType) {
   const isStopword = (word: string) => isStopwordBase(word, language);
 
   const sentenceArray = [...arr];
@@ -102,7 +102,7 @@ function addMidSentencePunctuation(arr: string[], language: languagesType) {
 
 function capitalizeAndPunctuateSentence(
   arr: string[],
-  language: languagesType
+  language: languageType
 ): string[] {
   const sentenceArray = [...arr];
 

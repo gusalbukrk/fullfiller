@@ -1,6 +1,6 @@
 import {
   queriesType,
-  languagesTypeWikipedia as languagesType,
+  wikipediaLanguageType as languageType,
 } from 'fullfiller-common/src/types';
 
 /**
@@ -9,7 +9,7 @@ import {
  * @returns URL to make API call.
  */
 export function generateRequestURL(
-  language: languagesType,
+  language: languageType,
   queries: queriesType
 ): string {
   const baseAPI = `https://${language}.wikipedia.org/w/api.php?&format=json&origin=*&`;
@@ -43,7 +43,7 @@ type response = {
  * @returns Object containing json.query.pages[pageID] and json.continue (if it exists) contents.
  */
 export async function fetchResource(
-  language: languagesType,
+  language: languageType,
   queries: queriesType
 ): Promise<Record<string, unknown>> {
   const url = generateRequestURL(language, queries);

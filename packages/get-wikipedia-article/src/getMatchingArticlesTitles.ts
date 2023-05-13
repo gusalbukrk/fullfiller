@@ -1,6 +1,6 @@
 import CustomError from 'fullfiller-common/src/CustomError';
 import { articleNotFound } from 'fullfiller-common/src/errorMessages';
-import { languagesTypeWikipedia as languagesType } from 'fullfiller-common/src/types';
+import { wikipediaLanguageType as languageType } from 'fullfiller-common/src/types';
 
 import { generateRequestURL } from './common/utils';
 
@@ -12,7 +12,7 @@ import { generateRequestURL } from './common/utils';
  * @returns Array of title(s).
  */
 async function getMatchingArticlesTitles(
-  language: languagesType,
+  language: languageType,
   query: string,
   single = false
 ): Promise<string[]> {

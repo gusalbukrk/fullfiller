@@ -1,4 +1,4 @@
-import { languagesTypeWikipedia as languagesType } from 'fullfiller-common/src/types';
+import { wikipediaLanguageType as languageType } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 
@@ -9,7 +9,7 @@ type response = {
 };
 
 async function queryPointsToADisambiguationPage(
-  language: languagesType,
+  language: languageType,
   title: string
 ): Promise<boolean> {
   const queries = {

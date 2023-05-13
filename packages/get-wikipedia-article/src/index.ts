@@ -1,11 +1,14 @@
 import CustomError from 'fullfiller-common/src/CustomError';
-import { languages } from 'fullfiller-common/src/constants';
-import { articleIsDisambiguation } from 'fullfiller-common/src/errorMessages';
+import { wikipediaLanguages } from 'fullfiller-common/src/constants';
+import {
+  articleIsDisambiguation,
+  invalidLanguage,
+} from 'fullfiller-common/src/errorMessages';
 import {
   articleType,
   formatType,
   termsType,
-  languagesTypeWikipedia as languagesType,
+  wikipediaLanguageType as languageType,
 } from 'fullfiller-common/src/types';
 
 import { includeType } from './common/types';
@@ -19,7 +22,7 @@ import getMatchingArticlesTitles from './getMatchingArticlesTitles';
 import queryPointsToADisambiguationPage from './queryPointsToADisambiguationPage';
 
 type optionsType = Partial<{
-  language: languagesType;
+  language: languageType;
   include: includeType;
   format: formatType;
 }>;
@@ -43,11 +46,9 @@ async function getWikipediaArticle(
     format = 'plain',
   }: optionsType = {}
 ): Promise<articleType> {
-  if (!Object.keys(languages).includes(language)) {
+  if (!Object.keys(wikipediaLanguages).includes(language)) {
     throw new CustomError(
-      `Unrecognized language. Available languages are: ${Object.keys(
-        languages
-      ).join(', ')}.`,
+      invalidLanguage(language, Object.keys(wikipediaLanguages)),
       'get-wikipedia-article'
     );
   }

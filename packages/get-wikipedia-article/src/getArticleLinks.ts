@@ -1,6 +1,6 @@
 import {
   queriesType,
-  languagesTypeWikipedia as languagesType,
+  wikipediaLanguageType as languageType,
 } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
@@ -11,7 +11,7 @@ type response = {
 };
 
 async function getLinksRecursively(
-  language: languagesType,
+  language: languageType,
   queries: queriesType
 ): Promise<string[]> {
   const resp = (await fetchResource(language, queries)) as unknown as response;
@@ -34,7 +34,7 @@ async function getLinksRecursively(
  * @returns Array of Wikipedia articles titles.
  */
 async function getArticleLinks(
-  language: languagesType,
+  language: languageType,
   title: string
 ): Promise<string[]> {
   const queries = {

@@ -1,4 +1,4 @@
-import { languagesTypeWikipedia as languagesType } from 'fullfiller-common/src/types';
+import { wikipediaLanguageType as languageType } from 'fullfiller-common/src/types';
 
 import { fetchResource } from './common/utils';
 
@@ -12,7 +12,7 @@ type response = {
  * @returns Array of Wikipedia categories names.
  */
 async function getArticleCategories(
-  language: languagesType,
+  language: languageType,
   title: string
 ): Promise<string[]> {
   const queries = {
