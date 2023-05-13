@@ -1,7 +1,4 @@
-import removeUselessStuffBase from './removeUselessStuff';
-
-const removeUselessStuff = (string: string) =>
-  removeUselessStuffBase(string, true);
+import removeUselessStuff from './removeUselessStuff';
 
 // trim and collapse whitespace
 const trim = (str: string, replaceBy = ' ') =>
@@ -39,13 +36,6 @@ describe('removeUselessStuff', () => {
     expect.assertions(1);
 
     const a = trim(removeUselessStuff('\n \n\n'));
-    expect(a).toBe('');
-  });
-
-  it('remove stopwords', () => {
-    expect.assertions(1);
-
-    const a = removeUselessStuff('the And IN of').replace(/\s+/g, '');
     expect(a).toBe('');
   });
 

@@ -1,5 +1,3 @@
-import { isStopword } from 'stopwords-utils/src';
-
 function preserveCommaOrColonIfSurroundedByNumbers(
   _: string,
   before: string,
@@ -16,7 +14,7 @@ function preserveCommaOrColonIfSurroundedByNumbers(
   return isCommaOrColonSurroundedByNumbers ? preserved : removed;
 }
 
-function removeUselessStuff(string: string, removeStopwords: boolean): string {
+function removeUselessStuff(string: string): string {
   const removed = string
     // remove useless punctuation
     // `.?!,:;-–—<>[]{}()'"…` = 15 punctuations signs in english
@@ -29,11 +27,6 @@ function removeUselessStuff(string: string, removeStopwords: boolean): string {
 
     // remove line breaks
     .replace(/\n+/g, ' ')
-
-    // remove stopwords
-    .replace(/\S+/g, (match: string) =>
-      removeStopwords && isStopword(match) ? '' : match
-    )
 
     // remove space between initials
     .replace(

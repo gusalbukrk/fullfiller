@@ -49,7 +49,6 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "stopwords-utils": "file:../stopwords-utils",
     "fullfiller-common": "file:../common"
   }
 }

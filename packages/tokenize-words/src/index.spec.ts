@@ -18,14 +18,20 @@ describe('tokenizeWords (main function)', () => {
     );
 
     expect(a).toStrictEqual([
+      'The',
       'foo',
       'baz.',
+      'and',
       'bar',
       'foo',
+      'is',
+      'on',
       'baz.',
+      'and',
       'qux',
       'foo',
       '7.5%',
+      "isn't",
       'foobar',
       'G.A.',
       'example.com',

@@ -1,5 +1,4 @@
 import { escapeRegExp } from 'fullfiller-common/src/utils';
-import { isStopword } from 'stopwords-utils/src';
 
 import { getCorrectWordCase } from '../../common/utils';
 
@@ -8,12 +7,9 @@ import { getCorrectWordCase } from '../../common/utils';
  */
 function handleLeadingDot(
   wordContainingLeadingDot: string,
-  text: string,
-  removeStopwords: boolean
+  text: string
 ): string {
   const wordWithoutDot = wordContainingLeadingDot.substring(1);
-
-  if (removeStopwords && isStopword(wordWithoutDot)) return '';
 
   const doesTextContainsMultipleOccurrences =
     (

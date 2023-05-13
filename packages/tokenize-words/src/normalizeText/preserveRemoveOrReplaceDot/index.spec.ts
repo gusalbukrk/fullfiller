@@ -1,7 +1,4 @@
-import preserveRemoveOrReplaceDotBase from '.';
-
-const preserveRemoveOrReplaceDot = (text: string) =>
-  preserveRemoveOrReplaceDotBase(text, true);
+import preserveRemoveOrReplaceDot from '.';
 
 describe('preserveRemoveOrReplaceDot', () => {
   it('preserve dot if numeric value', () => {
@@ -17,22 +14,19 @@ describe('preserveRemoveOrReplaceDot', () => {
 
   // preserve dot if word containing leading dot occurs more than once
   it('preserve or remove leading dot', () => {
-    expect.assertions(3);
+    expect.assertions(2);
 
     const a = preserveRemoveOrReplaceDot('.foo');
     expect(a).toBe('foo');
 
     const b = preserveRemoveOrReplaceDot('.foo .foo');
     expect(b).toBe('.foo .foo');
-
-    const c = preserveRemoveOrReplaceDot('.the');
-    expect(c).toBe('');
   });
 
   // preserve dot if word containing trailing dot happens
   // more than once and more often than word without trailing dot
   it('preserve or remove trailing dot', () => {
-    expect.assertions(5);
+    expect.assertions(4);
 
     const a = preserveRemoveOrReplaceDot('foo.');
     expect(a).toBe('foo');
@@ -45,9 +39,6 @@ describe('preserveRemoveOrReplaceDot', () => {
 
     const d = preserveRemoveOrReplaceDot('foo. foo foo. foo');
     expect(d).toBe('foo foo foo foo');
-
-    const e = preserveRemoveOrReplaceDot('the. the.');
-    expect(e).toBe(' ');
   });
 
   it('replace dot in `/[a-z0-9].[A-Z0-9]/`', () => {
@@ -63,13 +54,13 @@ describe('preserveRemoveOrReplaceDot', () => {
     expect(c).toBe('foo Bar');
 
     const d = preserveRemoveOrReplaceDot('the.Foo');
-    expect(d).toBe('Foo');
+    expect(d).toBe('the Foo');
 
     const e = preserveRemoveOrReplaceDot('foo.The');
-    expect(e).toBe('foo');
+    expect(e).toBe('foo The');
 
     const f = preserveRemoveOrReplaceDot('and.The');
-    expect(f).toBe('');
+    expect(f).toBe('and The');
   });
 
   it('preserve dot in anything else', () => {

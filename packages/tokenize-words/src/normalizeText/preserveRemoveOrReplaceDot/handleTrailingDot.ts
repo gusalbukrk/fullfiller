@@ -1,5 +1,4 @@
 import { escapeRegExp } from 'fullfiller-common/src/utils';
-import { isStopword } from 'stopwords-utils/src';
 
 function shouldPreserveTrailingDot(
   wordContainingTrailingDot: string,
@@ -33,12 +32,9 @@ function shouldPreserveTrailingDot(
  */
 function handleTrailingDot(
   wordContainingTrailingDot: string,
-  text: string,
-  removeStopwords: boolean
+  text: string
 ): string {
   const wordWithoutDot = wordContainingTrailingDot.slice(0, -1);
-
-  if (removeStopwords && isStopword(wordWithoutDot)) return '';
 
   const preserveTrailingDot = shouldPreserveTrailingDot(
     wordContainingTrailingDot,

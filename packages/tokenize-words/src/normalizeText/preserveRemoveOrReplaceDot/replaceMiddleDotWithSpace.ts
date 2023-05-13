@@ -1,5 +1,3 @@
-import { isStopword } from 'stopwords-utils/src';
-
 import { getCorrectWordCase } from '../../common/utils';
 
 /**
@@ -8,24 +6,11 @@ import { getCorrectWordCase } from '../../common/utils';
  *
  * @summary Replace dot with space and fix the case of the word after dot.
  */
-function replaceMiddleDotWithSpace(
-  match: string,
-  text: string,
-  removeStopwords: boolean
-): string {
+function replaceMiddleDotWithSpace(match: string, text: string): string {
   const [, wordBeforeDot, wordAfterDot] = /^(.+)\.(.+)$/.exec(
     match
   ) as unknown as [string, string, string];
-  if (removeStopwords) {
-    const isWordBeforeDotStopword = isStopword(wordBeforeDot);
-    const isWordAfterDotStopword = isStopword(wordAfterDot);
 
-    if (isWordBeforeDotStopword && isWordAfterDotStopword) return '';
-    if (isWordBeforeDotStopword) return getCorrectWordCase(wordAfterDot, text);
-    if (isWordAfterDotStopword) return wordBeforeDot;
-  }
-
-  // if removeStopwords is false or neither word is stopword
   return `${wordBeforeDot} ${getCorrectWordCase(wordAfterDot, text)}`;
 }
 
