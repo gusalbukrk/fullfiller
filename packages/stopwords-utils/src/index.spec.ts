@@ -1,4 +1,4 @@
-import { isStopword, getRandomStopword } from './index';
+import { isStopword, generateGetRandomStopwordFn } from './index';
 
 describe('isStopword', () => {
   it('case insensitive', () => {
@@ -19,14 +19,14 @@ describe('isStopword', () => {
   });
 });
 
-describe('getRandomStopword', () => {
+describe('generateGetRandomStopwordFn', () => {
   it('returns `() => string`', () => {
     expect.assertions(2);
 
-    const fn = getRandomStopword();
-    const sw = fn();
+    const getRandomStopword = generateGetRandomStopwordFn();
+    const sw = getRandomStopword();
 
-    expect(typeof fn).toBe('function');
+    expect(typeof getRandomStopword).toBe('function');
     expect(typeof sw).toBe('string');
   });
 });

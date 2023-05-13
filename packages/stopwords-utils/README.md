@@ -11,10 +11,12 @@ isStopword('the'); // true
 isStopword('foo'); // false
 ```
 
-## getRandomStopword
+## generateGetRandomStopwordFn
 
 ```js
-import { getRandomStopword } from 'stopwords-utils';
+import { generateGetRandomStopwordFn } from 'stopwords-utils';
+
+const getRandomStopword = generateGetRandomStopwordFn();
 
 getRandomStopword(); // 'and'
 getRandomStopword(); // 'the'

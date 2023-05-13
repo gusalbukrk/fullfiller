@@ -110,7 +110,7 @@ export type languagesTypeStopwords =
   | 'zh'
   | 'zu';
 
-// used on `fullfiller` and `stopwords-utils`'s `getRandomStopword()`
+// used on `fullfiller` and `stopwords-utils`'s `generateGetRandomStopwordsFn()`
 // languages being excluded are languages in which words aren't delimited by space
 // and, therefore, can't be segmented using `tokenize-words`
 export type languagesType = Exclude<

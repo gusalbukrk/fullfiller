@@ -16,7 +16,7 @@ function isStopword(
 
 // must use languagesType instead of languagesTypeStopwords because `stopwords-frequency.json`
 // was generated using `tokenize-words` which can't tokenize Japanese, Chinese and Thai
-const getRandomStopword = (language: languagesType = 'en') =>
+const generateGetRandomStopwordFn = (language: languagesType = 'en') =>
   weightedRandomness(stopwordsF[language]);
 
-export { isStopword, getRandomStopword };
+export { isStopword, generateGetRandomStopwordFn };
