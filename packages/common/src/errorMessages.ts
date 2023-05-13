@@ -10,6 +10,14 @@ export const emptyQueryString =
 export const textTooShort =
   'Expected given text (in `input.body` argument) to have at least 150 words.';
 //
+export const invalidStopwordsLanguage = (
+  language: string,
+  languages: string[]
+) =>
+  `Expected \`language\` argument to be one of the supported languages (${languages.join(
+    ', '
+  )}).`;
+//
 export const invalidUnit =
   'Expected `unit` argument to be `words` or `paragraphs`.';
 //

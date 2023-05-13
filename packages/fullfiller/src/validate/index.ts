@@ -7,6 +7,7 @@ import {
 
 import validateFormat from './validateFormat';
 import validateInput from './validateInput';
+import validateLanguage from './validateLanguage';
 import validateQuantity from './validateQuantity';
 import validateSentencesPerParagraph from './validateSentencesPerParagraph';
 import validateStringify from './validateStringify';
@@ -16,6 +17,7 @@ import validateWordsPerSentence from './validateWordsPerSentence';
 function validate(
   input: inputType,
   {
+    language,
     unit,
     quantity,
     format,
@@ -26,6 +28,7 @@ function validate(
 ): void {
   const errors = ([] as string[]).concat(
     validateInput(input),
+    validateLanguage(language),
     validateUnit(unit),
     validateQuantity(quantity, unit, sentencesPerParagraph, wordsPerSentence),
     validateFormat(format),
