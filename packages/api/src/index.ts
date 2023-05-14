@@ -109,7 +109,7 @@ app.get(
   // {0,} = you can leave parameter empty while still being able to declare subsequent parameters
   // `\\w` is preferred over for instance `(paragraphs|words)` so errors can be
   // treated in fullfiller instead of getting an generic `Cannot GET` error
-  '/api/:query/:unit(\\w{0,})?/:quantity(\\d{0,})?/:format(\\w{0,})?/:stringify(\\w{0,})?/:sentencesPerParagraphMin(\\d{0,})?/:sentencesPerParagraphMax(\\d{0,})?/:wordsPerSentenceMin(\\d{0,})?/:wordsPerSentenceMax(\\d{0,})?',
+  '/api/:query/:language(\\w{0,})?/:unit(\\w{0,})?/:quantity(\\d{0,})?/:format(\\w{0,})?/:stringify(\\w{0,})?/:sentencesPerParagraphMin(\\d{0,})?/:sentencesPerParagraphMax(\\d{0,})?/:wordsPerSentenceMin(\\d{0,})?/:wordsPerSentenceMax(\\d{0,})?',
   async (req: { params: routeParamsInputsType }, res) => {
     const inputs = objectFilter(req.params, ([, v]) => v !== ''); // filter out empty inputs
 

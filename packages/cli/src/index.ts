@@ -28,6 +28,10 @@ import 'cross-fetch/dist/node-polyfill';
     // it's passed to fullfiller as undefined triggering invalidInput error
     .argument('[query]', 'Wikipedia query string')
     .option('-i, --interactive', 'interactive mode')
+    .option(
+      '-l, --language <string>',
+      'language code, e.g. `en`, `es`, `pt`, ...'
+    )
     .option('-u, --unit <string>', '`paragraphs` or `words`')
     .option(
       '-q, --quantity <number>',
@@ -66,6 +70,9 @@ import 'cross-fetch/dist/node-polyfill';
         name: 'query',
         validate: (input: string) =>
           input.length !== 0 ? true : 'Please enter a non-empty string.',
+      },
+      {
+        name: 'language',
       },
       {
         name: 'unit',
@@ -113,7 +120,7 @@ import 'cross-fetch/dist/node-polyfill';
     answers ?? { query: program.args[0], ...program.opts<flatOptionsType>() }
   ) as optionsType & { query: string };
 
-  console.log('\nloading...\n');
+  console.log('\nloading...\n'); // eslint-disable-line no-console
   const filler = await fullfiller(query, options);
 
   // using console.dir instead of console.log because log only show the first 2 levels of depth
