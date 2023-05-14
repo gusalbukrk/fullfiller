@@ -4,6 +4,7 @@ $gray: gray;
 $light-gray: lightgray;
 $lighter-gray: #f1f1f1;
 $red: red;
+$breakpoint-1: 492px;
 
 .d-none {
   display: none !important;
@@ -13,8 +14,14 @@ $red: red;
   background-color: $light-gray;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  padding: 1.5rem;
 }
 
 body {
@@ -22,11 +29,11 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Open Sans', serif;
-  height: 100vh;
   justify-content: center;
   margin: 0 auto;
-  max-width: 550px;
-  padding: 1rem;
+  max-width: 100%;
+  min-height: calc(100vh - 3rem); // 3rem = html padding
+  width: 550px;
 }
 
 #root {
@@ -56,8 +63,13 @@ form {
   input,
   fieldset,
   textarea,
-  button {
+  button,
+  select {
     border: 3px solid $gray;
+  }
+
+  select {
+    background-color: transparent; // overwrite user-agent default style
   }
 
   section#row-one {
@@ -66,24 +78,31 @@ form {
     height: 2.5rem;
 
     article#outer-input,
+    article#outer-language,
     article#outer-quantity {
       display: flex;
 
-      label {
-        order: 1;
-        padding-right: 1rem;
-      }
-
-      input {
-        order: 2;
+      input,
+      select {
         width: 100%;
       }
     }
 
+    article#outer-language {
+      margin-right: -0.5rem; // offset gap
+      width: 15%;
+
+      select {
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+
     article#outer-input {
-      width: 80%;
+      width: 65%;
 
       input {
+        border-left: none;
         padding-left: 0.5rem;
       }
     }
@@ -95,11 +114,20 @@ form {
         text-align: center;
       }
     }
+
+    @media (width <= $breakpoint-1) {
+      article#outer-language {
+        width: 20%;
+      }
+
+      article#outer-input {
+        width: 60%;
+      }
+    }
   }
 
   section#row-two {
     display: flex;
-    flex-wrap: wrap;
     gap: 0.5rem;
 
     fieldset {
@@ -118,6 +146,10 @@ form {
         flex: 1 1 0;
         gap: 0.25rem;
       }
+    }
+
+    @media (width <= 492px) {
+      flex-direction: column;
     }
   }
 
@@ -167,7 +199,7 @@ form {
 
     button {
       align-self: end;
-      background-color: $lighter-gray;
+      background-color: white;
       color: $black;
       cursor: pointer;
       flex-basis: 140px;
@@ -177,16 +209,19 @@ form {
       height: 100%;
       padding: 0.25rem 0.5rem;
       text-transform: uppercase;
-      transition: border 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
 
       #copy-icon,
       #generate-icon {
         color: $red;
         font-size: 1.2rem;
         margin-right: 0.5rem;
+        stroke: $red; // needed for stroke-width
+        stroke-width: 20; // bolder icons
       }
 
       &:hover {
+        background-color: $lighter-gray !important;
         border-color: $red;
       }
 
@@ -194,11 +229,19 @@ form {
         border-color: $gray;
         color: $gray;
         cursor: wait;
+        transition-property: none;
 
         #copy-icon,
         #generate-icon {
           color: $gray;
+          stroke: $gray;
         }
+      }
+    }
+
+    @media (width <= $breakpoint-1) {
+      button {
+        flex-grow: 1;
       }
     }
   }
