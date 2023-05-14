@@ -3,21 +3,24 @@ import { faCopy, faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faCheck, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fullfiller from 'fullfiller/src';
+import stopwords from 'fullfiller-common/src/stopwords.json';
 import {
   fillerType,
   WithRequired,
   freqMapType,
   Overwrite,
+  languageType,
 } from 'fullfiller-common/src/types';
 import { openDB, DBSchema } from 'idb';
 import React from 'react';
 
 type fullfillerDBType = DBSchema & {
   cache: {
-    key: string;
+    key: [languageType, string];
     value: {
-      title: string;
       query: string[];
+      language: languageType;
+      title: string;
       map: freqMapType;
     };
   };
@@ -28,6 +31,7 @@ function Form(): JSX.Element {
   const [input, setInput] = React.useState('');
 
   // options
+  const [language, setLanguage] = React.useState<languageType>('en');
   const [quantity, setQuantity] = React.useState(5);
   const [unit, setUnit] = React.useState('paragraphs');
   const [format, setFormat] = React.useState('plain');
@@ -38,17 +42,18 @@ function Form(): JSX.Element {
   const setOutput = async () => {
     const db = await openDB<fullfillerDBType>('fullfiller', 1, {
       upgrade(database) {
-        database.createObjectStore('cache', { keyPath: 'title' });
+        database.createObjectStore('cache', { keyPath: ['language', 'title'] });
       },
     });
 
-    const record = (await db.getAll('cache')).find((r) =>
-      r.query.includes(input)
+    const record = (await db.getAll('cache')).find(
+      (r) => r.language === language && r.query.includes(input)
     );
 
     const filler = (await fullfiller(
       record !== undefined ? { title: record.title, map: record.map } : input,
       {
+        language,
         unit: unit as 'paragraphs' | 'words',
         quantity,
         format: format as 'plain' | 'html',
@@ -60,7 +65,10 @@ function Form(): JSX.Element {
     >;
 
     if (record === undefined) {
-      const recordWithMatchingTitle = await db.get('cache', filler.title);
+      const recordWithMatchingTitle = await db.get('cache', [
+        language,
+        filler.title,
+      ]);
 
       if (recordWithMatchingTitle !== undefined) {
         await db.put('cache', {
@@ -69,7 +77,8 @@ function Form(): JSX.Element {
         });
       } else {
         await db.add('cache', {
-          query: [input],
+          query: filler.title === input ? [filler.title] : [filler.title, input],
+          language,
           title: filler.title,
           map: filler.freqMap,
         });
@@ -77,6 +86,8 @@ function Form(): JSX.Element {
     }
 
     db.close();
+
+    setInput(filler.title);
 
     setOutputBase({
       title: filler.title,
@@ -158,6 +169,24 @@ function Form(): JSX.Element {
   return (
     <form>
       <section id="row-one">
+        {/* language */}
+        <article id="outer-language">
+          <select
+            name="language"
+            id="language"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value as languageType)}
+          >
+            {(Object.keys(stopwords) as languageType[])
+              .sort()
+              .map((l, index) => (
+                <option value={l} key={index}>
+                  {l}
+                </option>
+              ))}
+          </select>
+        </article>
+
         {/* input */}
         <article id="outer-input">
           <input
