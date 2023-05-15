@@ -1,6 +1,12 @@
 #!/bin/bash
 
-# this script is used to deploy site and api to vercel
+# following script is used to deploy `site` (on `/`) and `api` (on `/api`) to vercel
+# usually you would connect a git repository to a vercel project
+# and deployment would happen automatically on push
+# however, `api` wasn't working properly — it was being served as a static file
+# inspecting the deployment output on the vercel dashboard (in the 'Source' tab),
+# I found that the problem happened during `api` build
+# solution: build `api` locally instead of on vercel (set `buildCommand` to `""` on `vercel.json`)
 
 npm run build -- --scope '{api,site}'
 
