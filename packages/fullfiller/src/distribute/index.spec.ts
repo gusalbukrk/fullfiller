@@ -6,9 +6,6 @@ import { getRandomNumber } from 'fullfiller-common/src/utils';
 
 import distribute from '.';
 
-// TODO: fix duplication
-// each `describe` block contains 2 duplicate tests and only 1 distinct
-
 describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
   "'paragraphs' unit",
   (quantity) => {

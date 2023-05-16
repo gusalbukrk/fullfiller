@@ -1,9 +1,12 @@
 import { wikipediaLanguages } from './constants';
 
 type tier = string[];
-/** e.g.: `{ 1: ['foo', 'bar'], 3: ['baz'] }` */
+
+/**
+ * @property `weight` is a string containing a number
+ * @example { 1: ['bar', 'baz'], 3: ['foo'] }
+ */
 export type freqMapType = {
-  // `weight` is a string containing an integer (JS object keys can only be strings and symbols)
   [weight: string]: tier;
 };
 
@@ -12,6 +15,8 @@ export type queryInputType = string;
 export type textInputType = { title: string; body: string };
 export type wordsArrayInputType = { title: string; words: string[] };
 export type freqMapInputType = { title: string; map: freqMapType };
+
+/** valid input types: Wikipedia query string, text, words array and frequency map */
 export type inputType =
   | queryInputType
   | textInputType
@@ -151,7 +156,7 @@ export type flatOptionsType = Omit<
 
 export type fillerBodyArrayType = string[][][];
 
-// fullfiller return type
+/** `fullfiller`'s return type */
 export type fillerType = {
   title?: string;
   body: string | fillerBodyArrayType;

@@ -1,6 +1,8 @@
 # fullfiller-common
 
-## License
+Common files for the `fullfiller` monorepo.
+
+## Licenses
 
 ### [stopwords.json](./src/stopwords.json)
 

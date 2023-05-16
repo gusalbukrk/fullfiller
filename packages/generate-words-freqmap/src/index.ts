@@ -26,7 +26,7 @@ type optionsType = {
 };
 
 const optionsDefault: optionsType = {
-  emphasizeBy: 2, // double weight of any word in `wordsToEmphasize`
+  emphasizeBy: 2, // double weight for any word in `wordsToEmphasize`
   wordsQuantityMin: 0, // don't throw error even if freqMap doesn't contain any word
   tierWeightMin: 1, // don't filter out any tier
   tierWeightMax: -1, // disable option
@@ -38,8 +38,8 @@ const optionsDefault: optionsType = {
  * Generate `freqMap` from `wordsArray`.
  * @param wordsArray
  * @param wordsToEmphasize Subset of `wordsArray` to emphasize.
- * @param optionsArg Miscellaneous options. See more at {@link optionsType}.
- * @throws Error if `freqMap` has less words than expected.
+ * @param optionsArg Miscellaneous options.
+ * @throws Error if `freqMap` has less words than required by `options.wordsQuantityMin`.
  * @returns freqMap.
  */
 function generateFreqMap(

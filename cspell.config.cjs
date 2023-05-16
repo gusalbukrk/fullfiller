@@ -23,6 +23,7 @@ module.exports = {
   ignorePaths: [
     'node_modules',
     'dist/',
+    '/fullfiller/',
     'cspell.config.cjs', // otherwise, would've to be included in every `overrides.filename`
     '.git/',
     './packages/common/src/languages.json',
@@ -71,18 +72,8 @@ module.exports = {
       words: ['xxyyzz'], // this string is used to trigger `articleNotFound` error
     },
     {
-      filename: './README.md',
-      words: [
-        'baconipsum',
-        'hipsum',
-        'Hermione',
-        'Weasley',
-        'Grafica',
-        'Veneta',
-        'pentalogy',
-        'wizarding',
-        'Snape',
-      ],
+      filename: 'packages/tokenize-words/README.md',
+      words: ['Hermione', 'Weasley'],
     },
     {
       filename: './packages/common/src/languages.js',

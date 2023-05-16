@@ -25,7 +25,6 @@ import populateDistribution from './populateDistribution';
 import stringifyBodyArray from './stringifyBodyArray';
 import validate from './validate';
 
-/** @returns one of the possible input types. See more at {@link inputType}. */
 function getInputType(
   input: inputType
 ): 'query' | 'text' | 'wordsArray' | 'freqMap' | undefined {
@@ -37,7 +36,7 @@ function getInputType(
   return undefined;
 }
 
-// merge default options with options passed as argument
+/** merge default options with options passed as argument */
 function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
   return {
     language: optionsArg.language ?? 'en',
@@ -62,9 +61,9 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
 /**
  * Feature-rich filler text generator.
  * @param input Filler text will be generated from this parameter.
- * @param options Miscellaneous options.
- * @param include What should be included on the output besides the body.
- * @returns Filler object containing body and maybe (depending on include) title and freqMap.
+ * @param optionsArg Miscellaneous options.
+ * @throws Array of errors if arguments validation fails.
+ * @returns Filler object containing body and maybe (depending on `include`) title and freqMap.
  */
 async function fullfiller(
   input: inputType,

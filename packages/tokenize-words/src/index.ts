@@ -14,7 +14,7 @@ const optionsDefault: Required<optionsType> = {
 /**
  * Break down text string into array of words.
  * @param text
- * @param optionsArg Miscellaneous options. See more at {@link optionsType}.
+ * @param optionsArg Miscellaneous options.
  * @throws Error if `wordsArray` length is less than `options.lengthMin`.
  * @returns Array of words.
  */

@@ -2,7 +2,7 @@
   "name": "stopwords-utils",
   "author": "gusalbukrk",
   "version": "0.0.3-alpha.0",
-  "description": "Utilities for working with English stopwords.",
+  "description": "Utilities for working with stopwords in 50 languages.",
   "license": "MIT",
   "keywords": [
     "fullfiller",

@@ -1,24 +1,32 @@
 # stopwords-utils
 
-Utilities for working with English stopwords.
+Utilities for working with stopwords in 50 languages.
 
-## isStopword
+## Install
+
+- `npm i stopwords-utils`
+
+## Usage
+
+### isStopword
 
 ```js
 import { isStopword } from 'stopwords-utils';
 
-isStopword('the'); // true
-isStopword('foo'); // false
+console.log(isStopword('the')); // true
+
+// second argument is optional and it takes a ISO 639-1 language code
+console.log(isStopword('más', 'es')); // true
 ```
 
-## generateGetRandomStopwordFn
+### generateGetRandomStopwordFn
 
 ```js
 import { generateGetRandomStopwordFn } from 'stopwords-utils';
 
-const getRandomStopword = generateGetRandomStopwordFn();
+const getRandomStopwordEn = generateGetRandomStopwordFn();
+console.log(getRandomStopwordEn());
 
-getRandomStopword(); // 'and'
-getRandomStopword(); // 'the'
-getRandomStopword(); // 'of'
+const getRandomStopwordEs = generateGetRandomStopwordFn('es');
+console.log(getRandomStopwordEs());
 ```

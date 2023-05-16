@@ -1,30 +1,37 @@
+> if you getting an error related to Fetch, Node's flag option **`--no-experimental-fetch`** may fix the issue
+
 # get-wikipedia-article
 
-Fetch Wikipedia article resources (e.g. title, body, links...).
+Fetch Wikipedia article resources (e.g. title, body, links, ...).
 
-## Basic Usage
+## Install
+
+- `npm i get-wikipedia-article`
+
+## Usage
 
 ```js
 import getWikipediaArticle from 'get-wikipedia-article';
 
-(async function () {
-  const article = await getWikipediaArticle('harry potter');
+const article = await getWikipediaArticle('harry potter', {
+  // options object (optional)
+  language: 'es', // ISO 639-1 code (default: 'en')
 
-  console.log(article);
-})();
+  include: [
+    // default: ['title', 'body']
+    'title',
+    'body',
+    'related',
+    'summary',
+    'links',
+    'categories',
+    'description',
+    'alias',
+    'label',
+  ],
+
+  format: 'html', // 'plain' (default) or 'html'
+});
+
+console.log(article);
 ```
-
-### Optional parameters
-
-- `includes` = array containing which resources to fetch
-  - valid options: `title`, `body`, `related`, `summary`, `links` `categories`, `terms`, `description`, `alias`
-  - default value: `['title', 'body']`
-- `options` = object containing miscellaneous options
-  - `format` = `plain` (default) or `html`
-
-## Todo
-
-- replace all `encodeURIComponent` calls with `URL` constructor
-- implement warnings about:
-  - progress (warning when starting to fetch each resource)
-  - getArticleTerms doesn't return all terms requested

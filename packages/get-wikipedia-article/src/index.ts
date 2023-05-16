@@ -32,8 +32,7 @@ const includeDefault: includeType = ['title', 'body'];
 /**
  * Fetch Wikipedia article's resources (e.g. title, body, links...).
  * @param query Search string.
- * @param include Which resources to include in the return object.
- * @param options
+ * @param options Miscellaneous options.
  * @throws Error if `query` doesn't return any results.
  * @throws Error if `article.title` points to a disambiguation page.
  * @returns Object containing requested resources.

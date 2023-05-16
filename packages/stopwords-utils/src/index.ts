@@ -14,8 +14,11 @@ function isStopword(
   return stopwords[language].includes(word.toLowerCase());
 }
 
-// must use languageType instead of stopwordsLanguageType because `stopwords-frequency.json`
-// was generated using `tokenize-words` which can't tokenize Japanese, Chinese and Thai
+/**
+ * @param language must use languageType instead of stopwordsLanguageType
+ * because `stopwords-frequency.json` was generated using `tokenize-words`
+ * which can't tokenize Japanese, Chinese and Thai
+ */
 const generateGetRandomStopwordFn = (language: languageType = 'en') =>
   weightedRandomness(stopwordsF[language]);
 

@@ -2,7 +2,7 @@
   "name": "fullfiller-common",
   "author": "gusalbukrk",
   "version": "0.0.3-alpha.0",
-  "description": "Common files for fullfiller monorepo.",
+  "description": "Common files for the fullfiller monorepo.",
   "license": "MIT",
   "keywords": [
     "fullfiller"
