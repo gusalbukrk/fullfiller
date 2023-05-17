@@ -77,7 +77,8 @@ function Form(): JSX.Element {
         });
       } else {
         await db.add('cache', {
-          query: filler.title === input ? [filler.title] : [filler.title, input],
+          query:
+            filler.title === input ? [filler.title] : [filler.title, input],
           language,
           title: filler.title,
           map: filler.freqMap,

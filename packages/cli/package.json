@@ -25,7 +25,10 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/bundle.cjs",
-  "bin": "dist/bundle.js",
+  "bin": {
+    "fullfiller": "dist/bundle.js",
+    "fullfiller-cli": "dist/bundle.js"
+  },
   "engines": {
     "node": ">=14.0.0"
   },
