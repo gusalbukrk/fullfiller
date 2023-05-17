@@ -1,7 +1,7 @@
 {
   "name": "generate-words-freqmap",
   "author": "gusalbukrk",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.4-alpha.0",
   "description": "Generate frequency map from array of strings.",
   "license": "MIT",
   "keywords": [

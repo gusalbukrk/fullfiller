@@ -1,7 +1,7 @@
 {
   "name": "fullfiller-cli",
   "author": "gusalbukrk",
-  "version": "0.0.0-alpha",
+  "version": "0.0.1-alpha.0",
   "description": "Command-line interface for fullfiller.",
   "license": "MIT",
   "keywords": [
@@ -62,8 +62,8 @@
     "chalk": "^5.2.0",
     "commander": "^10.0.1",
     "cross-fetch": "^3.1.5",
-    "inquirer": "^9.2.2",
     "fullfiller": "file:../fullfiller",
-    "fullfiller-common": "file:../common"
+    "fullfiller-common": "file:../common",
+    "inquirer": "^9.2.2"
   }
 }
