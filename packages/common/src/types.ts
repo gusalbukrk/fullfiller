@@ -134,6 +134,7 @@ export type optionsType = Partial<{
   format: formatType;
   stringify: boolean;
   include: includeType;
+  consistentStart: boolean; // only used when input === ':traditional'
 
   // breakdown options
   sentencesPerParagraph: Partial<breakdownOptionType>;

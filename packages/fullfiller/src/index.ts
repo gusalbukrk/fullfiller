@@ -14,6 +14,7 @@ import {
   articleType,
   DeepRequired,
   fillerType,
+  fillerBodyArrayType,
 } from 'fullfiller-common/src/types';
 import generateFreqMap from 'generate-words-freqmap/src';
 import getWikipediaArticle from 'get-wikipedia-article/src';
@@ -21,6 +22,7 @@ import { isStopword } from 'stopwords-utils/src';
 import tokenizeWords from 'tokenize-words/src';
 
 import distribute from './distribute';
+import loremIpsum from './lorem-ipsum.json';
 import populateDistribution from './populateDistribution';
 import stringifyBodyArray from './stringifyBodyArray';
 import validate from './validate';
@@ -45,6 +47,7 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
     format: optionsArg.format ?? 'plain',
     stringify: optionsArg.stringify ?? true,
     include: optionsArg.include ?? ['title'],
+    consistentStart: optionsArg.consistentStart ?? true,
 
     sentencesPerParagraph: {
       ...sentencesPerParagraphDefault,
@@ -69,6 +72,47 @@ async function fullfiller(
   input: inputType,
   optionsArg: optionsType = {}
 ): Promise<fillerType> {
+  if (input === ':traditional') {
+    const filler = (await fullfiller(
+      {
+        title: 'Lorem Ipsum',
+        words: loremIpsum,
+      },
+      { ...optionsArg, language: 'la', stringify: false }
+    )) as fillerType & { body: fillerBodyArrayType };
+
+    // body must start with "Lorem ipsum dolor sit amet" if consistentStart is true
+    const body =
+      optionsArg.consistentStart === false
+        ? filler.body
+        : ([
+            [
+              // there won't be any duplicate words because none of the words in the array below
+              // are included in `lorem-ipsum.json` or `stopwords.json`
+              filler.body[0][0].map((w, i) =>
+                i < 5
+                  ? w.replace(
+                      /\w+/, // replace word but keep any punctuation or space
+                      ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'][i]
+                    )
+                  : w
+              ),
+
+              ...filler.body[0].slice(1),
+            ],
+
+            ...filler.body.slice(1),
+          ] as fillerBodyArrayType);
+
+    return {
+      ...filler,
+      body:
+        optionsArg.stringify === false
+          ? body
+          : stringifyBodyArray(body, optionsArg.format ?? 'plain'),
+    };
+  }
+
   const options = mergeOptions(optionsArg);
 
   validate(input, options);

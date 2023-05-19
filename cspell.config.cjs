@@ -29,6 +29,7 @@ module.exports = {
     './packages/common/src/languages.json',
     './packages/common/src/stopwords.json',
     './packages/stopwords-utils/src/stopwords-frequency.json',
+    './packages/fullfiller/src/lorem-ipsum.json',
   ],
 
   overrides: [
@@ -82,6 +83,10 @@ module.exports = {
     {
       filename: './packages/common/README.md',
       words: ['Lucene', 'Stoplist'],
+    },
+    {
+      filename: './packages/fullfiller/src/index.ts',
+      words: ['amet'],
     },
   ],
 };
