@@ -10,6 +10,7 @@ import {
   termsType,
   wikipediaLanguageType as languageType,
 } from 'fullfiller-common/src/types';
+import { getRandomArrayElement } from 'fullfiller-common/src/utils';
 
 import { includeType } from './common/types';
 import extractSummaryFromBody from './extractSummaryFromBody';
@@ -19,6 +20,8 @@ import getArticleLinks from './getArticleLinks';
 import getArticleSummary from './getArticleSummary';
 import getArticleTerms from './getArticleTerms';
 import getMatchingArticlesTitles from './getMatchingArticlesTitles';
+import getListOfPopularArticles from './getListOfPopularArticles';
+import getListOfRandomArticles from './getListOfRandomArticles';
 import queryPointsToADisambiguationPage from './queryPointsToADisambiguationPage';
 
 type optionsType = Partial<{
@@ -49,6 +52,19 @@ async function getWikipediaArticle(
     throw new CustomError(
       invalidLanguage(language, Object.keys(wikipediaLanguages)),
       'get-wikipedia-article'
+    );
+  }
+
+  if ([':popular', ':random'].includes(query)) {
+    return getWikipediaArticle(
+      query === ':popular'
+        ? getRandomArrayElement(await getListOfPopularArticles(language))
+        : (await getListOfRandomArticles(language, 1))[0],
+      {
+        language,
+        include,
+        format,
+      }
     );
   }
 

@@ -66,6 +66,8 @@ module.exports = {
         'opensearch',
         'pageprops',
         'ppprop',
+        'rnnamespace',
+        'rnlimit',
       ],
     },
     {
