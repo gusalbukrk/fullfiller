@@ -18,7 +18,7 @@ type fullfillerDBType = DBSchema & {
   cache: {
     key: [languageType, string];
     value: {
-      query: string[];
+      queries: string[];
       language: languageType;
       title: string;
       map: freqMapType;
@@ -47,7 +47,7 @@ function Form(): JSX.Element {
     });
 
     const record = (await db.getAll('cache')).find(
-      (r) => r.language === language && r.query.includes(input)
+      (r) => r.language === language && r.queries.includes(input)
     );
 
     const filler = (await fullfiller(
@@ -64,21 +64,32 @@ function Form(): JSX.Element {
       'title' | 'freqMap'
     >;
 
-    if (record === undefined) {
+    // if db has no record with matching language and query:
+    // - if record with matching title and language already exists, update its queries array
+    // - otherwise, add new record
+    if (
+      record === undefined &&
+      input !== ':traditional' // no need to cache traditional filler because no API call is made
+    ) {
       const recordWithMatchingTitle = await db.get('cache', [
         language,
         filler.title,
       ]);
 
+      // don't add special keywords to queries array
       if (recordWithMatchingTitle !== undefined) {
-        await db.put('cache', {
-          ...recordWithMatchingTitle,
-          query: [...recordWithMatchingTitle.query, input],
-        });
+        if (![':popular', ':random'].includes(input)) {
+          await db.put('cache', {
+            ...recordWithMatchingTitle,
+            queries: [...recordWithMatchingTitle.queries, input],
+          });
+        }
       } else {
         await db.add('cache', {
-          query:
-            filler.title === input ? [filler.title] : [filler.title, input],
+          queries:
+            filler.title === input || [':popular', ':random'].includes(input)
+              ? [filler.title]
+              : [filler.title, input],
           language,
           title: filler.title,
           map: filler.freqMap,
@@ -88,7 +99,7 @@ function Form(): JSX.Element {
 
     db.close();
 
-    setInput(filler.title);
+    if (input !== ':traditional') setInput(filler.title);
 
     setOutputBase({
       title: filler.title,

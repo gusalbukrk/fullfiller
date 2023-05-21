@@ -11,13 +11,17 @@ export type freqMapType = {
 };
 
 // input types
+export type specialKeywordInputType = ':traditional' | ':popular' | ':random';
 export type queryInputType = string;
 export type textInputType = { title: string; body: string };
 export type wordsArrayInputType = { title: string; words: string[] };
 export type freqMapInputType = { title: string; map: freqMapType };
 
-/** valid input types: Wikipedia query string, text, words array and frequency map */
+/**
+ * valid input types: special keyword, Wikipedia query string, text, words array and frequency map
+ */
 export type inputType =
+  | specialKeywordInputType
   | queryInputType
   | textInputType
   | wordsArrayInputType
@@ -134,7 +138,7 @@ export type optionsType = Partial<{
   format: formatType;
   stringify: boolean;
   include: includeType;
-  consistentStart: boolean; // only used when input === ':traditional'
+  consistentStart: boolean; // ignored when input is anything other than ':traditional'
 
   // breakdown options
   sentencesPerParagraph: Partial<breakdownOptionType>;

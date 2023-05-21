@@ -10,7 +10,9 @@ function App() {
   return (
     <>
       <h1>
-        <span>full</span>filler
+        <a href="/">
+          <span>full</span>filler
+        </a>
       </h1>
       <Form />
     </>

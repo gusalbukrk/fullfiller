@@ -19,9 +19,9 @@ import getArticleCategories from './getArticleCategories';
 import getArticleLinks from './getArticleLinks';
 import getArticleSummary from './getArticleSummary';
 import getArticleTerms from './getArticleTerms';
-import getMatchingArticlesTitles from './getMatchingArticlesTitles';
 import getListOfPopularArticles from './getListOfPopularArticles';
 import getListOfRandomArticles from './getListOfRandomArticles';
+import getMatchingArticlesTitles from './getMatchingArticlesTitles';
 import queryPointsToADisambiguationPage from './queryPointsToADisambiguationPage';
 
 type optionsType = Partial<{
