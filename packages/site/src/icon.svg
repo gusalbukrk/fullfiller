@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 1000 1000" width="1000px" height="1000px" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1000" height="1000" fill="#000000"/>
+  <g transform="matrix(1.2986, 0, 0, 1.2986, 499.991486, 499.990387)" id="680015">
+    <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; is-custom-font: none; font-file-url: none; fill: rgb(255,255,255); fill-rule: evenodd; opacity: 1;" transform=" translate(-350.007, -280)" d="m 306.45 87.109 h -118.22 v 62.223 h -87.113 v -149.33 h 497.78 v 149.33 h -87.113 v -62.223 h -118.22 v 385.78 h 124.45 v 87.109 h -336 v -87.109 h 124.45 z" stroke-linecap="round"/>
+  </g>
+  <rect x="326.884" y="455.413" width="345" height="112.628" style="fill-rule: evenodd; fill: rgb(255, 255, 255);"/>
+</svg>
