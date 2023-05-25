@@ -18,6 +18,7 @@ module.exports = {
     'postpublish',
     'vercel',
     'npmignore',
+    'cacache',
   ],
 
   ignorePaths: [

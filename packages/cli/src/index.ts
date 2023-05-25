@@ -1,5 +1,9 @@
+import { join } from 'path';
+
+import cache from 'cacache';
 import { program } from 'commander';
-import fullfiller from 'fullfiller/src';
+import findCacheDir from 'find-cache-dir';
+import fullfillerBase from 'fullfiller/src';
 import {
   sentencesPerParagraphDefault,
   wordsPerSentenceDefault,
@@ -8,6 +12,9 @@ import {
   unitType,
   flatOptionsType,
   optionsType,
+  freqMapType,
+  queryInputType,
+  fillerType,
 } from 'fullfiller-common/src/types';
 import {
   unflattenBreakdownOptions,
@@ -18,6 +25,65 @@ import inquirer from 'inquirer';
 import pkg from '../package.json';
 
 import 'cross-fetch/dist/node-polyfill';
+
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const base = findCacheDir({ name: 'fullfiller-api' })!;
+const queriesCacheDir = join(base, 'queries');
+const freqMapsCacheDir = join(base, 'freqMaps');
+
+// fullfiller with caching capabilities
+async function fullfiller(
+  query: queryInputType,
+  options: optionsType
+): Promise<fillerType> {
+  const queriesCacheKey = `${options.language ?? 'en'} - ${query}`;
+
+  const queriesCacheRecord = await cache
+    .get(queriesCacheDir, queriesCacheKey)
+    .catch(() => undefined); // otherwise, error is thrown if cache record doesn't exist
+
+  // create cache records if they don't yet exist
+  if (queriesCacheRecord === undefined) {
+    console.log('\nloading...\n'); // eslint-disable-line no-console
+
+    const filler = (await fullfillerBase(query, {
+      ...options,
+      include: ['title', 'body', 'freqMap'],
+    })) as Required<fillerType>;
+
+    const freqMapsCacheKey = `${options.language ?? 'en'} - ${filler.title}`;
+
+    await cache.put(queriesCacheDir, queriesCacheKey, freqMapsCacheKey);
+
+    await cache.put(
+      freqMapsCacheDir,
+      freqMapsCacheKey,
+      JSON.stringify(filler.freqMap)
+    );
+
+    return filler;
+  }
+
+  // otherwise, cache records exist, so use them
+
+  const freqMapsCacheKey = queriesCacheRecord.data.toString();
+
+  const freqMapsCacheRecord = await cache.get(
+    freqMapsCacheDir,
+    freqMapsCacheKey
+  );
+
+  const freqmap = JSON.parse(
+    freqMapsCacheRecord.data.toString()
+  ) as freqMapType;
+
+  const filler = await fullfillerBase(
+    { title: freqMapsCacheKey.replace(/^[a-z]{2,} - /, ''), map: freqmap },
+    options
+  );
+
+  return filler;
+}
 
 (async () => {
   program
@@ -120,7 +186,6 @@ import 'cross-fetch/dist/node-polyfill';
     answers ?? { query: program.args[0], ...program.opts<flatOptionsType>() }
   ) as optionsType & { query: string };
 
-  console.log('\nloading...\n'); // eslint-disable-line no-console
   const filler = await fullfiller(query, options);
 
   // using console.dir instead of console.log because log only show the first 2 levels of depth

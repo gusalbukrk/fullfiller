@@ -34,6 +34,8 @@
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-terser": "^0.4.1",
+    "@types/cacache": "^15.0.1",
+    "@types/find-cache-dir": "^3.2.1",
     "@types/jest": "^29.5.1",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
