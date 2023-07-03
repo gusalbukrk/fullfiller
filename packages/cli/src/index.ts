@@ -14,6 +14,7 @@ import {
   optionsType,
   freqMapType,
   queryInputType,
+  inputType,
   fillerType,
 } from 'fullfiller-common/src/types';
 import {
@@ -31,56 +32,71 @@ const base = findCacheDir({ name: 'fullfiller-api' })!;
 const queriesCacheDir = join(base, 'queries');
 const freqMapsCacheDir = join(base, 'freqMaps');
 
-// fullfiller with caching capabilities
+async function getFreqMapsCacheRecord(
+  queriesCacheKey: string
+): Promise<
+  | { freqMapsCacheKey: string; freqMapsCacheValue: freqMapType }
+  | Record<string, never>
+> {
+  const queriesCacheValue = await cache
+    .get(queriesCacheDir, queriesCacheKey)
+    .catch(() => undefined); // otherwise, error is thrown if cache record doesn't exist
+
+  if (queriesCacheValue === undefined) return {};
+
+  const freqMapsCacheKey = queriesCacheValue.data.toString();
+
+  const freqMapsCacheValue = JSON.parse(
+    (await cache.get(freqMapsCacheDir, freqMapsCacheKey)).data.toString()
+  ) as freqMapType;
+
+  return { freqMapsCacheKey, freqMapsCacheValue };
+}
+
+// fullfiller with file system caching capabilities
 async function fullfiller(
   query: queryInputType,
   options: optionsType
 ): Promise<fillerType> {
   const queriesCacheKey = `${options.language ?? 'en'} - ${query}`;
 
-  const queriesCacheRecord = await cache
-    .get(queriesCacheDir, queriesCacheKey)
-    .catch(() => undefined); // otherwise, error is thrown if cache record doesn't exist
+  const { freqMapsCacheKey, freqMapsCacheValue } =
+    (await getFreqMapsCacheRecord(queriesCacheKey)) || {};
+
+  const filler = await fullfillerBase(
+    ...((freqMapsCacheValue === undefined
+      ? [
+          query,
+          {
+            ...options,
+            include: ['title', 'body', 'freqMap'],
+          },
+        ]
+      : [
+          {
+            title: freqMapsCacheKey.replace(/^[a-z]{2,} - /, ''),
+            map: freqMapsCacheValue,
+          },
+          options,
+        ]) as [inputType, optionsType])
+  );
 
   // create cache records if they don't yet exist
-  if (queriesCacheRecord === undefined) {
+  if (freqMapsCacheValue === undefined) {
     console.log('\nloading...\n'); // eslint-disable-line no-console
 
-    const filler = (await fullfillerBase(query, {
-      ...options,
-      include: ['title', 'body', 'freqMap'],
-    })) as Required<fillerType>;
+    // also is the freqMapsCacheKey for the new freqMaps cache record
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const queriesCacheValue = `${options.language ?? 'en'} - ${filler.title!}`;
 
-    const freqMapsCacheKey = `${options.language ?? 'en'} - ${filler.title}`;
-
-    await cache.put(queriesCacheDir, queriesCacheKey, freqMapsCacheKey);
+    await cache.put(queriesCacheDir, queriesCacheKey, queriesCacheValue);
 
     await cache.put(
       freqMapsCacheDir,
-      freqMapsCacheKey,
+      queriesCacheValue,
       JSON.stringify(filler.freqMap)
     );
-
-    return filler;
   }
-
-  // otherwise, cache records exist, so use them
-
-  const freqMapsCacheKey = queriesCacheRecord.data.toString();
-
-  const freqMapsCacheRecord = await cache.get(
-    freqMapsCacheDir,
-    freqMapsCacheKey
-  );
-
-  const freqmap = JSON.parse(
-    freqMapsCacheRecord.data.toString()
-  ) as freqMapType;
-
-  const filler = await fullfillerBase(
-    { title: freqMapsCacheKey.replace(/^[a-z]{2,} - /, ''), map: freqmap },
-    options
-  );
 
   return filler;
 }
