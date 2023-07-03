@@ -2,6 +2,8 @@
  * @file Node script to inspect cache for testing purposes.
  */
 
+/* eslint-disable no-console */
+
 import { join } from 'path';
 
 import cache from 'cacache';
@@ -21,14 +23,12 @@ const freqMapsCacheDir = join(base, 'freqMaps');
   console.log(queriesCacheLs);
   console.log(freqMapsCacheLs);
 
-  // get first item in the queries cache and then its corresponding freqMap
-  const freqMapsCacheKey = (
-    await cache.get(queriesCacheDir, Object.keys(queriesCacheLs)[0])
-  ).data.toString();
+  // get first record in the freqMaps cache
   const freqMapsCacheValue = (
-    await cache.get(freqMapsCacheDir, freqMapsCacheKey)
+    await cache.get(freqMapsCacheDir, Object.keys(freqMapsCacheLs)[0])
   ).data.toString();
 
-  console.log(freqMapsCacheKey);
   console.log(freqMapsCacheValue);
 })();
+
+/* eslint-enable no-console */

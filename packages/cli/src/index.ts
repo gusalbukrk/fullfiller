@@ -38,6 +38,25 @@ async function getFreqMapsCacheRecord(
   | { freqMapsCacheKey: string; freqMapsCacheValue: freqMapType }
   | Record<string, never>
 > {
+  // first, check if freqMaps cache has a record with key equal to queriesCacheKey
+  // it happens when user query is exactly equal to a Wikipedia article title
+  // in this case, get freqMap directly from freqMapsCache instead of querying queriesCache first
+  const directFreqMapsCacheValue = await cache
+    .get(freqMapsCacheDir, queriesCacheKey)
+    .catch(() => undefined);
+  //
+  if (directFreqMapsCacheValue !== undefined) {
+    return {
+      freqMapsCacheKey: queriesCacheKey,
+      freqMapsCacheValue: JSON.parse(
+        directFreqMapsCacheValue.data.toString()
+      ) as freqMapType,
+    };
+  }
+
+  // otherwise, check for a queries cache record with key equal to queriesCacheKey
+  // which, if found, will have a value equal to the freqMaps cache key
+
   const queriesCacheValue = await cache
     .get(queriesCacheDir, queriesCacheKey)
     .catch(() => undefined); // otherwise, error is thrown if cache record doesn't exist
@@ -82,20 +101,32 @@ async function fullfiller(
   );
 
   // create cache records if they don't yet exist
-  if (freqMapsCacheValue === undefined) {
+  if (freqMapsCacheValue === undefined && query !== ':traditional') {
     console.log('\nloading...\n'); // eslint-disable-line no-console
 
     // also is the freqMapsCacheKey for the new freqMaps cache record
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const queriesCacheValue = `${options.language ?? 'en'} - ${filler.title!}`;
 
-    await cache.put(queriesCacheDir, queriesCacheKey, queriesCacheValue);
+    if (
+      queriesCacheKey !== queriesCacheValue &&
+      !/^[a-z]{2,} - :(popular|random)/.test(queriesCacheKey)
+    ) {
+      await cache.put(queriesCacheDir, queriesCacheKey, queriesCacheValue);
+    }
 
-    await cache.put(
-      freqMapsCacheDir,
-      queriesCacheValue,
-      JSON.stringify(filler.freqMap)
-    );
+    // freqMap may be already in cache if it was requested using another query
+    if (
+      (await cache
+        .get(freqMapsCacheDir, queriesCacheValue)
+        .catch(() => undefined)) === undefined
+    ) {
+      await cache.put(
+        freqMapsCacheDir,
+        queriesCacheValue,
+        JSON.stringify(filler.freqMap)
+      );
+    }
   }
 
   return filler;
