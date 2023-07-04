@@ -86,7 +86,7 @@ describe('main function throws errors correctly', () => {
   it('articleIsDisambiguation', async () => {
     expect.assertions(2);
 
-    const query = '(disambiguation)'; // this query points to a disambiguation page
+    const query = 'java (disambiguation)'; // this query points to a disambiguation page
 
     // when there're no suggestions
     await expect(getWikipediaArticle(query)).rejects.toThrow(

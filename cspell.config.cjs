@@ -31,6 +31,7 @@ module.exports = {
     './packages/common/src/stopwords.json',
     './packages/stopwords-utils/src/stopwords-frequency.json',
     './packages/fullfiller/src/lorem-ipsum.json',
+    '*.svg',
   ],
 
   overrides: [
