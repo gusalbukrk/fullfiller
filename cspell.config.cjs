@@ -32,6 +32,7 @@ module.exports = {
     './packages/stopwords-utils/src/stopwords-frequency.json',
     './packages/fullfiller/src/lorem-ipsum.json',
     '*.svg',
+    './packages/fullfiller/src/populateDistribution/suffixes.json',
   ],
 
   overrides: [

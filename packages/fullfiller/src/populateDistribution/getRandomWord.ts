@@ -1,22 +1,30 @@
 import { languageType } from 'fullfiller-common/src/types';
-import {
-  capitalize,
-  isLowercase,
-  isNumeric,
-} from 'fullfiller-common/src/utils';
+import { isNumeric } from 'fullfiller-common/src/utils';
 import { isStopword as isStopwordBase } from 'stopwords-utils/src';
+
+import suffixes from './suffixes.json';
+
+/** naive stemming implementation for a subset of the languages in languageType */
+function stem(word: string, language: languageType) {
+  if (!(language in suffixes)) return word;
+
+  const suffix = suffixes[language as keyof typeof suffixes].find((s) =>
+    word.endsWith(s)
+  );
+
+  return suffix === undefined ? word : word.slice(0, -suffix.length);
+}
 
 function isWordPlacementInvalid(
   randomWord: string,
   sentence: string[],
-  sentenceIntendedLength: number
+  sentenceIntendedLength: number,
+  language: languageType
 ) {
   return (
-    sentence.includes(randomWord) ||
-    // don't include multiple instances of the same word with different casing
-    (isLowercase(randomWord[0])
-      ? sentence.includes(capitalize(randomWord))
-      : sentence.includes(randomWord.toLowerCase())) ||
+    sentence
+      .map((w) => stem(w.toLocaleLowerCase(), language))
+      .includes(stem(randomWord.toLocaleLowerCase(), language)) ||
     // don't start or end sentence with number, nor have more than one number per sentence
     (isNumeric(randomWord) &&
       (sentence.length === 0 ||
@@ -60,7 +68,12 @@ function getRandomWord(
         Math.random() < 0.666 ? getRandomArticleWord() : getRandomStopword();
     }
   } while (
-    isWordPlacementInvalid(randomWord, sentence, sentenceIntendedLength)
+    isWordPlacementInvalid(
+      randomWord,
+      sentence,
+      sentenceIntendedLength,
+      language
+    )
   );
 
   return randomWord;
