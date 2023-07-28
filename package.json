@@ -45,7 +45,7 @@
     "babel-loader": "^9.1.2",
     "babel-plugin-styled-components": "^2.1.4",
     "clean-webpack-plugin": "*",
-    "core-js": "^3.31.0",
+    "core-js": "^3.32.0",
     "cross-fetch": "^4.0.0",
     "cspell": "^6.31.1",
     "css-loader": "^6.8.1",
