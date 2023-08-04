@@ -5,6 +5,11 @@ function getDateMinusNDays(n: number) {
   return new Date(Date.now() - n * 24 * 60 * 60 * 1000);
 }
 
+/** used for padding days and months */
+function pad(n: number) {
+  return n.toString().padStart(2, '0');
+}
+
 /** recursively hit the API until the most recent day with data is found */
 async function fetchAPI(
   language: languageType,
@@ -14,11 +19,9 @@ async function fetchAPI(
 
   // not using `generateRequestURL` because API's base URL is different
   // gets top 1000 articles — there's no API option to limit the quantity of results
-  const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/${language}.wikipedia/all-access/${date.getUTCFullYear()}/${(
+  const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/${language}.wikipedia/all-access/${date.getUTCFullYear()}/${pad(
     date.getUTCMonth() + 1
-  )
-    .toString()
-    .padStart(2, '0')}/${date.getUTCDate()}`;
+  )}/${pad(date.getUTCDate())}`;
 
   const resp = (await (await fetch(url)).json()) as {
     items: [{ articles: { article: string }[] }];

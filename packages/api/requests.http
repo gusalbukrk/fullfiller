@@ -1,5 +1,13 @@
 # NOTE: requests must be separated by ###
 
+GET http://localhost:80/api/:traditional///2/html
+
+###
+
+GET http://localhost:80/api/:popular/pt
+
+###
+
 # route parameters (`req.params`)
 GET http://localhost:80/api/harry potter/es/paragraphs/3/html/false/5/25/5/14
 
