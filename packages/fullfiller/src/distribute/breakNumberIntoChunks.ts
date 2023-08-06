@@ -12,11 +12,11 @@ function breakNumberIntoChunks(
   // it wouldn't work when computing how many sentences a paragraph will have, that's because
   // quant of sentences must adhere to main function's `sentencesPerParagraph.{min|max}`
   distributionLengthMin: number,
-  distributionLengthMax: number
+  distributionLengthMax: number,
 ): number[] {
   const distributionLength = getRandomNumber(
     distributionLengthMin,
-    distributionLengthMax
+    distributionLengthMax,
   );
 
   return Array.from({ length: distributionLength }).reduce(
@@ -33,22 +33,22 @@ function breakNumberIntoChunks(
 
       const nextMax = Math.min(
         (howManyChunksRemaining - 1) * chunkValueMax,
-        rest
+        rest,
       );
 
       const min = Math.max(
         rest - nextMax, // it's always going to be between 0 and chunkValueMax
-        chunkValueMin
+        chunkValueMin,
       );
 
       const max = Math.min(
         rest - (howManyChunksRemaining - 1) * chunkValueMin,
-        chunkValueMax
+        chunkValueMax,
       );
 
       return [...distribution, getRandomNumber(min, max)];
     },
-    [] as number[]
+    [] as number[],
   );
 }
 

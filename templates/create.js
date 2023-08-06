@@ -33,12 +33,12 @@ import fse from 'fs-extra';
   const configContent = fs.readFileSync(configPath, 'utf-8');
   fs.writeFileSync(
     configPath,
-    configContent.replace(/package-name/g, packageName)
+    configContent.replace(/package-name/g, packageName),
   );
 
   // edit README.md
   const readmePath = join(packagePath, 'README.md');
   fs.writeFileSync(readmePath, `# ${packageName}\n`);
 })().catch(
-  (error) => console.error(error) /* eslint-disable-line no-console */
+  (error) => console.error(error) /* eslint-disable-line no-console */,
 );

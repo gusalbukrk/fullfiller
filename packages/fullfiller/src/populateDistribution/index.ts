@@ -12,7 +12,7 @@ import getRandomWord from './getRandomWord';
 function populateDistribution(
   freqMap: freqMapType,
   language: languageType,
-  distribution: number[][]
+  distribution: number[][],
 ): fillerBodyArrayType {
   const getRandomArticleWord = weightedRandomness(freqMap);
   const getRandomStopword = generateGetRandomStopwordFn(language);
@@ -28,14 +28,14 @@ function populateDistribution(
                 sentenceIntendedLength,
                 language,
                 getRandomArticleWord,
-                getRandomStopword
-              )
+                getRandomStopword,
+              ),
             ),
-          []
+          [],
         ),
-        language
-      )
-    )
+        language,
+      ),
+    ),
   );
 
   return populated;

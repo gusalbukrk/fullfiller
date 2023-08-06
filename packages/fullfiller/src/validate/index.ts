@@ -24,7 +24,7 @@ function validate(
     stringify,
     sentencesPerParagraph,
     wordsPerSentence,
-  }: DeepRequired<optionsType>
+  }: DeepRequired<optionsType>,
 ): void {
   const errors = ([] as string[]).concat(
     validateInput(input),
@@ -34,7 +34,7 @@ function validate(
     validateFormat(format),
     validateStringify(stringify),
     validateSentencesPerParagraph(sentencesPerParagraph),
-    validateWordsPerSentence(wordsPerSentence)
+    validateWordsPerSentence(wordsPerSentence),
   );
 
   if (errors.length > 0)

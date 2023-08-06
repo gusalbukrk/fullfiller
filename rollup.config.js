@@ -71,7 +71,7 @@ export default [
   },
   {
     input: `dist/types/${path.basename(
-      path.resolve(process.cwd())
+      path.resolve(process.cwd()),
     )}/src/index.d.ts`,
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
     plugins: [

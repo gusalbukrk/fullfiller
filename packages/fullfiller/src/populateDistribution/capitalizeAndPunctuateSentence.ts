@@ -65,7 +65,7 @@ function addMidSentencePunctuation(arr: string[], language: languageType) {
         subarray.find((word) => {
           const previousWord = sentenceArray[sentenceArray.indexOf(word) - 1];
           return !isStopword(previousWord) && !isStopword(word);
-        })!
+        })!,
       );
 
       const punctuationEndIndex =
@@ -81,7 +81,7 @@ function addMidSentencePunctuation(arr: string[], language: languageType) {
                     sentenceArray[sentenceArray.indexOf(word) + 1];
 
                   return !isStopword(word) && !isStopword(nextWord);
-                })!
+                })!,
             );
 
       if (punctuationStartIndex !== -1 && punctuationEndIndex !== -1) {
@@ -102,14 +102,14 @@ function addMidSentencePunctuation(arr: string[], language: languageType) {
 
 function capitalizeAndPunctuateSentence(
   arr: string[],
-  language: languageType
+  language: languageType,
 ): string[] {
   const sentenceArray = [...arr];
 
   return capitalizeSentence(
     addEndSentencePunctuation(
-      addMidSentencePunctuation(sentenceArray, language)
-    )
+      addMidSentencePunctuation(sentenceArray, language),
+    ),
   );
 }
 

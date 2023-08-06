@@ -10,13 +10,13 @@ import {
  */
 export function generateRequestURL(
   language: languageType,
-  queries: queriesType
+  queries: queriesType,
 ): string {
   const baseAPI = `https://${language}.wikipedia.org/w/api.php?&format=json&origin=*&`;
 
   const queryString = Object.entries(queries)
     .map(([key, value]) =>
-      value === undefined ? key : `${key}=${value.toString()}`
+      value === undefined ? key : `${key}=${value.toString()}`,
     )
     .join('&');
 
@@ -44,7 +44,7 @@ type response = {
  */
 export async function fetchResource(
   language: languageType,
-  queries: queriesType
+  queries: queriesType,
 ): Promise<Record<string, unknown>> {
   const url = generateRequestURL(language, queries);
 

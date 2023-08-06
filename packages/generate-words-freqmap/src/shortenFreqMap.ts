@@ -5,7 +5,7 @@ function shortenFreqMap(
   freqMap: freqMapType,
   tierWeightMin: number,
   tierWeightMax: number,
-  mergePosteriorTiersAt: number
+  mergePosteriorTiersAt: number,
 ): freqMapType {
   return Object.entries(freqMap).reduce((shortened, entry) => {
     const weight = Number(entry[0]);

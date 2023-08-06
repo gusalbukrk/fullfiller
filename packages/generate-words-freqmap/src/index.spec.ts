@@ -92,7 +92,7 @@ describe('generateFreqMap throws errors correctly', () => {
     expect.assertions(1);
 
     expect(() => generateFreqMap([], [], { wordsQuantityMin: 1 })).toThrow(
-      "Given `wordsArray` doesn't have enough words to construct `freqMap` containing the minimum quantity of words required."
+      "Given `wordsArray` doesn't have enough words to construct `freqMap` containing the minimum quantity of words required.",
     );
   });
 });

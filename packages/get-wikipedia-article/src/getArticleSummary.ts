@@ -19,7 +19,7 @@ type response = {
 async function getArticleSummary(
   language: languageType,
   title: string,
-  format: formatType
+  format: formatType,
 ): Promise<string> {
   const queries = {
     action: 'query',

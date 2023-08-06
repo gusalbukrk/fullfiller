@@ -5,7 +5,7 @@ import { generateRequestURL } from './common/utils';
 /** @returns Array of titles of random articles. */
 async function getListOfRandomArticles(
   language: languageType,
-  limit = 10
+  limit = 10,
 ): Promise<string[]> {
   const queries = {
     action: 'query',

@@ -14,7 +14,7 @@ import { generateRequestURL } from './common/utils';
 async function getMatchingArticlesTitles(
   language: languageType,
   query: string,
-  single = false
+  single = false,
 ): Promise<string[]> {
   const requestURL = generateRequestURL(language, {
     action: 'opensearch',

@@ -6,7 +6,7 @@ import { freqMapWordAsKeyType } from './common/types';
 function emphasize(
   freqMapWordAsKey: freqMapWordAsKeyType,
   wordsToEmphasize: string[],
-  emphasizeBy: number
+  emphasizeBy: number,
 ): freqMapWordAsKeyType {
   return wordsToEmphasize.reduce(
     (freqMap, word) =>
@@ -16,7 +16,7 @@ function emphasize(
             ...freqMap,
             [word]: Math.round(freqMap[word] * emphasizeBy),
           },
-    freqMapWordAsKey
+    freqMapWordAsKey,
   );
 }
 

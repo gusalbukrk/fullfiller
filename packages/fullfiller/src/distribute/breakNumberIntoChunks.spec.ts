@@ -9,9 +9,9 @@ describe.each(Array.from({ length: 100 }).map(() => getRandomNumber(10, 500)))(
     const chunkValueMax = getRandomNumber(
       Math.min(
         chunkValueMin * 2 - 1, // otherwise, error
-        number
+        number,
       ),
-      number
+      number,
     );
 
     const distributionLengthMin = Math.ceil(number / chunkValueMax);
@@ -22,7 +22,7 @@ describe.each(Array.from({ length: 100 }).map(() => getRandomNumber(10, 500)))(
       chunkValueMin,
       chunkValueMax,
       distributionLengthMin,
-      distributionLengthMax
+      distributionLengthMax,
     );
 
     it('distribution sum is equal to given number', () => {
@@ -51,5 +51,5 @@ describe.each(Array.from({ length: 100 }).map(() => getRandomNumber(10, 500)))(
       expect(len).toBeGreaterThanOrEqual(distributionLengthMin);
       expect(len).toBeLessThanOrEqual(distributionLengthMax);
     });
-  }
+  },
 );

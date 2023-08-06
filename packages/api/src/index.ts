@@ -58,7 +58,7 @@ function convertParameters(inputs: inputsType) {
       }
 
       return [k, v];
-    })
+    }),
   ) as inputsType;
 }
 
@@ -88,7 +88,7 @@ app.get(
       inputsType,
       Record<string, unknown>
     >,
-    res
+    res,
   ) => {
     const inputs = Object.keys(req.query).length !== 0 ? req.query : req.body;
 
@@ -101,7 +101,7 @@ app.get(
     const filler = await fullfiller(query, options);
 
     res.status(200).json(filler);
-  }
+  },
 );
 
 // endpoint handles requests with route parameters (also known as path)
@@ -135,12 +135,12 @@ app.get(
     const filler = await fullfiller(query, options);
 
     res.status(200).json(filler);
-  }
+  },
 );
 
 const PORT = process.env.PORT || 80;
 
 app.listen(
   PORT,
-  () => console.log(`Server is running at http://localhost:${PORT}.`) // eslint-disable-line no-console
+  () => console.log(`Server is running at http://localhost:${PORT}.`), // eslint-disable-line no-console
 );

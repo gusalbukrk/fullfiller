@@ -9,7 +9,7 @@ import stopwordsF from './stopwords-frequency.json';
 
 function isStopword(
   word: string,
-  language: stopwordsLanguageType = 'en'
+  language: stopwordsLanguageType = 'en',
 ): boolean {
   return stopwords[language].includes(word.toLowerCase());
 }

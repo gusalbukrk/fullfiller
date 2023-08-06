@@ -33,7 +33,7 @@ const queriesCacheDir = join(base, 'queries');
 const freqMapsCacheDir = join(base, 'freqMaps');
 
 async function getFreqMapsCacheRecord(
-  queriesCacheKey: string
+  queriesCacheKey: string,
 ): Promise<
   | { freqMapsCacheKey: string; freqMapsCacheValue: freqMapType }
   | Record<string, never>
@@ -49,7 +49,7 @@ async function getFreqMapsCacheRecord(
     return {
       freqMapsCacheKey: queriesCacheKey,
       freqMapsCacheValue: JSON.parse(
-        directFreqMapsCacheValue.data.toString()
+        directFreqMapsCacheValue.data.toString(),
       ) as freqMapType,
     };
   }
@@ -66,7 +66,7 @@ async function getFreqMapsCacheRecord(
   const freqMapsCacheKey = queriesCacheValue.data.toString();
 
   const freqMapsCacheValue = JSON.parse(
-    (await cache.get(freqMapsCacheDir, freqMapsCacheKey)).data.toString()
+    (await cache.get(freqMapsCacheDir, freqMapsCacheKey)).data.toString(),
   ) as freqMapType;
 
   return { freqMapsCacheKey, freqMapsCacheValue };
@@ -75,7 +75,7 @@ async function getFreqMapsCacheRecord(
 // fullfiller with file system caching capabilities
 async function fullfiller(
   query: queryInputType,
-  options: optionsType
+  options: optionsType,
 ): Promise<fillerType> {
   const queriesCacheKey = `${options.language ?? 'en'} - ${query}`;
 
@@ -97,7 +97,7 @@ async function fullfiller(
             map: freqMapsCacheValue,
           },
           options,
-        ]) as [inputType, optionsType])
+        ]) as [inputType, optionsType]),
   );
 
   // create cache records if they don't yet exist
@@ -124,7 +124,7 @@ async function fullfiller(
       await cache.put(
         freqMapsCacheDir,
         queriesCacheValue,
-        JSON.stringify(filler.freqMap)
+        JSON.stringify(filler.freqMap),
       );
     }
   }
@@ -143,13 +143,13 @@ async function fullfiller(
     .option('-i, --interactive', 'interactive mode')
     .option(
       '-l, --language <string>',
-      'language code, e.g. `en`, `es`, `pt`, ...'
+      'language code, e.g. `en`, `es`, `pt`, ...',
     )
     .option('-u, --unit <string>', '`paragraphs` or `words`')
     .option(
       '-q, --quantity <number>',
       'integer, defaults to 5 for `paragraphs` and 200 for `words`',
-      parseIntR10
+      parseIntR10,
     )
     .option('-f, --format <string>', '`plain` (default) or `html`')
     // a negatable boolean (leading 'no-') without corresponding regular boolean is true by default
@@ -157,22 +157,22 @@ async function fullfiller(
     .option(
       '--sentencesPerParagraphMin <number>',
       'min quantity of sentences per paragraph',
-      parseIntR10
+      parseIntR10,
     )
     .option(
       '--sentencesPerParagraphMax <number>',
       'max quantity of sentences per paragraph',
-      parseIntR10
+      parseIntR10,
     )
     .option(
       '--wordsPerSentenceMin <number>',
       'min quantity of words per sentence',
-      parseIntR10
+      parseIntR10,
     )
     .option(
       '--wordsPerSentenceMax <number>',
       'max quantity of words per sentence',
-      parseIntR10
+      parseIntR10,
     );
 
   program.parse();
@@ -230,7 +230,7 @@ async function fullfiller(
     ]))) as flatOptionsType & { query: string };
 
   const { query, ...options } = unflattenBreakdownOptions(
-    answers ?? { query: program.args[0], ...program.opts<flatOptionsType>() }
+    answers ?? { query: program.args[0], ...program.opts<flatOptionsType>() },
   ) as optionsType & { query: string };
 
   const filler = await fullfiller(query, options);

@@ -40,7 +40,7 @@ export function escapeRegExp(regexpString: string): string {
  */
 export function paramsToObjParam<I, T extends unknown[], RT>(
   fn: (...params: T) => RT,
-  defaults: I
+  defaults: I,
 ): (args?: Partial<I>) => RT {
   // defaults keys must follow same order as fn parameters
   // in args, keys can be in any order
@@ -76,13 +76,13 @@ export function parseIntR10(n: string | number) {
 
 export function objectFilter<T extends Record<string, unknown>>(
   obj: T,
-  predicate: ([k, v]: [string, unknown]) => boolean
+  predicate: ([k, v]: [string, unknown]) => boolean,
 ) {
   return Object.fromEntries(Object.entries(obj).filter(predicate)) as T;
 }
 
 export function unflattenBreakdownOptions(
-  options: flatOptionsType
+  options: flatOptionsType,
 ): optionsType {
   return {
     // filter out flat breakdown options (e.g. wordsPerSentenceMin)
@@ -94,7 +94,7 @@ export function unflattenBreakdownOptions(
           'sentencesPerParagraphMax',
           'wordsPerSentenceMin',
           'wordsPerSentenceMax',
-        ].includes(k)
+        ].includes(k),
     ),
 
     // convert flat breakdown options to objects

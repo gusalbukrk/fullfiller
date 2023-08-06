@@ -7,7 +7,7 @@ import { getCorrectWordCase } from '../../common/utils';
  */
 function handleLeadingDot(
   wordContainingLeadingDot: string,
-  text: string
+  text: string,
 ): string {
   const wordWithoutDot = wordContainingLeadingDot.substring(1);
 
@@ -16,10 +16,10 @@ function handleLeadingDot(
       text.match(
         new RegExp(
           `(^|[^\\p{L}\\p{Nd}])${escapeRegExp(
-            wordContainingLeadingDot
+            wordContainingLeadingDot,
           )}(?=([^\\p{L}\\p{Nd}]|$))`,
-          'gu'
-        )
+          'gu',
+        ),
       ) || []
     ).length > 1;
 

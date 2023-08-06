@@ -12,7 +12,7 @@ import { formatType } from 'fullfiller-common/src/types';
  */
 function extractSummaryFromBody(
   body: string,
-  format: formatType
+  format: formatType,
 ): string | undefined {
   const plaintextRE = /^[\s\S]*?(?=\n\n\n==)/;
   const htmlRE = /^[\s\S]*?(?=\n\n<h2>)/;

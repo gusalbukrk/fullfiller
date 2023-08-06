@@ -47,16 +47,16 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
         stringify: false,
       });
       expect(body).toHaveLength(quantity);
-    }
+    },
   );
 
   it.each(
     Array.from({ length: 10 }, () => [
       getRandomNumber(
         sentencesPerParagraphDefault.min * wordsPerSentenceDefault.min, // minimum quantity of words required, otherwise error
-        500
+        500,
       ),
-    ])
+    ]),
   )('words', async (quantity) => {
     expect.assertions(1);
 
@@ -70,7 +70,7 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
       (acc, paragraph) =>
         acc +
         paragraph.reduce<number>((acc2, sentence) => acc2 + sentence.length, 0),
-      0
+      0,
     );
 
     expect(wordsCount).toBe(quantity);
@@ -86,7 +86,7 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
 
     const sentencesPerParagraph = body.reduce<number[]>(
       (acc, paragraph) => acc.concat(paragraph.length),
-      []
+      [],
     );
 
     const min = Math.min(...sentencesPerParagraph);
@@ -109,10 +109,10 @@ describe('`fullfiller` returns correct number of paragraphs, sentences and words
         acc.concat(
           paragraph.reduce<number[]>(
             (acc2, sentence) => acc2.concat(sentence.length),
-            []
-          )
+            [],
+          ),
         ),
-      []
+      [],
     );
 
     const min = Math.min(...wordsPerSentence);
@@ -166,8 +166,8 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
       >
     ).body.every((paragraph) =>
       paragraph.every(
-        (sentence) => sentence[0][0] === sentence[0][0].toUpperCase()
-      )
+        (sentence) => sentence[0][0] === sentence[0][0].toUpperCase(),
+      ),
     );
 
     expect(allSentencesFirstLettersAreCapitalized).toBe(true);
@@ -185,7 +185,7 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
           })) as Overwrite<fillerType, { body: fillerBodyArrayType }>
         ).body
           .reduce((acc, paragraph) => acc.concat(paragraph))
-          .map((sentence) => last(last(sentence).split('')))
+          .map((sentence) => last(last(sentence).split(''))),
       ),
     ].sort();
 
@@ -204,10 +204,10 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
           })) as Overwrite<fillerType, { body: fillerBodyArrayType }>
         ).body
           .map((paragraph) =>
-            paragraph.map((sentence) => sentence.join(' ')).join(' ')
+            paragraph.map((sentence) => sentence.join(' ')).join(' '),
           )
           .join(' ')
-          .match(/[()[\]"—,;:]/g)
+          .match(/[()[\]"—,;:]/g),
       ),
     ].sort();
 
@@ -243,8 +243,8 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
           (index > 0 &&
             containsNonEnclosingMidOfSentencePunctuation(array[index - 1])) // current word comes after punctuation
             ? !isStopword(word) && !isNumeric(word)
-            : true
-        )
+            : true,
+        ),
       );
 
     expect(wordsBetweenPunctuationAreNeitherStopwordsNorNumbers).toBe(true);
@@ -275,7 +275,7 @@ describe('`fullfiller` returns sentences punctuated and capitalized', () => {
 
             return acc;
           },
-          []
+          [],
         );
 
         return wordsBetweenPunctuation.every((word) => !isStopword(word));
@@ -309,8 +309,8 @@ describe('`fullfiller` returns correct word placement', () => {
           return array
             .slice(index - 1, index + 2) // [before, current, after]
             .some((word) => !isStopword(removePunctuation(word)));
-        })
-      )
+        }),
+      ),
     );
 
     expect(noMoreThan2SubsequentStopwords).toBe(true);
@@ -327,8 +327,8 @@ describe('`fullfiller` returns correct word placement', () => {
           return array
             .slice(index - 1, index + 3)
             .some((word) => isStopword(removePunctuation(word)));
-        })
-      )
+        }),
+      ),
     );
 
     expect(noMoreThan3SubsequentNonStopwords).toBe(true);
@@ -341,7 +341,7 @@ describe('`fullfiller` returns correct word placement', () => {
       paragraph.every((sentence) =>
         sentence
           .map((word, index) =>
-            removePunctuation(index === 0 ? word.toLowerCase() : word)
+            removePunctuation(index === 0 ? word.toLowerCase() : word),
           )
           .every((word, _, array) => {
             const isUnique = (el: string) =>
@@ -354,8 +354,8 @@ describe('`fullfiller` returns correct word placement', () => {
                 ? isUnique(capitalize(word))
                 : isUnique(word.toLowerCase()))
             );
-          })
-      )
+          }),
+      ),
     );
 
     expect(noDuplicateWords).toBe(true);
@@ -366,8 +366,8 @@ describe('`fullfiller` returns correct word placement', () => {
 
     const sentencesNeitherStartNorEndWithNumbers = body.every((paragraph) =>
       paragraph.every(
-        (sentence) => !isNumeric(sentence[0]) && !isNumeric(last(sentence))
-      )
+        (sentence) => !isNumeric(sentence[0]) && !isNumeric(last(sentence)),
+      ),
     );
 
     expect(sentencesNeitherStartNorEndWithNumbers).toBe(true);
@@ -378,8 +378,8 @@ describe('`fullfiller` returns correct word placement', () => {
 
     const noMoreThan1NumberPerSentence = body.every((paragraph) =>
       paragraph.every(
-        (sentence) => sentence.filter((word) => isNumeric(word)).length <= 1
-      )
+        (sentence) => sentence.filter((word) => isNumeric(word)).length <= 1,
+      ),
     );
 
     expect(noMoreThan1NumberPerSentence).toBe(true);
@@ -401,6 +401,6 @@ describe('`fullfiller` handles different input types correctly', () => {
       expect(filler.title).toBe('Lorem ipsum');
       expect(typeof filler.body).toBe('string');
     },
-    60000
+    60000,
   );
 });

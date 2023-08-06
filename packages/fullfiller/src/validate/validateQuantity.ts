@@ -12,7 +12,7 @@ function validateQuantity(
   quantity: number,
   unit: unitType,
   sentencesPerParagraph: breakdownOptionType,
-  wordsPerSentence: breakdownOptionType
+  wordsPerSentence: breakdownOptionType,
 ): string[] {
   const errors: string[] = [];
 

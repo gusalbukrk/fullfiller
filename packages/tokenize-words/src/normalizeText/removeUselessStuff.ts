@@ -2,10 +2,10 @@ function preserveCommaOrColonIfSurroundedByNumbers(
   _: string,
   before: string,
   commaOrColon: string,
-  after: string
+  after: string,
 ) {
   const isCommaOrColonSurroundedByNumbers = [before, after].every((char) =>
-    /^\d$/.test(char)
+    /^\d$/.test(char),
   );
 
   const preserved = before + commaOrColon;
@@ -31,7 +31,7 @@ function removeUselessStuff(string: string): string {
     // remove space between initials
     .replace(
       /(^|\s)(\p{Lu}\.(\s|$)){2,}/gu,
-      (initials: string) => ` ${initials.replace(/\s/g, '')} `
+      (initials: string) => ` ${initials.replace(/\s/g, '')} `,
     );
 
   return removed;

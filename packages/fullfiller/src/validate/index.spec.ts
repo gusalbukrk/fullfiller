@@ -50,13 +50,13 @@ describe('throw error messages correctly', () => {
       '...',
       'paragraphs',
       sentencesPerParagraphDefault,
-      wordsPerSentenceDefault
+      wordsPerSentenceDefault,
     )[0];
     const y = validateQuantity(
       0,
       'paragraphs',
       sentencesPerParagraphDefault,
-      wordsPerSentenceDefault
+      wordsPerSentenceDefault,
     )[0];
 
     expect(x).toBe(errorMessages.quantityNotNumber);

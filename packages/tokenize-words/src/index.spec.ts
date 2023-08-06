@@ -6,7 +6,7 @@ describe('tokenizeWords (main function)', () => {
 
     const a = () => tokenizeWords('', { lengthMin: 1 });
     expect(a).toThrow(
-      "Given `text` doesn't have enough keywords to construct `wordsArray` containing the minimum quantity of words required."
+      "Given `text` doesn't have enough keywords to construct `wordsArray` containing the minimum quantity of words required.",
     );
   });
 
@@ -14,7 +14,7 @@ describe('tokenizeWords (main function)', () => {
     expect.assertions(1);
 
     const a = tokenizeWords(
-      "The foo, baz. and bar.\nFoo is on baz. and qux.Foo 7.5% isn't .foobar! - G. A. (example.com)"
+      "The foo, baz. and bar.\nFoo is on baz. and qux.Foo 7.5% isn't .foobar! - G. A. (example.com)",
     );
 
     expect(a).toStrictEqual([

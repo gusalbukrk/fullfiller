@@ -10,7 +10,7 @@ type response = {
 
 async function queryPointsToADisambiguationPage(
   language: languageType,
-  title: string
+  title: string,
 ): Promise<boolean> {
   const queries = {
     action: 'query',

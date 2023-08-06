@@ -15,7 +15,7 @@ function distribute(
   quantity: number,
   unit: unitType,
   sentencesPerParagraph: breakdownOptionType,
-  wordsPerSentence: breakdownOptionType
+  wordsPerSentence: breakdownOptionType,
 ): number[][] {
   const wordsPerParagraphMin = sentencesPerParagraph.min * wordsPerSentence.min;
   const wordsPerParagraphMax = sentencesPerParagraph.max * wordsPerSentence.max;
@@ -25,14 +25,14 @@ function distribute(
   const paragraphsDistribution =
     unit === 'paragraphs'
       ? Array.from({ length: quantity }).map(() =>
-          getRandomNumber(wordsPerParagraphMin, wordsPerParagraphMax)
+          getRandomNumber(wordsPerParagraphMin, wordsPerParagraphMax),
         )
       : breakNumberIntoChunks(
           quantity,
           wordsPerParagraphMin,
           wordsPerParagraphMax,
           Math.ceil(quantity / wordsPerParagraphMax), // paragraphsQuantityMin
-          Math.floor(quantity / wordsPerParagraphMin) // paragraphsQuantityMax
+          Math.floor(quantity / wordsPerParagraphMin), // paragraphsQuantityMax
         );
 
   // array containing arrays of numbers
@@ -45,13 +45,13 @@ function distribute(
         wordsPerSentence.max,
         Math.max(
           Math.ceil(wordsPerParagraph / wordsPerSentence.max),
-          sentencesPerParagraph.min
+          sentencesPerParagraph.min,
         ), // sentencesQuantityMin
         Math.min(
           Math.floor(wordsPerParagraph / wordsPerSentence.min),
-          sentencesPerParagraph.max
-        ) // sentencesQuantityMax
-      )
+          sentencesPerParagraph.max,
+        ), // sentencesQuantityMax
+      ),
   );
 
   return sentencesDistribution;

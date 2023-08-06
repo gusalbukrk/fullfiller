@@ -23,7 +23,7 @@ const article = await fullfiller(
     unit: 'words', // 'words' (default) or 'paragraphs'
     quantity: 250,
     format: 'html', // 'plain' (default) or 'html'
-  }
+  },
 );
 
 console.log(article);

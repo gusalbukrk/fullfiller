@@ -12,7 +12,7 @@ export const textTooShort =
 //
 export const invalidLanguage = (language: string, languages: string[]) =>
   `Expected \`language\` argument to be one of the supported languages (${languages.join(
-    ', '
+    ', ',
   )}).`;
 //
 export const invalidUnit =
@@ -58,12 +58,12 @@ export const articleIsDisambiguation = (suggestions: string[]): string =>
 
 export const notEnoughWordsInWordsArray = (
   minimum: number,
-  received: number
+  received: number,
 ): string =>
   `Given \`text\` doesn't have enough keywords to construct \`wordsArray\` containing the minimum quantity of words required. Minimum number of words required: ${minimum}. Number of words received: ${received}.`;
 
 export const notEnoughWordsInFreqMap = (
   minimum: number,
-  received: number
+  received: number,
 ): string =>
   `Given \`wordsArray\` doesn't have enough words to construct \`freqMap\` containing the minimum quantity of words required. Minimum number of words required: ${minimum}. Number of words received: ${received}.`;

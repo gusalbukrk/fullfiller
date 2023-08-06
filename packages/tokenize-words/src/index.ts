@@ -28,7 +28,7 @@ function tokenizeWords(text: string, optionsArg: optionsType = {}): string[] {
   if (wordsArrayLength < options.lengthMin) {
     throw new CustomError(
       notEnoughWordsInWordsArray(options.lengthMin, wordsArrayLength),
-      'tokenize-words'
+      'tokenize-words',
     );
   }
 

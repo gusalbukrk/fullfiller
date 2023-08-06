@@ -14,20 +14,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url)); // eslint-disable-lin
     (
       await (
         await fetch(
-          'https://commons.wikimedia.org/w/api.php?format=json&action=sitematrix&smtype=language&smlangprop=code|localname|site&smsiteprop=code'
+          'https://commons.wikimedia.org/w/api.php?format=json&action=sitematrix&smtype=language&smlangprop=code|localname|site&smsiteprop=code',
         )
       ).json()
-    ).sitematrix
+    ).sitematrix,
   ).reduce(
     (ls, l) =>
       l.site?.some((s) => s.code === 'wiki')
         ? { ...ls, [l.code]: l.localname }
         : ls,
-    {}
+    {},
   );
 
   fs.writeFileSync(
     join(__dirname, './languages.json'),
-    JSON.stringify(languages, undefined, 2)
+    JSON.stringify(languages, undefined, 2),
   );
 })();

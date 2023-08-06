@@ -42,7 +42,7 @@ function replacer(wordContainingDot: string, offset: number, whole: string) {
 function preserveRemoveOrReplaceDot(text: string): string {
   return text.replace(
     /\S*\.\S*/g, // word containing dot(s) at any position
-    replacer
+    replacer,
   );
 }
 

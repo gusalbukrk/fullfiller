@@ -21,6 +21,7 @@ export type freqMapInputType = { title: string; map: freqMapType };
  * valid input types: special keyword, Wikipedia query string, text, words array and frequency map
  */
 export type inputType =
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   | specialKeywordInputType
   | queryInputType
   | textInputType

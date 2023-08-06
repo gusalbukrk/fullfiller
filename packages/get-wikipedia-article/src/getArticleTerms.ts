@@ -18,7 +18,7 @@ type response = {
 async function getArticleTerms(
   language: languageType,
   title: string,
-  include: (keyof termsType)[]
+  include: (keyof termsType)[],
 ): Promise<termsType> {
   const queries = {
     action: 'query',

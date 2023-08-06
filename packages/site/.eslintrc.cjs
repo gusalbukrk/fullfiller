@@ -7,7 +7,7 @@ const config = require('../../.eslintrc.cjs');
 // one of the following parser plugin(s): 'jsx, flow, typescript'
 config.parserOptions.babelOptions.configFile = path.join(
   __dirname,
-  'babel.config.cjs'
+  'babel.config.cjs',
 );
 
 module.exports = {

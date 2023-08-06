@@ -9,7 +9,7 @@ function stem(word: string, language: languageType) {
   if (!(language in suffixes)) return word;
 
   const suffix = suffixes[language as keyof typeof suffixes].find((s) =>
-    word.endsWith(s)
+    word.endsWith(s),
   );
 
   return suffix === undefined ? word : word.slice(0, -suffix.length);
@@ -19,7 +19,7 @@ function isWordPlacementInvalid(
   randomWord: string,
   sentence: string[],
   sentenceIntendedLength: number,
-  language: languageType
+  language: languageType,
 ) {
   return (
     sentence
@@ -38,7 +38,7 @@ function getRandomWord(
   sentenceIntendedLength: number,
   language: languageType,
   getRandomArticleWord: () => string,
-  getRandomStopword: () => string
+  getRandomStopword: () => string,
 ): string {
   const isStopword = (word: string) => isStopwordBase(word, language);
 
@@ -72,7 +72,7 @@ function getRandomWord(
       randomWord,
       sentence,
       sentenceIntendedLength,
-      language
+      language,
     )
   );
 

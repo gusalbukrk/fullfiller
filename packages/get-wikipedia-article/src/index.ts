@@ -46,12 +46,12 @@ async function getWikipediaArticle(
     language = 'en',
     include = includeDefault,
     format = 'plain',
-  }: optionsType = {}
+  }: optionsType = {},
 ): Promise<articleType> {
   if (!Object.keys(wikipediaLanguages).includes(language)) {
     throw new CustomError(
       invalidLanguage(language, Object.keys(wikipediaLanguages)),
-      'get-wikipedia-article'
+      'get-wikipedia-article',
     );
   }
 
@@ -64,7 +64,7 @@ async function getWikipediaArticle(
         language,
         include,
         format,
-      }
+      },
     );
   }
 
@@ -77,7 +77,7 @@ async function getWikipediaArticle(
     // first result will be selected as the article to be fetched
     const [title, ...related] = await getMatchingArticlesTitles(
       language,
-      query
+      query,
     );
     article.title = title;
     article.related = related;
@@ -98,7 +98,7 @@ async function getWikipediaArticle(
   if (await queryPointsToADisambiguationPage(language, titleQuery)) {
     throw new CustomError(
       articleIsDisambiguation(article.related || [] /* suggestions */),
-      'get-wikipedia-article'
+      'get-wikipedia-article',
     );
   }
 

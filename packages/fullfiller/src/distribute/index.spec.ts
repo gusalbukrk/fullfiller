@@ -13,7 +13,7 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
       quantity,
       'paragraphs',
       sentencesPerParagraphDefault,
-      wordsPerSentenceDefault
+      wordsPerSentenceDefault,
     );
 
     it('quantity', () => {
@@ -28,7 +28,7 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
 
       const sentencesQuantityOfEachParagraph = distribution.reduce(
         (acc, cur) => [...acc, cur.length],
-        []
+        [],
       );
 
       const min = Math.min(...sentencesQuantityOfEachParagraph);
@@ -44,7 +44,7 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
 
       const wordsQuantityOfEachSentence = distribution.reduce(
         (acc, cur) => [...acc, ...cur],
-        []
+        [],
       );
 
       const min = Math.min(...wordsQuantityOfEachSentence);
@@ -53,22 +53,22 @@ describe.each(Array.from({ length: 20 }).map(() => getRandomNumber(1, 25)))(
       expect(min).toBeGreaterThanOrEqual(wordsPerSentenceDefault.min);
       expect(max).toBeLessThanOrEqual(wordsPerSentenceDefault.max);
     });
-  }
+  },
 );
 
 describe.each(
   Array.from({ length: 20 }).map(() =>
     getRandomNumber(
       wordsPerSentenceDefault.min * sentencesPerParagraphDefault.min,
-      2000
-    )
-  )
+      2000,
+    ),
+  ),
 )("'words' unit", (quantity) => {
   const distribution = distribute(
     quantity,
     'words',
     sentencesPerParagraphDefault,
-    wordsPerSentenceDefault
+    wordsPerSentenceDefault,
   );
 
   it('quantity', () => {
@@ -86,7 +86,7 @@ describe.each(
 
     const sentencesQuantityOfEachParagraph = distribution.reduce(
       (acc, cur) => [...acc, cur.length],
-      []
+      [],
     );
 
     const min = Math.min(...sentencesQuantityOfEachParagraph);
@@ -102,7 +102,7 @@ describe.each(
 
     const wordsQuantityOfEachSentence = distribution.reduce(
       (acc, cur) => [...acc, ...cur],
-      []
+      [],
     );
 
     const min = Math.min(...wordsQuantityOfEachSentence);

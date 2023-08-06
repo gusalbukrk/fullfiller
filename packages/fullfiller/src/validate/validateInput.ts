@@ -32,7 +32,7 @@ function isInputWordsArray(input: inputType): input is wordsArrayInputType {
     typeof (input as wordsArrayInputType).title === 'string' &&
     Array.isArray((input as wordsArrayInputType).words) &&
     (input as wordsArrayInputType).words.every(
-      (word) => typeof word === 'string'
+      (word) => typeof word === 'string',
     )
   );
 }
@@ -44,11 +44,11 @@ function isInputFreqMap(input: inputType): input is freqMapInputType {
     typeof (input as freqMapInputType).title === 'string' &&
     isObject((input as freqMapInputType).map) &&
     Object.keys((input as freqMapInputType).map).every((key) =>
-      /^\d+$/.test(key)
+      /^\d+$/.test(key),
     ) &&
     Object.values((input as freqMapInputType).map).every(
       (value) =>
-        Array.isArray(value) && value.every((el) => typeof el === 'string')
+        Array.isArray(value) && value.every((el) => typeof el === 'string'),
     )
   );
 }

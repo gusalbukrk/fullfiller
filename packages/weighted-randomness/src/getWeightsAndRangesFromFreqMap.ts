@@ -10,7 +10,7 @@ function getWeightsAndRangesFromFreqMap(freqMap: freqMapType): number[][] {
 
   const ranges = weights.reduce<number[]>(
     (acc, weight) => acc.concat((last(acc) || 0) + weight),
-    []
+    [],
   );
 
   return [weights, ranges];

@@ -3,7 +3,7 @@ import { freqMapWordAsKeyType } from './common/types';
 /** **freqMapWordAsKey** example: `{ foo: 1, bar: 3 }` */
 function generateFreqMapWordAsKey(
   wordsArray: string[],
-  caseInsensitive: boolean
+  caseInsensitive: boolean,
 ): freqMapWordAsKeyType {
   return wordsArray.reduce((freqMap, word) => {
     const w = caseInsensitive ? word.toLowerCase() : word;

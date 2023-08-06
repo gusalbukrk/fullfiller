@@ -12,7 +12,7 @@ type response = {
 
 async function getLinksRecursively(
   language: languageType,
-  queries: queriesType
+  queries: queriesType,
 ): Promise<string[]> {
   const resp = (await fetchResource(language, queries)) as unknown as response;
 
@@ -24,7 +24,7 @@ async function getLinksRecursively(
         await getLinksRecursively(language, {
           ...queries,
           plcontinue: encodeURIComponent(resp.plcontinue),
-        })
+        }),
       );
 }
 
@@ -35,7 +35,7 @@ async function getLinksRecursively(
  */
 async function getArticleLinks(
   language: languageType,
-  title: string
+  title: string,
 ): Promise<string[]> {
   const queries = {
     action: 'query',

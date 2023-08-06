@@ -39,7 +39,9 @@ body {
 #root {
   background-color: white;
   border-radius: 7px;
-  box-shadow: rgb(0 0 0 / 30%) 0 19px 38px, rgb(0 0 0 / 22%) 0 15px 12px;
+  box-shadow:
+    rgb(0 0 0 / 30%) 0 19px 38px,
+    rgb(0 0 0 / 22%) 0 15px 12px;
   padding: 1.5rem;
 }
 

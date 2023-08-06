@@ -28,7 +28,7 @@ import stringifyBodyArray from './stringifyBodyArray';
 import validate from './validate';
 
 function getInputType(
-  input: inputType
+  input: inputType,
 ): 'query' | 'text' | 'wordsArray' | 'freqMap' | undefined {
   if (typeof input === 'string') return 'query';
   if ('body' in input) return 'text';
@@ -70,7 +70,7 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
  */
 async function fullfiller(
   input: inputType,
-  optionsArg: optionsType = {}
+  optionsArg: optionsType = {},
 ): Promise<fillerType> {
   if (input === ':traditional') {
     const filler = (await fullfiller(
@@ -78,7 +78,7 @@ async function fullfiller(
         title: 'Lorem Ipsum',
         words: loremIpsum,
       },
-      { ...optionsArg, language: 'la', stringify: false }
+      { ...optionsArg, language: 'la', stringify: false },
     )) as fillerType & { body: fillerBodyArrayType };
 
     // body must start with "Lorem ipsum dolor sit amet" if consistentStart is true
@@ -93,9 +93,9 @@ async function fullfiller(
                 i < 5
                   ? w.replace(
                       /\w+/, // replace word but keep any punctuation or space
-                      ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'][i]
+                      ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'][i],
                     )
-                  : w
+                  : w,
               ),
 
               ...filler.body[0].slice(1),
@@ -132,12 +132,12 @@ async function fullfiller(
 
     case 'text':
       const wordsArray = tokenizeWords(
-        (input as textInputType).body ?? article!.body
+        (input as textInputType).body ?? article!.body,
       ).filter((w) => !isStopword(w, options.language));
 
     case 'wordsArray':
       const freqMap = generateFreqMap(
-        (input as wordsArrayInputType).words ?? wordsArray!
+        (input as wordsArrayInputType).words ?? wordsArray!,
       );
 
     case 'freqMap':
@@ -147,13 +147,13 @@ async function fullfiller(
         options.quantity,
         options.unit,
         options.sentencesPerParagraph,
-        options.wordsPerSentence
+        options.wordsPerSentence,
       );
 
       const bodyArray = populateDistribution(
         fm,
         options.language,
-        distribution
+        distribution,
       );
       const body = options.stringify
         ? stringifyBodyArray(bodyArray, options.format)

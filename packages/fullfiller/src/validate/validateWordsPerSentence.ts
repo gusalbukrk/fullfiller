@@ -8,7 +8,7 @@ import { breakdownOptionType } from 'fullfiller-common/src/types';
 import { isObject } from 'fullfiller-common/src/utils';
 
 function validateWordsPerSentence(
-  wordsPerSentence: breakdownOptionType
+  wordsPerSentence: breakdownOptionType,
 ): string[] {
   const errors: string[] = [];
 

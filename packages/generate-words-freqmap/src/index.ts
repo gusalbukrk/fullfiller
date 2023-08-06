@@ -45,21 +45,21 @@ const optionsDefault: optionsType = {
 function generateFreqMap(
   wordsArray: string[],
   wordsToEmphasize?: string[],
-  optionsArg?: Partial<optionsType>
+  optionsArg?: Partial<optionsType>,
 ): freqMapType {
   const options = { ...optionsDefault, ...optionsArg };
 
   const freqMapWordAsKey = emphasize(
     generateFreqMapWordAsKey(wordsArray, options.caseInsensitive),
     wordsToEmphasize || [],
-    options.emphasizeBy
+    options.emphasizeBy,
   );
 
   const freqMap = shortenFreqMap(
     generateFreqMapWeightAsKey(freqMapWordAsKey),
     options.tierWeightMin,
     options.tierWeightMax,
-    options.mergePosteriorTiersAt
+    options.mergePosteriorTiersAt,
   );
 
   const freqMapWordsQuantity = getFreqMapWordsQuantity(freqMap);
@@ -67,7 +67,7 @@ function generateFreqMap(
   if (freqMapWordsQuantity < options.wordsQuantityMin) {
     throw new CustomError(
       notEnoughWordsInFreqMap(options.wordsQuantityMin, freqMapWordsQuantity),
-      'generate-words-freqmap'
+      'generate-words-freqmap',
     );
   }
 

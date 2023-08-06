@@ -8,7 +8,7 @@ import { getCorrectWordCase } from '../../common/utils';
  */
 function replaceMiddleDotWithSpace(match: string, text: string): string {
   const [, wordBeforeDot, wordAfterDot] = /^(.+)\.(.+)$/.exec(
-    match
+    match,
   ) as unknown as [string, string, string];
 
   return `${wordBeforeDot} ${getCorrectWordCase(wordAfterDot, text)}`;

@@ -79,7 +79,7 @@ describe('main function throws errors correctly', () => {
     expect.assertions(1);
 
     await expect(getWikipediaArticle('xxyyzz')).rejects.toThrow(
-      articleNotFound
+      articleNotFound,
     );
   });
 
@@ -90,14 +90,14 @@ describe('main function throws errors correctly', () => {
 
     // when there're no suggestions
     await expect(getWikipediaArticle(query)).rejects.toThrow(
-      articleIsDisambiguation([])
+      articleIsDisambiguation([]),
     );
 
     // when there're suggestions
     await expect(
-      getWikipediaArticle(query, { include: ['related'] })
+      getWikipediaArticle(query, { include: ['related'] }),
     ).rejects.toThrow(
-      new RegExp(`^${articleIsDisambiguation([]).split(/(?<=\.)\s/)[0]}`)
+      new RegExp(`^${articleIsDisambiguation([]).split(/(?<=\.)\s/)[0]}`),
     );
   });
 });

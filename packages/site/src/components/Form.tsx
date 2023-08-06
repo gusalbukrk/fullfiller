@@ -47,7 +47,7 @@ function Form(): JSX.Element {
     });
 
     const record = (await db.getAll('cache')).find(
-      (r) => r.language === language && r.queries.includes(input)
+      (r) => r.language === language && r.queries.includes(input),
     );
 
     const filler = (await fullfiller(
@@ -58,7 +58,7 @@ function Form(): JSX.Element {
         quantity,
         format: format as 'plain' | 'html',
         include: ['title', 'freqMap'],
-      }
+      },
     )) as WithRequired<
       Overwrite<fillerType, { body: string }>,
       'title' | 'freqMap'
@@ -126,7 +126,7 @@ function Form(): JSX.Element {
   const textareaElement = textareaRef.current as HTMLTextAreaElement;
 
   const handleGenerateButton = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.preventDefault();
 
@@ -151,7 +151,7 @@ function Form(): JSX.Element {
   };
 
   const handleCopyButton = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.preventDefault();
 

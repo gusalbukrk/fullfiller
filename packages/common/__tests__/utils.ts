@@ -39,7 +39,7 @@ describe('utils functions work correctly', () => {
 
   // includes basic punctuation, numbers, lowercase & uppercase letters
   const chars = Array.from({ length: 95 }, (_, index) =>
-    String.fromCharCode(index + 32)
+    String.fromCharCode(index + 32),
   );
 
   it('isNumeric', () => {
@@ -54,7 +54,7 @@ describe('utils functions work correctly', () => {
     expect(numericChars).toBe('$%,.0123456789:');
 
     const numericArray = ['1,000', '.07', '33.33%', '$10', '$.,%'].filter(
-      (el) => isNumeric(el)
+      (el) => isNumeric(el),
     );
 
     expect(numericArray).toStrictEqual(['1,000', '.07', '33.33%', '$10']);

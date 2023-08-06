@@ -11,7 +11,7 @@ config.pop();
 
 // don't generate type declaration files
 const typescriptPluginIndex = config[0].plugins.findIndex(
-  (p) => p.name === 'rpt2'
+  (p) => p.name === 'rpt2',
 );
 config[0].plugins[typescriptPluginIndex] = typescript({
   clean: true,
@@ -25,7 +25,7 @@ config[0].plugins[typescriptPluginIndex] = typescript({
 
 // otherwise `Plugin node-resolve: preferring built-in module '...' over local alternative`
 const nodeResolvePluginIndex = config[0].plugins.findIndex(
-  (p) => p.name === 'node-resolve'
+  (p) => p.name === 'node-resolve',
 );
 config[0].plugins[nodeResolvePluginIndex] = nodeResolve({
   preferBuiltins: true, // already default, but explicity disable warnings

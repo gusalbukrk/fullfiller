@@ -5,13 +5,13 @@ const stringifyParagraph = (paragraph: string[][]) =>
 
 function stringifyBodyArray(
   bodyArray: fillerBodyArrayType,
-  format: formatType
+  format: formatType,
 ): string {
   const body = bodyArray
     .map((paragraph) =>
       format === 'plain'
         ? stringifyParagraph(paragraph)
-        : `<p>${stringifyParagraph(paragraph)}</p>`
+        : `<p>${stringifyParagraph(paragraph)}</p>`,
     )
     .join(format === 'plain' ? '\n' : '');
 

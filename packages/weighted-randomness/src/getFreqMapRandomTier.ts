@@ -4,7 +4,7 @@ import { last, getRandomNumber } from 'fullfiller-common/src/utils';
 function getRangeRespectiveFreqMapWeight(
   range: number,
   weights: number[],
-  ranges: number[]
+  ranges: number[],
 ): number {
   const index = ranges.findIndex((r) => r >= range);
   const weight = weights[index];
@@ -16,7 +16,7 @@ function getRangeRespectiveFreqMapWeight(
 function getFreqMapRandomTier(
   freqMap: freqMapType,
   weights: number[],
-  ranges: number[]
+  ranges: number[],
 ): string[] {
   const range = getRandomNumber(1, last(ranges));
   const weight = getRangeRespectiveFreqMapWeight(range, weights, ranges);

@@ -30,7 +30,7 @@ const freqMap = generateFreqMap(
 
     // convert all words to lowercase before processing
     caseInsensitive: true,
-  }
+  },
 );
 
 console.log(freqMap); // { '1': [ 'qux' ], '2': [ 'bar', 'baz' ] }

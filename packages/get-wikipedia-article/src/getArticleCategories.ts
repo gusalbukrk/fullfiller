@@ -13,7 +13,7 @@ type response = {
  */
 async function getArticleCategories(
   language: languageType,
-  title: string
+  title: string,
 ): Promise<string[]> {
   const queries = {
     action: 'query',
@@ -32,7 +32,7 @@ async function getArticleCategories(
   const resp = (await fetchResource(language, queries)) as unknown as response;
 
   const categories = resp.categories.map((obj) =>
-    obj.title.replace(/^Category:/, '')
+    obj.title.replace(/^Category:/, ''),
   );
 
   return categories;

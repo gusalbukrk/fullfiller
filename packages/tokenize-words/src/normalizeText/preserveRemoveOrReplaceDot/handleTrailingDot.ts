@@ -2,7 +2,7 @@ import { escapeRegExp } from 'fullfiller-common/src/utils';
 
 function shouldPreserveTrailingDot(
   wordContainingTrailingDot: string,
-  text: string
+  text: string,
 ) {
   const wordWithoutDot = wordContainingTrailingDot.replace(/\.$/, '');
 
@@ -10,8 +10,8 @@ function shouldPreserveTrailingDot(
     text.match(
       new RegExp(
         `(^|\\s)${escapeRegExp(wordContainingTrailingDot)}(?=\\s|$)`,
-        'g'
-      )
+        'g',
+      ),
     ) || []
   ).length;
 
@@ -19,7 +19,7 @@ function shouldPreserveTrailingDot(
 
   const wordWithoutDotNumberOfOccurrences = (
     text.match(
-      new RegExp(`(^|\\s)${escapeRegExp(wordWithoutDot)}(?=\\s|$)`, 'g')
+      new RegExp(`(^|\\s)${escapeRegExp(wordWithoutDot)}(?=\\s|$)`, 'g'),
     ) || []
   ).length;
 
@@ -32,13 +32,13 @@ function shouldPreserveTrailingDot(
  */
 function handleTrailingDot(
   wordContainingTrailingDot: string,
-  text: string
+  text: string,
 ): string {
   const wordWithoutDot = wordContainingTrailingDot.slice(0, -1);
 
   const preserveTrailingDot = shouldPreserveTrailingDot(
     wordContainingTrailingDot,
-    text
+    text,
   );
 
   const handled = preserveTrailingDot

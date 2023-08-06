@@ -4,7 +4,7 @@ import { freqMapWordAsKeyType } from './common/types';
 
 /** **freqMapWeightAsKey** example: `{ 1: ['foo', 'bar'], 3: ['baz'] }` */
 function generateFreqMapWeightAsKey(
-  freqMapWordAsKey: freqMapWordAsKeyType
+  freqMapWordAsKey: freqMapWordAsKeyType,
 ): freqMapType {
   return Object.keys(freqMapWordAsKey).reduce((freqMap, word) => {
     const weight = freqMapWordAsKey[word];

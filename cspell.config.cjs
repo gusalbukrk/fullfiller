@@ -19,6 +19,7 @@ module.exports = {
     'vercel',
     'npmignore',
     'cacache',
+    'huskyrc',
   ],
 
   ignorePaths: [
