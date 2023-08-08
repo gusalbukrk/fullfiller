@@ -20,7 +20,7 @@
     "test": "lerna run --no-bail test"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.9",
+    "@babel/core": "^7.22.10",
     "@babel/eslint-parser": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
