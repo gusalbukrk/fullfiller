@@ -32,7 +32,7 @@
     "@rollup/plugin-commonjs": "^25.0.3",
     "@rollup/plugin-eslint": "^9.0.4",
     "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.1",
     "@rollup/plugin-terser": "^0.4.3",
     "@types/cacache": "^15.0.1",
     "@types/find-cache-dir": "^3.2.1",
