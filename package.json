@@ -47,7 +47,7 @@
     "clean-webpack-plugin": "*",
     "core-js": "^3.32.0",
     "cross-fetch": "^4.0.0",
-    "cspell": "^6.31.2",
+    "cspell": "^7.2.0",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
     "eslint": "^8.46.0",
