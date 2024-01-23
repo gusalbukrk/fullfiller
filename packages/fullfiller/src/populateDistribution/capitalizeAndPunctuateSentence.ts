@@ -88,9 +88,8 @@ function addMidSentencePunctuation(arr: string[], language: languageType) {
         const [, openingPunctuation, closingPunctuation] =
           /(\(|\[|"|—\s)(\)|]|"|\s—)/.exec(randomPunctuation) || [];
 
-        sentenceArray[
-          punctuationStartIndex
-        ] = `${openingPunctuation}${sentenceArray[punctuationStartIndex]}`;
+        sentenceArray[punctuationStartIndex] =
+          `${openingPunctuation}${sentenceArray[punctuationStartIndex]}`;
 
         sentenceArray[punctuationEndIndex] += closingPunctuation;
       }

@@ -16,8 +16,8 @@
     // if set true all implementation files must be modules (import or export something)
     "isolatedModules": true,
 
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
   },
 
-  "include": ["src/**/*", "__tests__/**/*", "dist/index.d.ts"]
+  "include": ["src/**/*", "__tests__/**/*", "dist/index.d.ts"],
 }

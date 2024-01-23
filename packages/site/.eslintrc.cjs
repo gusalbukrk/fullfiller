@@ -19,7 +19,7 @@ module.exports = {
     'airbnb-base',
     'prettier',
     'plugin:jest/all',
-    'plugin:json/recommended',
+    'plugin:jsonc/recommended-with-jsonc',
     'plugin:promise/recommended',
     'plugin:jest-formatting/recommended',
 
@@ -29,8 +29,6 @@ module.exports = {
 
   rules: {
     'prettier/prettier': 'error',
-
-    'json/*': ['error', 'allowComments'],
 
     'max-len': [
       'warn',
@@ -158,6 +156,12 @@ module.exports = {
       rules: {
         'import/no-relative-packages': 'off',
       },
+    },
+
+    // https://github.com/ota-meshi/eslint-plugin-jsonc/issues/154#issuecomment-1043605654
+    {
+      files: ['*.json', '*.json5', '*.jsonc'],
+      parser: 'jsonc-eslint-parser',
     },
   ],
 };

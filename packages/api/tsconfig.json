@@ -6,6 +6,6 @@
   "include": ["src/**/*", "__tests__/**/*", "dist/index.d.ts"],
 
   "compilerOptions": {
-    "declarationDir": "dist/types"
-  }
+    "declarationDir": "dist/types",
+  },
 }

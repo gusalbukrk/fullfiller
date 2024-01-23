@@ -21,7 +21,7 @@ module.exports = {
     'airbnb-base',
     'prettier',
     'plugin:jest/all',
-    'plugin:json/recommended',
+    'plugin:jsonc/recommended-with-jsonc',
     'plugin:promise/recommended',
     'plugin:node/recommended',
     'plugin:jest-formatting/recommended',
@@ -29,8 +29,6 @@ module.exports = {
 
   rules: {
     'prettier/prettier': 'error',
-
-    'json/*': ['error', 'allowComments'],
 
     'max-len': [
       'warn',

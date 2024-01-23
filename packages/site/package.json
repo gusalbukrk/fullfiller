@@ -20,17 +20,18 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
-    "@fortawesome/free-brands-svg-icons": "^6.4.2",
-    "@fortawesome/free-regular-svg-icons": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-regular-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "core-js": "^3.32.0",
+    "core-js": "^3.35.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.0.7",
+    "styled-components": "^6.1.8",
     "fullfiller": "file:../fullfiller",
     "fullfiller-common": "file:../common",
-    "idb": "7.1.1"
+    "idb": "8.0.0",
+    "@babel/plugin-proposal-class-properties": "7.18.6"
   }
 }

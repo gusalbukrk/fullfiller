@@ -5,6 +5,6 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "strict": true,
-    "declaration": true
-  }
+    "declaration": true,
+  },
 }
