@@ -98,6 +98,7 @@
     "typescript": "^5.3.3",
     "typescript-plugin-css-modules": "^5.0.2",
     "vite": "^5.0.8",
+    "vite-plugin-stylelint": "^5.3.1",
     "webpack": "^5.89.0",
     "webpack-bundle-analyzer": "^4.10.1",
     "webpack-cli": "^5.1.4",
