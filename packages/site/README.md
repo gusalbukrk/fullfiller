@@ -2,4 +2,8 @@
 
 ## Run
 
-- `npm run build && live-server dist/`
+- `npm run dev`
+
+## Build
+
+- `npm run build`

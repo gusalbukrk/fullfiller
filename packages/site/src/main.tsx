@@ -33,5 +33,11 @@ function App() {
   );
 }
 
-const root = createRoot(document.getElementById('root') as HTMLElement);
-root.render(<App />);
+const root = createRoot(document.getElementById('root')!);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
+
+export default App;

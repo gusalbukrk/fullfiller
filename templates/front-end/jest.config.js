@@ -5,4 +5,7 @@ config.projects[0].moduleNameMapper = {
   '\\.(css|s[ac]ss)$': 'identity-obj-proxy',
 };
 
+config.projects[0].transform['^.+\\.tsx?$'][1].tsconfig =
+  './tsconfig.jest.json';
+
 export default config;

@@ -114,16 +114,16 @@ function Form(): JSX.Element {
     React.useState(false); // has output been copied in the past few seconds
 
   const generateButtonRef = React.useRef<HTMLButtonElement>(null);
-  const generateButtonElement = generateButtonRef.current as HTMLButtonElement;
+  const generateButtonElement = generateButtonRef.current!;
 
   const loadingOverlayRef = React.useRef<HTMLDivElement>(null);
-  const loadingOverlayElement = loadingOverlayRef.current as HTMLDivElement;
+  const loadingOverlayElement = loadingOverlayRef.current!;
 
   const copyButtonRef = React.useRef<HTMLButtonElement>(null);
-  const copyButtonElement = copyButtonRef.current as HTMLButtonElement;
+  const copyButtonElement = copyButtonRef.current!;
 
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
-  const textareaElement = textareaRef.current as HTMLTextAreaElement;
+  const textareaElement = textareaRef.current!;
 
   const handleGenerateButton = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

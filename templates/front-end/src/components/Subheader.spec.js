@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import renderer from 'react-test-renderer';
 
 import Subheader from './Subheader.js';

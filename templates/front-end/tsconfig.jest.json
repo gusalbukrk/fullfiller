@@ -1,0 +1,14 @@
+// https://kulshekhar.github.io/ts-jest/docs/getting-started/options/tsconfig
+// https://github.com/kulshekhar/ts-jest/issues/2869
+
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // 'allowSyntheticDefaultImports' is recommended when using webpack
+    // but 'esModuleInterop' is best suited for Node (e.g. jest)
+    // https://github.com/typescript-cheatsheets/react#import-react
+    "esModuleInterop": true
+  },
+
+  "include": ["src/**/*", "__tests__/**/*", "dist/index.d.ts"]
+}

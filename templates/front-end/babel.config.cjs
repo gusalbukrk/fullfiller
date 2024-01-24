@@ -1,3 +1,6 @@
+// vite projects usually don't use babel,
+// in this package babel is only needed because of jest
+
 module.exports = {
   presets: [
     [
@@ -13,7 +16,10 @@ module.exports = {
       },
     ],
     '@babel/preset-react',
-    '@babel/preset-typescript',
+
+    // not needed because babel will only be used by jest to parse tests written in javascript,
+    // tests written in typescript will be parsed with ts-jest
+    // '@babel/preset-typescript',
   ],
   plugins: [
     '@babel/plugin-proposal-class-properties',

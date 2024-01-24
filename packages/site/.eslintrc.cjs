@@ -11,11 +11,14 @@ config.parserOptions.babelOptions.configFile = path.join(
 );
 
 module.exports = {
-  ...config, // root, ignorePatterns, env, parserOptions, plugins
+  ...config, // root, ignorePatterns
 
-  parser: '@babel/eslint-parser',
+  env: { browser: true, es2020: true },
+
+  parserOptions: {},
 
   extends: [
+    'eslint:recommended',
     'airbnb-base',
     'prettier',
     'plugin:jest/all',
@@ -24,8 +27,11 @@ module.exports = {
     'plugin:jest-formatting/recommended',
 
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
+
+  plugins: [...config.plugins, 'react-refresh'],
 
   rules: {
     'prettier/prettier': 'error',
@@ -72,6 +78,11 @@ module.exports = {
     // can only be enable when parser is set to @typescript-eslint/parser
     // which only is the case for .ts and .tsx files (check overrides below)
     'jest/unbound-method': 'off',
+
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
   },
 
   settings: {
@@ -92,10 +103,21 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       extends: [
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        'plugin:@typescript-eslint/recommended',
+
+        // 'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-type-checked',
+        // 'plugin:@typescript-eslint/strict-type-checked',
+
+        'plugin:@typescript-eslint/stylistic-type-checked',
       ],
       parser: '@typescript-eslint/parser',
-      parserOptions: { project: './tsconfig.json' },
+      parserOptions: {
+        // project: './tsconfig.json',
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: ['./tsconfig.json', './tsconfig.node.json'],
+        tsconfigRootDir: __dirname,
+      },
       plugins: ['@typescript-eslint'],
       rules: {
         // disable some base rules and enable their typescript-eslint
@@ -129,11 +151,11 @@ module.exports = {
       },
     },
     {
-      files: [
-        'webpack.*.js',
-        '**/__tests__/**',
-        '**/*{.,_}{test,spec}.{js,jsx,ts,tsx}',
-      ],
+      files: ['**/__tests__/**', '**/*{.,_}{test,spec}.{js,jsx,ts,tsx}'],
+      parserOptions: {
+        // doesn't appear to be needed, but just in case
+        project: ['./tsconfig.jest.json'],
+      },
       rules: {
         // usually there's no need to use `overrides` to ensure that
         // jest-only rules are applied only to test files, however
@@ -162,6 +184,16 @@ module.exports = {
     {
       files: ['*.json', '*.json5', '*.jsonc'],
       parser: 'jsonc-eslint-parser',
+    },
+
+    {
+      files: ['vite.config.ts'],
+      rules: {
+        'import/no-extraneous-dependencies': [
+          'error',
+          { packageDir: [__dirname, path.join(__dirname, '..', '..')] },
+        ],
+      },
     },
   ],
 };

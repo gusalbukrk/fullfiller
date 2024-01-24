@@ -120,3 +120,5 @@ dist
 
 # packages/common/src/languages.js script output file not imported anywhere
 /packages/common/src/languages.json
+
+.stylelintcache

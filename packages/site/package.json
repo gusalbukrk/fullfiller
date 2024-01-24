@@ -14,9 +14,11 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "build": "tsc && webpack --node-env production --config webpack.prod.js",
+    "// comment": "vite commands has an optional positional argument which is the root; it's necessary to specify config file path if it's not inside root",
+    "build": "tsc && vite build src/ -c vite.config.ts --outDir ../dist/",
+    "dev": "vite src/ -c vite.config.ts",
     "lint": "cspell \"**\" -c ../../cspell.config.cjs --no-progress && eslint src/ --fix && stylelint \"src/**/*.{css,scss,sass}\" --fix",
-    "start": "webpack serve --node-env development --config webpack.dev.js",
+    "preview": "vite preview",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {

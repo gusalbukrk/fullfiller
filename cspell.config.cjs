@@ -20,6 +20,9 @@ module.exports = {
     'npmignore',
     'cacache',
     'huskyrc',
+    'ntvs',
+    'njsproj',
+    'stylelintcache',
   ],
 
   ignorePaths: [
