@@ -1,0 +1,278 @@
+$black: black;
+$dark-gray: #323232;
+$gray: gray;
+$light-gray: lightgray;
+$lighter-gray: #f1f1f1;
+$red: red;
+$breakpoint-1: 492px;
+
+.d-none {
+  display: none !important;
+}
+
+.bg-light-gray {
+  background-color: $light-gray;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  padding: 1.5rem;
+}
+
+body {
+  background-image: url('./img/background.jpg');
+  display: flex;
+  flex-direction: column;
+  font-family: 'Open Sans', serif;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 100%;
+  min-height: calc(100vh - 3rem); // 3rem = html padding
+  width: 550px;
+}
+
+#root {
+  background-color: white;
+  border-radius: 7px;
+  box-shadow:
+    rgb(0 0 0 / 30%) 0 19px 38px,
+    rgb(0 0 0 / 22%) 0 15px 12px;
+  padding: 1.5rem;
+}
+
+header {
+  align-items: center;
+  column-gap: 1rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 3rem;
+    text-align: center;
+
+    a {
+      color: $black;
+      text-decoration: none;
+
+      span {
+        color: $red;
+      }
+    }
+  }
+
+  i {
+    border: 2px solid $gray;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    padding: 0.125rem;
+    transition: all 0.25s ease-in-out;
+
+    &:hover {
+      border-color: $red;
+    }
+
+    a {
+      color: $black;
+    }
+  }
+}
+
+form {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 0.666rem;
+
+  input,
+  fieldset,
+  textarea,
+  button,
+  select {
+    border: 3px solid $gray;
+  }
+
+  select {
+    background-color: transparent; // overwrite user-agent default style
+  }
+
+  section#row-one {
+    display: flex;
+    gap: 0.5rem;
+    height: 2.5rem;
+
+    article#outer-input,
+    article#outer-language,
+    article#outer-quantity {
+      display: flex;
+
+      input,
+      select {
+        width: 100%;
+      }
+    }
+
+    article#outer-language {
+      margin-right: -0.5rem; // offset gap
+      width: 15%;
+
+      select {
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+
+    article#outer-input {
+      width: 65%;
+
+      input {
+        border-left: none;
+        padding-left: 0.5rem;
+      }
+    }
+
+    article#outer-quantity {
+      width: 20%;
+
+      input {
+        text-align: center;
+      }
+    }
+
+    @media (width <= $breakpoint-1) {
+      article#outer-language {
+        width: 20%;
+      }
+
+      article#outer-input {
+        width: 60%;
+      }
+    }
+  }
+
+  section#row-two {
+    display: flex;
+    gap: 0.5rem;
+
+    fieldset {
+      display: flex;
+      flex-grow: 1;
+      gap: 1rem;
+      padding: 0.666rem;
+
+      legend {
+        padding: 0 0.5rem;
+      }
+
+      article.option {
+        align-items: center;
+        display: flex;
+        flex: 1 1 0;
+        gap: 0.25rem;
+      }
+    }
+
+    @media (width <= 492px) {
+      flex-direction: column;
+    }
+  }
+
+  section#row-three {
+    border: 3px solid $gray;
+    position: relative;
+
+    textarea {
+      border: none; /* border is in the outer instead */
+      outline: none;
+      padding: 0.5rem;
+      resize: none;
+      width: 100%;
+    }
+
+    article#loading-overlay {
+      align-items: center;
+      cursor: wait;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+
+      #loading-icon {
+        color: $dark-gray;
+        font-size: 1.666rem;
+      }
+    }
+  }
+
+  section#row-four {
+    display: flex;
+    gap: 1rem;
+    height: 40px;
+    justify-content: end;
+
+    button#button-generate {
+      order: 2;
+    }
+
+    button#button-copy {
+      order: 1;
+    }
+
+    button {
+      align-self: end;
+      background-color: white;
+      color: $black;
+      cursor: pointer;
+      flex-basis: 140px;
+      font-family: 'Open Sans', serif;
+      font-size: 1rem;
+      font-weight: bold;
+      height: 100%;
+      padding: 0.25rem 0.5rem;
+      text-transform: uppercase;
+      transition: all 0.5s ease-in-out;
+
+      #copy-icon,
+      #generate-icon {
+        color: $red;
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+        stroke: $red; // needed for stroke-width
+        stroke-width: 20; // bolder icons
+      }
+
+      &:hover {
+        background-color: $lighter-gray !important;
+        border-color: $red;
+      }
+
+      &:disabled {
+        border-color: $gray;
+        color: $gray;
+        cursor: wait;
+        transition-property: none;
+
+        #copy-icon,
+        #generate-icon {
+          color: $gray;
+          stroke: $gray;
+        }
+      }
+    }
+
+    @media (width <= $breakpoint-1) {
+      button {
+        flex-grow: 1;
+      }
+    }
+  }
+}
