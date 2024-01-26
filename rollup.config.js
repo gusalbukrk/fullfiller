@@ -69,6 +69,13 @@ export default [
       },
     ],
   },
+
+  // build will error for `templates/library` because it'll try to
+  // use `"dist/types/library/src/index.d.ts"` as dts entry point
+  // however, because `templates/library` isn't importing other packages from monorepo
+  // (i.e. `"fullfiller-common": "file:../common"`) unlike every package inside `packages/`
+  // root `index.d.ts` will be located instead in `dist/types/`; therefore, error:
+  // `RollupError: Could not resolve entry module "dist/types/library/src/index.d.ts".`
   {
     input: `dist/types/${path.basename(
       path.resolve(process.cwd()),
