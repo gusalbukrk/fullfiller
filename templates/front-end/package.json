@@ -17,7 +17,7 @@
   "type": "module",
   "main": "src/index.ts",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "// comment": "vite commands has an optional positional argument which is the root; it's necessary to specify config file path if it's not inside root",
