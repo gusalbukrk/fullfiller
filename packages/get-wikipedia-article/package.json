@@ -49,7 +49,7 @@
     "test": "node ../../node_modules/jest/bin/jest --passWithNoTests"
   },
   "dependencies": {
-    "cross-fetch": "^4.0.0",
+    "cross-fetch": "^4.1.0",
     "fullfiller-common": "file:../common"
   }
 }
