@@ -2,7 +2,7 @@
   "name": "fullfiller",
   "author": "gusalbukrk",
   "version": "0.0.2-alpha.0",
-  "description": "Feature-rich filler text generator.",
+  "description": "Generate subject-specific filler text in dozens of languages using the Wikipedia API.",
   "license": "MIT",
   "keywords": [
     "fullfiller",
@@ -50,7 +50,7 @@
     "postbuild": "eslint dist/index.d.ts --fix --no-ignore && replace-in-file --configFile=../../.replace-in-file.cjs",
     "postpublish": "rimraf dist/",
     "prepublishOnly": "npm run build",
-    "test": "node --no-experimental-fetch ../../node_modules/jest/bin/jest --passWithNoTests"
+    "test": "node ../../node_modules/jest/bin/jest --passWithNoTests"
   },
   "dependencies": {
     "fullfiller-common": "file:../common",

@@ -135,7 +135,9 @@ async function fullfiller(
 (async () => {
   program
     .name('fullfiller')
-    .description('feature-rich filler text generator')
+    .description(
+      'Generate subject-specific filler text in dozens of languages using the Wikipedia API.',
+    )
     .version(pkg.version, '-v, --version')
     // optional only for interactive mode; if not provided in normal mode,
     // it's passed to fullfiller as undefined triggering invalidInput error

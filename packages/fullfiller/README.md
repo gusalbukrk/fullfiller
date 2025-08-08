@@ -1,8 +1,6 @@
-> if you getting an error related to Fetch, Node's flag option **`--no-experimental-fetch`** may fix the issue
-
 # fullfiller
 
-Feature-rich filler text generator.
+Generate subject-specific filler text in dozens of languages using the Wikipedia API.
 
 ## Install
 

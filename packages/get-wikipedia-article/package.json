@@ -46,7 +46,7 @@
     "postbuild": "eslint dist/index.d.ts --fix --no-ignore && replace-in-file --configFile=../../.replace-in-file.cjs",
     "postpublish": "rimraf dist/",
     "prepublishOnly": "npm run build",
-    "test": "node --no-experimental-fetch ../../node_modules/jest/bin/jest --passWithNoTests"
+    "test": "node ../../node_modules/jest/bin/jest --passWithNoTests"
   },
   "dependencies": {
     "cross-fetch": "^4.0.0",

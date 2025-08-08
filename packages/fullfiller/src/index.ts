@@ -62,7 +62,7 @@ function mergeOptions(optionsArg: optionsType): DeepRequired<optionsType> {
 }
 
 /**
- * Feature-rich filler text generator.
+ * Generate subject-specific filler text in dozens of languages using the Wikipedia API.
  * @param input Filler text will be generated from this parameter.
  * @param optionsArg Miscellaneous options.
  * @throws Array of errors if arguments validation fails.

@@ -1,5 +1,3 @@
-> if you getting an error related to Fetch, Node's flag option **`--no-experimental-fetch`** may fix the issue
-
 # fullfiller-cli
 
 ## Run on dev environment
