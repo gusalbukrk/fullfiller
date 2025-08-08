@@ -69,6 +69,6 @@
     "find-cache-dir": "^5.0.0",
     "fullfiller": "file:../fullfiller",
     "fullfiller-common": "file:../common",
-    "inquirer": "^9.2.12"
+    "inquirer": "^12.9.0"
   }
 }
