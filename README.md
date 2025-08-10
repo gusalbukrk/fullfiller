@@ -1,3 +1,5 @@
+> Note about project structure: this repository is a monorepo, its packages are organized under the [packages/](./packages/) directory.
+
 # fullfiller
 
 Generate subject-specific filler text in dozens of languages using the Wikipedia API.
@@ -20,7 +22,7 @@ Examples:
 2. `fullfiller --help`: get help
 3. `fullfiller 'harry potter' -l es -u 'paragraphs' -q 5 -f 'html'`: generate 5 paragraphs of filler text about "harry potter" in Spanish, formatted as HTML.
 
-## Library
+## JavaScript library
 
 1. `npm i fullfiller`
 2. Import the library and use it in your code:
