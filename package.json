@@ -74,7 +74,7 @@
     "react-test-renderer": "^18.2.0",
     "replace-in-file": "^7.1.0",
     "rimraf": "^5.0.5",
-    "rollup": "^4.9.6",
+    "rollup": "^4.49.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-typescript2": "^0.36.0",
