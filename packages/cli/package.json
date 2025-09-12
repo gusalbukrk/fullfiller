@@ -64,7 +64,7 @@
     "@types/inquirer": "^9.0.7",
     "cacache": "^18.0.2",
     "chalk": "^5.3.0",
-    "commander": "^11.1.0",
+    "commander": "^14.0.1",
     "cross-fetch": "^4.0.0",
     "find-cache-dir": "^5.0.0",
     "fullfiller": "file:../fullfiller",
