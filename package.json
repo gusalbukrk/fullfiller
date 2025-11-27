@@ -70,7 +70,7 @@
     "lerna": "^8.0.2",
     "lint-staged": "^15.2.0",
     "mini-css-extract-plugin": "^2.7.7",
-    "prettier": "^3.2.4",
+    "prettier": "^3.7.0",
     "react-test-renderer": "^18.2.0",
     "replace-in-file": "^7.1.0",
     "rimraf": "^5.0.5",
