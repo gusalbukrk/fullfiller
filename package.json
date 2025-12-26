@@ -24,7 +24,7 @@
     "@babel/eslint-parser": "^7.23.3",
     "@babel/preset-env": "^7.23.8",
     "@babel/preset-react": "^7.23.3",
-    "@babel/preset-typescript": "^7.23.3",
+    "@babel/preset-typescript": "^7.28.5",
     "@commitlint/cli": "^18.5.0",
     "@commitlint/config-conventional": "^18.5.0",
     "@commitlint/config-lerna-scopes": "^18.4.4",
