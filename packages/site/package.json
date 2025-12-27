@@ -33,7 +33,7 @@
     "styled-components": "^6.1.8",
     "fullfiller": "file:../fullfiller",
     "fullfiller-common": "file:../common",
-    "idb": "8.0.0",
+    "idb": "8.0.3",
     "@babel/plugin-proposal-class-properties": "7.18.6"
   }
 }
