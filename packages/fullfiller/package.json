@@ -61,6 +61,6 @@
     "weighted-randomness": "file:../weighted-randomness"
   },
   "devDependencies": {
-    "cross-fetch": "^4.0.0"
+    "cross-fetch": "^4.1.0"
   }
 }
